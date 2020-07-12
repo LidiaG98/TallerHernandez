@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TallerHernandez.Areas.Empleado.Models;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Empleado.Controllers
 {
     [Area("Empleado")]
     public class EmpleadoController : Controller
     {
-        DBempleado dBempleado = new DBempleado();
+        ControlDB dBempleado = new ControlDB();
         public IActionResult Empleado()
         {
             List<Models.Empleado> empList = new List<Models.Empleado>();

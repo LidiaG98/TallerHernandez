@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TallerHernandez.Areas.Cliente.Models;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Cliente.Controllers
 {    
     [Area("Cliente")]
     public class ClienteController : Controller
     {
-        ClienteCRUD clienteCRUD = new ClienteCRUD();
+        ControlDB clienteCRUD = new ControlDB();
         public IActionResult Index()
         {
             List<Cliente.Models.Cliente> listCliente = new List<Cliente.Models.Cliente>();
