@@ -1,0 +1,18 @@
+﻿.bg-gris {
+    background-color: #2e2d2d !important;
+}
+.footer {
+    background-color: #d00e15;
+}
+body {
+    background-color: #d9d9d9;
+    margin-bottom: 0px;
+}
+.bg-cover {
+    width: 100%;
+    height: 400px;
+    background: url("/images/automobile1.jpg") no-repeat center;
+    background-size: cover;
+    bottom: 60px;
+}
+

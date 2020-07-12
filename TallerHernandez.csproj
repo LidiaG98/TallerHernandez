@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Cliente\Data\" />
+    <Folder Include="Areas\Empleado\Data\" />
+    <Folder Include="Areas\Empleado\Pages\" />
   </ItemGroup>
 
 </Project>
