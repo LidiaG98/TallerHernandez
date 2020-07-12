@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TallerHernandez.Areas.Empleado.Models.Empleado>
+@{
+    ViewData["Title"] = "Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Empleado</h1>
+<p>
+    <a class="navbar-brand" asp-area="Empleado" asp-controller="Empleado" asp-action="Create" > Crear nuevo </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idEmpleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idModo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dui)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var emp in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => emp.idEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.idArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.idModo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.dui)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.salario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.correo)
+            </td>
+            <td>
+                <a class="btn btn-success" asp-area="Empleado" asp-controller="Empleado" asp-action="Edit" asp-route-id="@emp.idEmpleado">Editar</a>
+                <a class="btn btn-danger" asp-area="Empleado" asp-controller="Empleado" asp-action="Delete" asp-route-id="@emp.idEmpleado">Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
