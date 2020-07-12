@@ -1,0 +1,53 @@
+﻿@model TallerHernandez.Areas.Cliente.Models.Cliente
+@{
+    ViewData["Title"] = "Insertar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Nuevo Cliente</h1>
+<h3>Rellene el formulario de abajo</h3>
+<hr/>
+<div class="row">
+    <div class="col-8">
+        <form asp-action="Insertar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="dui" class="control-label"></label>
+                <input asp-for="dui" class="form-control" type="text"/>
+                <span asp-validation-for="dui" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nombre" class="control-label"></label>
+                <input asp-for="nombre" class="form-control" type="text"/>
+                <span asp-validation-for="nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="apellido" class="control-label"></label>
+                <input asp-for="apellido" class="form-control" type="text"/>
+                <span asp-validation-for="apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="telefono" class="control-label"></label>
+                <input asp-for="telefono" class="form-control" type="tel"/>
+                <span asp-validation-for="telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="correo" class="control-label"></label>
+                <input asp-for="correo" class="form-control" type="email"/>
+                <span asp-validation-for="correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Insertar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <a asp-action="Index" class="btn btn-warning">Cancelar</a>
+</div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

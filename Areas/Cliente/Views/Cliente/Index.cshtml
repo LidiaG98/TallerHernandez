@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TallerHernandez.Areas.Cliente.Models.Cliente>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p> 
+    <a asp-area="Cliente" asp-controller="Cliente" asp-action="Insertar" class="btn btn-block btn-success">Crear Cliente</a>
+</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.dui)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>          
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => cliente.dui)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => cliente.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => cliente.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => cliente.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => cliente.correo)
+            </td>
+            <td>
+                <a asp-area="Cliente" asp-controller="Cliente" asp-action="Actualizar" asp-route-id="@cliente.ID" class="btn btn-info">Editar</a>              
+                <a asp-area="Cliente" asp-controller="Cliente" asp-action="Eliminar" asp-route-id="@cliente.ID" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -63,6 +63,12 @@ namespace TallerHernandez
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    "Clientes",
+                    "Cliente",
+                    "{controller=Cliente}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
