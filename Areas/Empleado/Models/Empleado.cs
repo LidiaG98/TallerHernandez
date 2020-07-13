@@ -8,7 +8,7 @@ namespace TallerHernandez.Areas.Empleado.Models
 {
     public class Empleado
     {
-        [Display(Name = "Número")]
+        [Display(Name = "#")]
         [Key]
         public int idEmpleado { get; set; }
         [Required(ErrorMessage = "Elija un modo de pago")]
@@ -26,16 +26,22 @@ namespace TallerHernandez.Areas.Empleado.Models
         public String apellido { get; set; }
         [Required(ErrorMessage = "Ingrese el DUI del empleado")]
         [Display(Name = "DUI")]
+        [RegularExpression(@"^[0-9]{8}-[0-9]{1}$",ErrorMessage ="El formato de DUI no es correcto, ¿Está colocando el guión?")]
         public String dui { get; set; }
         [Required(ErrorMessage = "Ingrese el salario del empleado")]
         [Display(Name = "Salario")]
+        [DataType(DataType.Currency,ErrorMessage ="Ingrese la cantidad en números")]
         public float salario { get; set; }
+
         [Required(ErrorMessage = "Ingrese el teléfono del empleado")]
         [Display(Name = "Teléfono")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Ingrese un número de teléfono válido")]
+        [RegularExpression(@"^[0-9]{8}$", ErrorMessage = "Ingrese un número de teléfono válido")]
         public String telefono { get; set; }
         [Required(ErrorMessage = "Ingrese el correo del empleado")]
         [Display(Name = "Correo electrónico")]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Ingrese un correo electrónico válido")]
         public String correo { get; set; }
 
 

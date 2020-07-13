@@ -6,7 +6,6 @@
 }
 body {
     background-color: #d9d9d9;
-    margin-bottom: 0px;
 }
 .bg-cover {
     width: 100%;
@@ -14,5 +13,21 @@ body {
     background: url("/images/automobile1.jpg") no-repeat center;
     background-size: cover;
     bottom: 60px;
+}
+.superRedondo {
+    border-radius: 25px;
+}
+input[type="file"] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.btn-verde {
+    color: #fff;
+    background-color: #008037;
+    border-color: #015e29;   
 }
 
