@@ -4,63 +4,81 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-<h4>Empleado</h4>
+<h1>Crear nuevo empleado</h1>
+<h5>Llene el siguiente formulario con los datos del nuevo empleado</h5>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label>
-                <input asp-for="nombre" class="form-control" />
-                <span asp-validation-for="nombre" class="text-danger"></span>
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-12 superRedondo" style="background-color:#fff">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 pt-4 pl-4 pr-4 pb-3">
+                    @*<div class="text-center"><h3>Registrar Empleado</h3></div>*@
+                    <div class="text-center pt-4">
+                        <img src="/images/user.png" alt="usuario" style="width:75%;height:70%" />
+                    </div>
+                    <div class="caption text-center mb-4">
+                        <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
+                        <input accept="image/*" type="file" class="btn btn-info" id="files"/>
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="nombre" class="control-label"></label>
+                        <input asp-for="nombre" class="form-control" placeholder="Nombre del empleado" />
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="apellido" class="control-label"></label>
+                        <input asp-for="apellido" class="form-control" placeholder="Apellido del empleado"/>
+                        <span asp-validation-for="apellido" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 superRedondo pt-4 pl-4 pr-4 pb-3" style="background-color:#a6a6a6">
+                    <div class="text-center mb-4"><h3>Datos personales</h3></div>
+                    <div class="form-group">
+                        <label asp-for="dui" class="control-label"></label>
+                        <input asp-for="dui" class="form-control" placeholder="Documento de identidad (DUI)" />
+                        <span asp-validation-for="dui" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="salario" class="control-label"></label>
+                        <input asp-for="salario" class="form-control" placeholder="Salario a pagar" />
+                        <span asp-validation-for="salario" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="idModo" class="control-label"></label>
+                        <input asp-for="idModo" class="form-control" placeholder="Modo de pago" />
+                        <span asp-validation-for="idModo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="idArea" class="control-label"></label>
+                        <input asp-for="idArea" class="form-control" placeholder="Área de trabajo" />
+                        <span asp-validation-for="idArea" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="telefono" class="control-label"></label>
+                        <input asp-for="telefono" class="form-control" placeholder="Teléfono" />
+                        <span asp-validation-for="telefono" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="correo" class="control-label"></label>
+                        <input asp-for="correo" class="form-control" placeholder="Correo" />
+                        <span asp-validation-for="correo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar empleado" class="btn btn-verde btn-block" />
+                    </div>
+                    <div>
+                        <a class="btn btn-danger btn-block" asp-action="Empleado">Cancelar</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="apellido" class="control-label"></label>
-                <input asp-for="apellido" class="form-control" />
-                <span asp-validation-for="apellido" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="dui" class="control-label"></label>
-                <input asp-for="dui" class="form-control" />
-                <span asp-validation-for="dui" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="salario" class="control-label"></label>
-                <input asp-for="salario" class="form-control" />
-                <span asp-validation-for="salario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="idModo" class="control-label"></label>
-                <input asp-for="idModo" class="form-control" />
-                <span asp-validation-for="idModo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="idArea" class="control-label"></label>
-                <input asp-for="idArea" class="form-control" />
-                <span asp-validation-for="idArea" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="telefono" class="control-label"></label>
-                <input asp-for="telefono" class="form-control" />
-                <span asp-validation-for="telefono" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="correo" class="control-label"></label>
-                <input asp-for="correo" class="form-control" />
-                <span asp-validation-for="correo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+            
+        </div>
+        
 
-<div>
-    <a asp-action="Empleado">Back to List</a>
-</div>
+    </div>
+</form>
+
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
