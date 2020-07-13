@@ -1,58 +1,74 @@
-﻿@model IEnumerable<TallerHernandez.Areas.Cliente.Models.Cliente>
+﻿@model TallerHernandez.Areas.Cliente.Controllers.ViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p> 
-    <a asp-area="Cliente" asp-controller="Cliente" asp-action="Insertar" class="btn btn-block btn-success">Crear Cliente</a>
-</p>
 
-
-<table class="table table-striped bg-dark text-white">
-    <thead>
+<div class="row align-items-center">
+    <div class="col-3">
+        <img src="/images/logoTaller.png" style="max-height: 80%; max-width:80%;" />
+    </div>
+    <div class="col-7">
+        <h1>Clientes</h1>
+        <div class="row align-items-center">
+            <form asp-action="Busqueda" class="form-inline col-12">
+                <input asp-for="c.nombre" type="text" class="col-8" placeholder="Ingrese el nombre de un cliente a buscar" />
+                <input type="submit" class="col-2 offset-1 btn btn-block btn-warning" value="Buscar"/>
+            </form>
+        </div>
+    </div>
+    <div class="col-2">
+        <a asp-area="Cliente" asp-controller="Cliente" asp-action="Insertar" class="btn btn-block btn-success">Crear Cliente</a>
+    </div>
+</div>
+<table class="table table-hover table-bordered table-light">
+    <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.dui)
+                @Html.DisplayNameFor(model => model.c.dui)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombre)
+                @Html.DisplayNameFor(model => model.c.nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.apellido)
+                @Html.DisplayNameFor(model => model.c.apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.telefono)
+                @Html.DisplayNameFor(model => model.c.telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.correo)
-            </th>          
+                @Html.DisplayNameFor(model => model.c.correo)
+            </th>
+            <th>
+                Acciones
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var cliente in Model)
+        @foreach (TallerHernandez.Areas.Cliente.Models.Cliente cliente in Model.Clientes)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => cliente.dui)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => cliente.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => cliente.apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => cliente.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => cliente.correo)
-            </td>
-            <td>
-                <a asp-area="Cliente" asp-controller="Cliente" asp-action="Actualizar" asp-route-id="@cliente.ID" class="btn btn-info">Editar</a>              
-                <a asp-area="Cliente" asp-controller="Cliente" asp-action="Eliminar" asp-route-id="@cliente.ID" class="btn btn-danger">Eliminar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.dui)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.correo)
+                </td>
+                <td>
+                    <a asp-area="Cliente" asp-controller="Cliente" asp-action="Actualizar" asp-route-id="@cliente.ID" class="btn btn-info">Editar</a>
+                    <a asp-area="Cliente" asp-controller="Cliente" asp-action="Eliminar" asp-route-id="@cliente.ID" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

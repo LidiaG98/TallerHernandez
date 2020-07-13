@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,10 @@ namespace TallerHernandez.Areas.Cliente.Controllers
         {
             List<Cliente.Models.Cliente> listCliente = new List<Cliente.Models.Cliente>();
             listCliente = clienteCRUD.ObtenerTodos().ToList();
-            return View(listCliente);
+            ViewModel model = new ViewModel();
+            model.c = new Models.Cliente();
+            model.Clientes = listCliente;
+            return View(model);
         }
 
         [HttpGet]
@@ -84,5 +88,21 @@ namespace TallerHernandez.Areas.Cliente.Controllers
             clienteCRUD.EliminarCliente(c.ID);
             return RedirectToAction("Index");                     
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Busqueda([Bind] ViewModel vm)
+        {                      
+            List<Cliente.Models.Cliente> listCliente = new List<Cliente.Models.Cliente>();
+            listCliente = clienteCRUD.BusquedaCliente(vm.c).ToList();
+            vm.Clientes = listCliente;
+            return View("Index", vm);
+        }
+    }
+
+    public class ViewModel
+    {
+        public IEnumerable<Models.Cliente> Clientes { get; set; }
+        public Models.Cliente c { get; set; }
     }
 }

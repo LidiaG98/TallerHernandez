@@ -194,6 +194,37 @@ namespace TallerHernandez.Models
             return cliente;
         }
 
+        public IEnumerable<Cliente> BusquedaCliente(Cliente c)
+        {
+            List<Cliente> listCliente = new List<Cliente>();
+
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Cliente_BusquedaCliente", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@NOMBRE", c.nombre);
+                //cmd.Parameters.AddWithValue("@DUI", c.dui);
+                //cmd.Parameters.AddWithValue("@APELLIDO", c.apellido);
+                //cmd.Parameters.AddWithValue("@CORREO", c.correo);
+                cn.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Cliente cliente = new Cliente();
+                    cliente.ID = Convert.ToInt32(dataReader["IDCLIENTE"].ToString());
+                    cliente.dui = dataReader["DUI"].ToString();
+                    cliente.nombre = dataReader["NOMBRE"].ToString();
+                    cliente.apellido = dataReader["APELLIDO"].ToString();
+                    cliente.telefono = dataReader["TELEFONO"].ToString();
+                    cliente.correo = dataReader["CORREO"].ToString();
+                    listCliente.Add(cliente);
+                }
+                cn.Close();
+            }
+            return listCliente;
+        }
+
         public void InsertarCliente(Cliente cliente)
         {
             using (SqlConnection cn = new SqlConnection(connection))
