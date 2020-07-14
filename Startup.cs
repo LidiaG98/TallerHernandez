@@ -68,6 +68,10 @@ namespace TallerHernandez
                     "Clientes",
                     "Cliente",
                     "{controller=Cliente}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                    "Vehiculos",
+                    "Vehiculo",
+                    "{controller=Vehiculo}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute("Empleado","Empleado","{controller=Empleado}/{action=Empleado}/{id?}");
                 endpoints.MapRazorPages();
             });

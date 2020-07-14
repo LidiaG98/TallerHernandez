@@ -1,0 +1,87 @@
+﻿@model TallerHernandez.Areas.Vehiculo.Controllers.AsignarClienteModel
+@{
+    ViewData["Title"] = "AsignarCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row align-items-center">
+    <div class="col-3">
+        <img src="/images/logoTaller.png" style="max-height: 80%; max-width:80%;" />
+    </div>
+    <div class="col-7">
+        <h1>Clientes</h1>
+        <div class="row align-items-center">
+            <form asp-action="BusquedaAsignar" class="form-inline col-12">
+                <input asp-for="v.placa" type="hidden" />
+                <input asp-for="v.marca" type="hidden" />
+                <input asp-for="v.modelo" type="hidden" />
+                <input asp-for="v.ano" type="hidden" />
+                <input asp-for="v.estado" type="hidden" />
+                <input asp-for="v.procedimiento" type="hidden" />
+                <input asp-for="v.comentario" type="hidden" />
+                <input asp-for="c.nombre" type="text" class="col-8" placeholder="Ingrese el nombre de un cliente a buscar" />
+                <input type="submit" class="col-2 offset-1 btn btn-block btn-warning" value="Buscar" />
+            </form>
+        </div>
+    </div>    
+</div>
+<table class="table table-hover table-bordered table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.c.dui)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.c.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.c.apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.c.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.c.correo)
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TallerHernandez.Areas.Cliente.Models.Cliente cliente in Model.cliente)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.dui)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => cliente.correo)
+                </td>
+                <td>
+                    <form asp-action="InsertarVehiculo">
+                        <input asp-for="v.placa" type="hidden" />
+                        <input asp-for="v.marca" type="hidden" />
+                        <input asp-for="v.modelo" type="hidden" />
+                        <input asp-for="v.ano" type="hidden" />
+                        <input asp-for="v.estado" type="hidden" />
+                        <input asp-for="v.procedimiento" type="hidden" />
+                        <input asp-for="v.comentario" type="hidden" />
+                        <input asp-for="v.idcliente" type="hidden"  value="@cliente.ID"/>
+                        <input type="submit" asp-for="v.idcliente" asp-action="InsertarVehiculo" value="Asignar" asp-route-id="@cliente.ID" class="btn btn-info" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

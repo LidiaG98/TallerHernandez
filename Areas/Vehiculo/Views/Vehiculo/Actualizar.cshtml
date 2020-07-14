@@ -1,0 +1,79 @@
+﻿@model TallerHernandez.Areas.Vehiculo.Models.Vehiculo
+@{
+    ViewData["Title"] = "Actualizar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar Cliente</h1>
+<h5>Modifique el campo que desea cambiar</h5>
+<hr />
+<form asp-action="AsignarClienteActualizar">
+    <div class="row">
+        <div class="col-12 superRedondo" style="background-color:#fff">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 pt-4 pl-4 pr-4 pb-3">
+                    @*<div class="text-center"><h3>Registrar Empleado</h3></div>*@
+                    <div class="text-center pt-4">
+                        <img src="/images/user.png" alt="usuario" style="width:75%;height:70%" />
+                    </div>
+                    <div class="caption text-center mb-4">
+                        <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
+                        <input accept="image/*" type="file" class="btn btn-info hide" id="files" />
+                    </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">                        
+                        <input asp-for="placa" class="form-control" placeholder="Placa del Vehículo" type="hidden"/>                        
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="marca" class="control-label"></label>
+                        <input asp-for="marca" class="form-control" placeholder="Marca del Vehículo" />
+                        <span asp-validation-for="marca" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="modelo" class="control-label"></label>
+                        <input asp-for="modelo" class="form-control" placeholder="Modelo del Vehículo" />
+                        <span asp-validation-for="modelo" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ano" class="control-label"></label>
+                        <input asp-for="ano" type="number" min="1800" max="2020" step="1" class="form-control" placeholder="Año de fabricación" />
+                        <span asp-validation-for="ano" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 superRedondo pt-4 pl-4 pr-4 pb-3" style="background-color:#a6a6a6">
+                    <div class="text-center mb-4"><h3>Datos personales</h3></div>
+                    <div class="form-group">
+                        <label asp-for="estado" class="control-label"></label>
+                        <input asp-for="estado" class="form-control" placeholder="Estado del Vehículo" />
+                        <span asp-validation-for="estado" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="procedimiento" class="control-label"></label>
+                        <input asp-for="procedimiento" class="form-control" placeholder="Procedimiento a realizar" />
+                        <span asp-validation-for="procedimiento" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="comentario" class="control-label"></label>
+                        <input asp-for="comentario" type="text" class="form-control" placeholder="Comentarios extra" />
+                        <span asp-validation-for="comentario" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Actualizar Vehículo" class="btn btn-success btn-block" />
+                    </div>
+                    <div>
+                        <a class="btn btn-danger btn-block" asp-action="Index">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

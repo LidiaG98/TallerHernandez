@@ -1,0 +1,100 @@
+﻿@model TallerHernandez.Areas.Vehiculo.Controllers.ViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row align-items-center">
+    <div class="col-3">
+        <img src="/images/logoTaller.png" style="max-height: 80%; max-width:80%;" />
+    </div>
+    <div class="col-7">
+        <h1>Vehiculos</h1>
+        <div class="row align-items-center">
+            <form asp-action="Busqueda" class="form-inline col-12">
+                <input asp-for="v.placa" type="text" class="col-8" placeholder="Ingrese la placa del vehiculo" />
+                <input type="submit" class="col-2 offset-1 btn btn-block btn-warning" value="Buscar" />
+            </form>
+        </div>
+    </div>
+    <div class="col-2">
+        <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Insertar" class="btn btn-block btn-success">Crear Vehiculo</a>
+    </div>
+</div>
+<table class="table table-responsive table-hover table-bordered table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Placa
+            </th>
+            <th>
+                Dueño
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Modelo
+            </th>
+            <th>
+                Año
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Procedimiento
+            </th>
+            <th>
+                Comentario
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (TallerHernandez.Areas.Vehiculo.Models.Vehiculo vehiculo in Model.Vehiculos)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.placa)
+            </td>
+            <td>
+                @foreach (TallerHernandez.Areas.Cliente.Models.Cliente cliente in Model.cliente)
+                {
+                    @if (vehiculo.idcliente == cliente.ID)
+                    {
+                        @Html.DisplayFor(modelItem => cliente.nombre)<span>&nbsp;</span>
+                        @Html.DisplayFor(modelItem => cliente.apellido)
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.ano)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.procedimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => vehiculo.comentario)
+            </td>
+            <td>
+                <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Actualizar" asp-route-placa="@vehiculo.placa" class="btn btn-info">Editar</a>
+                <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Eliminar" asp-route-placa="@vehiculo.placa" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -92,7 +92,11 @@ namespace TallerHernandez.Areas.Cliente.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Busqueda([Bind] ViewModel vm)
-        {                      
+        {
+            if(vm.c.nombre == null)
+            {
+                vm.c.nombre = "";
+            }
             List<Cliente.Models.Cliente> listCliente = new List<Cliente.Models.Cliente>();
             listCliente = clienteCRUD.BusquedaCliente(vm.c).ToList();
             vm.Clientes = listCliente;

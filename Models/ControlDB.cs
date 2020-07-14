@@ -6,13 +6,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using TallerHernandez.Areas.Cliente.Models;
 using TallerHernandez.Areas.Empleado.Models;
+using TallerHernandez.Areas.Vehiculo.Models;
 
 namespace TallerHernandez.Models
 {
     public class ControlDB
     {
-        string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
-        //string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
+        //string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
+        string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
 
         /*CRUD EMPLEADO*/
 
@@ -269,6 +270,149 @@ namespace TallerHernandez.Models
                 SqlCommand cmd = new SqlCommand("Cliente_EliminarCliente", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IDCLIENTE", idcliente);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
+
+        //CRUD VEHICULO
+
+        public IEnumerable<Vehiculo> ObtenerTodosVehiculos()
+        {
+            List<Vehiculo> listVehiculo = new List<Vehiculo>();
+
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_ObtenerTodos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cn.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Vehiculo vehiculo = new Vehiculo();
+                    vehiculo.placa = dataReader["PLACA"].ToString();
+                    vehiculo.idcliente = Convert.ToInt32(dataReader["IDCLIENTE"].ToString());
+                    vehiculo.marca = dataReader["MARCA"].ToString();
+                    vehiculo.modelo = dataReader["MODELO"].ToString();
+                    vehiculo.ano = dataReader["ANO"].ToString();
+                    vehiculo.estado = dataReader["ESTADO"].ToString();
+                    vehiculo.procedimiento = dataReader["PROCEDIMIENTO"].ToString();
+                    vehiculo.comentario = dataReader["COMENTARIO"].ToString();
+                    listVehiculo.Add(vehiculo);
+                }
+                cn.Close();
+            }
+            return listVehiculo;
+        }
+       
+
+        public IEnumerable<Vehiculo> ObtenerVehiculo(Vehiculo v)
+        {
+            List<Vehiculo> listVehiculo = new List<Vehiculo>();
+
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_BusquedaVehiculo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PLACA", v.placa);              
+                cn.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Vehiculo vehiculo = new Vehiculo();
+                    vehiculo.placa = dataReader["PLACA"].ToString();
+                    vehiculo.idcliente = Convert.ToInt32(dataReader["IDCLIENTE"].ToString());
+                    vehiculo.marca = dataReader["MARCA"].ToString();
+                    vehiculo.modelo = dataReader["MODELO"].ToString();
+                    vehiculo.ano = dataReader["ANO"].ToString();
+                    vehiculo.estado = dataReader["ESTADO"].ToString();
+                    vehiculo.procedimiento = dataReader["PROCEDIMIENTO"].ToString();
+                    vehiculo.comentario = dataReader["COMENTARIO"].ToString();
+                    listVehiculo.Add(vehiculo);
+                }
+                cn.Close();
+            }
+            return listVehiculo;
+        }
+
+        public Vehiculo BusquedaVehiculo(string? placa)
+        {
+            Vehiculo vehiculo = new Vehiculo();
+
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_ObtenerVehiculo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PLACA", placa);
+                cn.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    vehiculo.placa = dataReader["PLACA"].ToString();
+                    vehiculo.idcliente = Convert.ToInt32(dataReader["IDCLIENTE"].ToString());
+                    vehiculo.marca = dataReader["MARCA"].ToString();
+                    vehiculo.modelo = dataReader["MODELO"].ToString();
+                    vehiculo.ano = dataReader["ANO"].ToString();
+                    vehiculo.estado = dataReader["ESTADO"].ToString();
+                    vehiculo.procedimiento = dataReader["PROCEDIMIENTO"].ToString();
+                    vehiculo.comentario = dataReader["COMENTARIO"].ToString();
+                }
+                cn.Close();
+            }
+            return vehiculo;
+        }
+
+        public void InsertarVehiculo(Vehiculo vehiculo)
+        {
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_InsertarVehiculo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PLACA", vehiculo.placa);
+                cmd.Parameters.AddWithValue("@IDCLIENTE", vehiculo.idcliente);
+                cmd.Parameters.AddWithValue("@MARCA", vehiculo.marca);
+                cmd.Parameters.AddWithValue("@MODELO", vehiculo.modelo);
+                cmd.Parameters.AddWithValue("@ANO", vehiculo.ano);
+                cmd.Parameters.AddWithValue("@ESTADO", vehiculo.estado);
+                cmd.Parameters.AddWithValue("@PROCEDIMIENTO", vehiculo.procedimiento);
+                cmd.Parameters.AddWithValue("@COMENTARIO", vehiculo.comentario);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
+
+        public void ActualizarVehiculo(Vehiculo vehiculo)
+        {
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_ActualizarVehiculo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PLACA", vehiculo.placa);
+                cmd.Parameters.AddWithValue("@IDCLIENTE", vehiculo.idcliente);
+                cmd.Parameters.AddWithValue("@MARCA", vehiculo.marca);
+                cmd.Parameters.AddWithValue("@MODELO", vehiculo.modelo);
+                cmd.Parameters.AddWithValue("@ANO", vehiculo.ano);
+                cmd.Parameters.AddWithValue("@ESTADO", vehiculo.estado);
+                cmd.Parameters.AddWithValue("@PROCEDIMIENTO", vehiculo.procedimiento);
+                cmd.Parameters.AddWithValue("@COMENTARIO", vehiculo.comentario);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
+
+        public void EliminarVehiculo(string? placa)
+        {
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Vehiculo_EliminarVehiculo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@PLACA", placa);
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
