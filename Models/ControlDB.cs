@@ -12,8 +12,8 @@ namespace TallerHernandez.Models
 {
     public class ControlDB
     {
-        //string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
-        string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
+        string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
+        //string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
 
         /*CRUD EMPLEADO*/
 
@@ -63,6 +63,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@Salario", emp.salario);
                 cmd.Parameters.AddWithValue("@Telefono", emp.telefono);
                 cmd.Parameters.AddWithValue("@Correo", emp.correo);
+                cmd.Parameters.AddWithValue("@IdUser", emp.idUsuario);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -218,6 +219,12 @@ namespace TallerHernandez.Models
             return modos;
         }
 
+        //Crear contraseña por defecto para la cuenta del nuevo empleado
+        public String crearContra(String nombre)
+        {
+            String contra="@"+nombre.ToUpper()+"123a";
+            return contra;
+        }
 
         //CRUD CLIENTE
 

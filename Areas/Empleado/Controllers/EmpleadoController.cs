@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,16 @@ namespace TallerHernandez.Areas.Empleado.Controllers
     [Area("Empleado")]
     public class EmpleadoController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<IdentityUser> userManager;
+        public EmpleadoController(RoleManager<IdentityRole> roleManager,
+            UserManager<IdentityUser> userManager)
+        {
+            this.roleManager = roleManager;
+            this.userManager = userManager;
+
+        }
+
         ControlDB dBempleado = new ControlDB();
         public IActionResult Empleado()
         {
@@ -51,20 +62,46 @@ namespace TallerHernandez.Areas.Empleado.Controllers
                 };
             });
 
+            var roles = roleManager.Roles.ToList();
+            List<SelectListItem> rol = roles.ConvertAll(r =>
+            {
+                return new SelectListItem()
+                {
+                    Text = r.Name.ToString(),
+                    Value = r.Name.ToString(),
+                    Selected = false
+                };
+            });
+
             ViewBag.pagos = pagos;
             ViewBag.items = items;
+            ViewBag.roles = rol;
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind] Models.Empleado objEmp)
+        public async Task<IActionResult> Create([Bind] Models.Empleado objEmp)
         {
             if (ModelState.IsValid)
             {
-                dBempleado.InsertarEmpleado(objEmp);
-                return RedirectToAction("Empleado");
+                var user = new IdentityUser { UserName = objEmp.correo, Email = objEmp.correo };
+                var result = await userManager.CreateAsync(user, dBempleado.crearContra(objEmp.nombre));
+                if (result.Succeeded)
+                {
+                    result = await userManager.AddToRoleAsync(user, objEmp.idRol);
+                    objEmp.idUsuario = user.Id;
+                    if (result.Succeeded)
+                    {
+                        dBempleado.InsertarEmpleado(objEmp);
+                        return RedirectToAction("Empleado");
+                    }                    
+                }
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
             }
             return View(objEmp);
         }

@@ -44,6 +44,10 @@ namespace TallerHernandez.Areas.Empleado.Models
         [EmailAddress(ErrorMessage = "Ingrese un correo electrónico válido")]
         public String correo { get; set; }
 
+        public String idUsuario { get; set; }
+
+        public String idRol { get; set; }
+
 
     }
 }
