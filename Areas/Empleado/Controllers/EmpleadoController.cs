@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TallerHernandez.Areas.Empleado.Models;
 using TallerHernandez.Models;
 
@@ -16,12 +18,42 @@ namespace TallerHernandez.Areas.Empleado.Controllers
         {
             List<Models.Empleado> empList = new List<Models.Empleado>();
             empList = dBempleado.GetAllEmployee().ToList();
-            return View(empList);
+            ViewModel model = new ViewModel();
+            model.E = new Models.Empleado();
+            model.Empleados = empList;
+            return View(model);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            List<AreaViewModel> ma = new List<AreaViewModel>();
+            ma = dBempleado.ObtenerArea().ToList();
+            List<SelectListItem> items = ma.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.nombreArea.ToString(),
+                    Value = d.idArea.ToString(),
+                    Selected = false
+                };
+            });            
+
+            List<MPagoViewModel> mPago = new List<MPagoViewModel>();
+            mPago = dBempleado.ObtenerModoPago().ToList();
+            List<SelectListItem> pagos = mPago.ConvertAll(b =>
+            {
+                return new SelectListItem()
+                {
+                    Text = b.tipoPago.ToString(),
+                    Value = b.idModo.ToString(),
+                    Selected = false
+                };
+            });
+
+            ViewBag.pagos = pagos;
+            ViewBag.items = items;
+
             return View();
         }
 
@@ -107,5 +139,24 @@ namespace TallerHernandez.Areas.Empleado.Controllers
             }
             
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Busqueda([Bind] ViewModel vm)
+        {
+            List<Empleado.Models.Empleado> listEmpleado = new List<Empleado.Models.Empleado>();
+            if (vm.E.nombre == null)
+            {
+                return NotFound();
+            }
+            listEmpleado = dBempleado.BusquedaEmpleado(vm.E).ToList();
+            vm.Empleados = listEmpleado;
+            return View("Empleado", vm);
+        }
+    }
+    public class ViewModel
+    {
+        public IEnumerable<Models.Empleado> Empleados { get; set; }
+        public Models.Empleado E { get; set; }
     }
 }

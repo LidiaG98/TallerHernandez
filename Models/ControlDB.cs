@@ -138,6 +138,86 @@ namespace TallerHernandez.Models
             return emp;
         }
 
+        //Buscar empleado por nombre parcial
+        public IEnumerable<Empleado> BusquedaEmpleado(Empleado e)
+        {
+            List<Empleado> listEmpleado = new List<Empleado>();
+
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Empleado_BusquedaEmpleado", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@NOMBRE", e.nombre);
+                cn.Open();
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    Empleado emp = new Empleado();
+                    emp.idEmpleado = Convert.ToInt32(dataReader["IDEMPLEADO"].ToString());
+                    emp.idModo = Convert.ToInt32(dataReader["IDMODO"].ToString());
+                    emp.idArea = Convert.ToInt32(dataReader["IDAREA"].ToString());
+                    emp.nombre = dataReader["Nombre"].ToString();
+                    emp.apellido = dataReader["Apellido"].ToString();
+                    emp.dui = dataReader["Dui"].ToString();
+                    emp.salario = (float)Convert.ToDecimal(dataReader["Salario"].ToString());
+                    emp.telefono = dataReader["Telefono"].ToString();
+                    emp.correo = dataReader["Correo"].ToString();
+                    listEmpleado.Add(emp);
+                }
+                cn.Close();
+            }
+            return listEmpleado;
+        }
+
+        //Obtener areas
+
+        public IEnumerable<AreaViewModel> ObtenerArea()
+        {
+            List<AreaViewModel> areas = new List<AreaViewModel>();
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Area_ObtenerAreas", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    AreaViewModel a = new AreaViewModel();
+                    a.idArea = Convert.ToInt32(dr["IDAREA"].ToString());                   
+                    a.nombreArea = dr["NOMBREAREA"].ToString();                  
+
+                    areas.Add(a);
+                }
+                con.Close();
+            }
+            return areas;
+        }
+
+        //Obtener modos de pago
+
+        public IEnumerable<MPagoViewModel> ObtenerModoPago()
+        {
+            List<MPagoViewModel> modos = new List<MPagoViewModel>();
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("ModoPago_ObtenerModos", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    MPagoViewModel mp = new MPagoViewModel();
+                    mp.idModo = Convert.ToInt32(dr["IDMODO"].ToString());
+                    mp.tipoPago= dr["TIPOPAGO"].ToString();
+
+                    modos.Add(mp);
+                }
+                con.Close();
+            }
+            return modos;
+        }
+
 
         //CRUD CLIENTE
 

@@ -1,82 +1,96 @@
-﻿@model IEnumerable<TallerHernandez.Areas.Empleado.Models.Empleado>
+﻿@model TallerHernandez.Areas.Empleado.Controllers.ViewModel
 @{
     ViewData["Title"] = "Empleado";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Empleado</h1>
-<p>
-    <a class="navbar-brand" asp-area="Empleado" asp-controller="Empleado" asp-action="Create" > Crear nuevo </a>
-</p>
+<div class="row align">
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;" />
+    </div>
+    <div class="col-md-9 col-sm-12 mb-5">
+        <h1>Empleado</h1>
+        <p>
+            <a class="navbar-brand" asp-area="Empleado" asp-controller="Empleado" asp-action="Create"> Crear nuevo </a>
+        </p>
+        <form asp-action="Busqueda" class="form-inline">
+            <input asp-for="E.nombre" type="text" class="col-md-7 col-sm-12 mr-sm-2 mb-2" placeholder="Ingrese el nombre del empleado a buscar" />
+            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-warning rounded-pill mb-2" value="Buscar" />
+        </form>
+    </div>
+</div>
 
 <table class="table table-striped table-responsive">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.idEmpleado)
+                @Html.DisplayNameFor(model => model.E.idEmpleado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.idArea)
+                @Html.DisplayNameFor(model => model.E.idArea)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.idModo)
+                @Html.DisplayNameFor(model => model.E.idModo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombre)
+                @Html.DisplayNameFor(model => model.E.nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.apellido)
+                @Html.DisplayNameFor(model => model.E.apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.dui)
+                @Html.DisplayNameFor(model => model.E.dui)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.salario)
+                @Html.DisplayNameFor(model => model.E.salario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.telefono)
+                @Html.DisplayNameFor(model => model.E.telefono)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.correo)
+                @Html.DisplayNameFor(model => model.E.correo)
+            </th>
+            <th>
+                Acciones
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var emp in Model)
+        @foreach (TallerHernandez.Areas.Empleado.Models.Empleado emp in Model.Empleados)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => emp.idEmpleado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.idArea)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.idModo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.dui)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.salario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => emp.correo)
-            </td>
-            <td>
-                <a class="btn btn-success" asp-area="Empleado" asp-controller="Empleado" asp-action="Edit" asp-route-id="@emp.idEmpleado">Editar</a>
-                <a class="btn btn-danger" asp-area="Empleado" asp-controller="Empleado" asp-action="Delete" asp-route-id="@emp.idEmpleado">Eliminar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.idEmpleado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.idArea)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.idModo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.dui)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.salario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => emp.correo)
+                </td>
+                <td>
+                    <a class="btn btn-success" asp-area="Empleado" asp-controller="Empleado" asp-action="Edit" asp-route-id="@emp.idEmpleado">Editar</a>
+                    <a class="btn btn-danger" asp-area="Empleado" asp-controller="Empleado" asp-action="Delete" asp-route-id="@emp.idEmpleado">Eliminar</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
