@@ -7,18 +7,18 @@
 <h1>Crear Nuevo Cliente</h1>
 <h5>Llene el siguiente formulario con los datos del nuevo cliente</h5>
 <hr />
-<form asp-action="AsignarCliente">
+<form asp-action="AsignarCliente" enctype="multipart/form-data">
     <div class="row">
         <div class="col-12 superRedondo" style="background-color:#fff">
             <div class="row">
                 <div class="col-md-6 col-sm-12 pt-4 pl-4 pr-4 pb-3">
                     @*<div class="text-center"><h3>Registrar Empleado</h3></div>*@
                     <div class="text-center pt-4">
-                        <img src="/images/user.png" alt="usuario" style="width:75%;height:70%" />
+                        <img class="rounded-circle" src="/images/user.png" alt="usuario" style="width:75%;height:70%" id="file-preview-zone" />
                     </div>
-                    <div class="caption text-center mb-4">
+                    <div class="caption text-center mb-4 mt-2">
                         <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
-                        <input accept="image/*" type="file" class="btn btn-info hide" id="files" />
+                        <input asp-for="image.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" />
                     </div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12 superRedondo pt-4 pl-4 pr-4 pb-3 align-content-center" style="background-color:#a6a6a6">
-                    @*<div class="text-center mb-4"><h3>Datos personales</h3></div>*@                   
+                    @*<div class="text-center mb-4"><h3>Datos personales</h3></div>*@
                     <div class="form-group">
                         <label asp-for="estado" class="control-label">Estado</label>
                         <input asp-for="estado" class="form-control" placeholder="Estado del Vehículo" />
@@ -58,7 +58,7 @@
                         <label asp-for="comentario" class="control-label">Comentario</label>
                         <input asp-for="comentario" type="text" class="form-control" placeholder="Comentarios extra" />
                         <span asp-validation-for="comentario" class="text-danger"></span>
-                    </div>                  
+                    </div>
                     <div class="form-group">
                         <input type="submit" value="Guardar Vehículo" class="btn btn-success btn-block" />
                     </div>
@@ -73,7 +73,8 @@
 
     </div>
 </form>
-
+<script type="text/javascript" src="/js/previewImagen.js">
+</script>
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

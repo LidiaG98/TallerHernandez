@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Vehiculo.Models
 {
@@ -24,6 +25,8 @@ namespace TallerHernandez.Areas.Vehiculo.Models
         public String procedimiento { get; set; }
         [Required]
         public String comentario { get; set; }
+
+        public Imagen image { get; set; }
 
     }
 }

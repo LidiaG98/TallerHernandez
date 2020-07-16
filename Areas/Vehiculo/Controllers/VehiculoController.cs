@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using TallerHernandez.Areas.Cliente.Models;
 using TallerHernandez.Models;
@@ -12,6 +14,14 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
     public class VehiculoController : Controller
     {
         ControlDB vehiculoCRUD = new ControlDB();
+        private readonly IWebHostEnvironment hostEnvironment;
+
+        public VehiculoController(IWebHostEnvironment hostEnvironment)
+        {
+            this.hostEnvironment = hostEnvironment;
+        }
+
+        
         public IActionResult Index()
         {
             List<Models.Vehiculo> listVehiculo = new List<Models.Vehiculo>();
@@ -32,11 +42,30 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertarVehiculo([Bind] AsignarClienteModel vm)
+        public async Task<IActionResult> InsertarVehiculo([Bind] AsignarClienteModel vm)
         {
-                
+            if (vm.v.image.imageFile.FileName == "" || vm.v.image.imageFile.FileName == null)
+            {
                 vehiculoCRUD.InsertarVehiculo(vm.v);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                Imagen i = vm.v.image;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = vm.v.placa;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                i.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }
+                vehiculoCRUD.InsertarVehiculo(vm.v);
+                return RedirectToAction("Index");
+            }
             
         }
 
@@ -44,15 +73,36 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AsignarCliente([Bind] Models.Vehiculo v)
         {
-            AsignarClienteModel model = new AsignarClienteModel();
-            if (ModelState.IsValid)
+            bool imagenNula = false;
+            try
             {
+                if (v.image.imageFile == null)
+                {
+                    imagenNula = false;
+                }
+            }
+            catch (Exception e) { imagenNula = true; }
+
+            AsignarClienteModel model = new AsignarClienteModel();
+            if (ModelState.IsValid && imagenNula)
+            {
+                model.v.image = new Imagen();
                 model.c = new Cliente.Models.Cliente();
                 model.v = v;
                 model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
                 return View(model);
             }
-            return View(v);
+            else if (ModelState.IsValid && v.image.imageFile != null)
+            {
+                Imagen i = v.image;                
+                model.c = new Cliente.Models.Cliente();
+                model.v = v;
+                model.v.image = i;
+                model.v.image.imageFile = i.imageFile;                
+                model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
+                return View(model);
+            }
+            return View(v);                     
         }
 
         [HttpPost]

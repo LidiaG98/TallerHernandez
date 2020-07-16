@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Cliente.Models
 {
@@ -20,6 +21,7 @@ namespace TallerHernandez.Areas.Cliente.Models
         [Required]
         public string correo { get; set; }      
         public int puntaje { get; set; }
+        public Imagen image { get; set; }
 
     }
 }

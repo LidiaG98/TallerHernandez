@@ -10,19 +10,18 @@
     </div>
     <div class="col-7">
         <h1>Vehiculos</h1>
+        <p>
+            <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Insertar" class="btn btn-outline-primary font-weight-bold rounded-pill">Crear Vehiculo</a>
+        </p>   
         <div class="row align-items-center">
             <form asp-action="Busqueda" class="form-inline col-12">
-                <input asp-for="v.placa" type="text" class="col-8" placeholder="Ingrese la placa del vehiculo" />
-                <input type="submit" class="col-2 offset-1 btn btn-block btn-warning" value="Buscar" />
+                <input asp-for="v.placa" type="text" placeholder="Ingrese la placa del vehiculo" class="col-md-7 col-sm-12 mr-sm-2 mb-2"/>
+                <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar" />
             </form>
         </div>
-    </div>
-    <div class="col-2">
-        <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Insertar" class="btn btn-block btn-success">Crear Vehiculo</a>
-    </div>
-</div>
-<table class="table table-responsive table-hover table-bordered table-light">
-    <thead class="thead-dark">
+    </div>    
+<table class="table table-striped">
+    <thead class="thead-dark text-center">
         <tr>
             <th>
                 Placa
@@ -53,7 +52,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         @foreach (TallerHernandez.Areas.Vehiculo.Models.Vehiculo vehiculo in Model.Vehiculos)
         {
         <tr>
@@ -89,7 +88,7 @@
                 @Html.DisplayFor(modelItem => vehiculo.comentario)
             </td>
             <td>
-                <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Actualizar" asp-route-placa="@vehiculo.placa" class="btn btn-info">Editar</a>
+                <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Actualizar" asp-route-placa="@vehiculo.placa" class="btn btn-light">Editar</a>
                 <a asp-area="Vehiculo" asp-controller="Vehiculo" asp-action="Eliminar" asp-route-placa="@vehiculo.placa" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>

@@ -7,19 +7,28 @@
 <h1>Editar Cliente</h1>
 <h5>Modifique el campo que desea cambiar</h5>
 <hr />
-<form asp-action="Actualizar">
+<form asp-action="Actualizar" enctype="multipart/form-data">
     <input type="hidden" asp-for="ID" />
+    <input type="hidden" asp-for="image.nombreImagen" />  
     <div class="row">
         <div class="col-12 superRedondo" style="background-color:#fff">
             <div class="row">
                 <div class="col-md-6 col-sm-12 pt-4 pl-4 pr-4 pb-3">
                     @*<div class="text-center"><h3>Registrar Empleado</h3></div>*@
                     <div class="text-center pt-4">
-                        <img src="/images/user.png" alt="usuario" style="width:75%;height:70%" />
+                        @if (Model.image.nombreImagen == "")
+                        {
+                            <img class="rounded-circle" src="/images/user.png" alt="usuario" style="width:75%;height:70%" id="file-preview-zone" />
+                        }
+                        else
+                        {
+                            <img class="rounded-circle" src="@("~/uploads/"+Model.image.nombreImagen)" asp-append-version="true"
+                                 alt="usuario" style="width:65%;height:60%" id="file-preview-zone" />
+                        }
                     </div>
                     <div class="caption text-center mb-4">
                         <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
-                        <input accept="image/*" type="file" class="btn btn-info hide" id="files" />
+                        <input asp-for="image.imageFile" accept="image/*" type="file" class="btn btn-info hide" id="files" />
                     </div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -51,7 +60,7 @@
                         <span asp-validation-for="telefono" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Actualizar Empleado" class="btn btn-success btn-block" />
+                        <input type="submit" value="Actualizar Cliente" class="btn btn-success btn-block" />
                     </div>
                     <div>
                         <a class="btn btn-danger btn-block" asp-action="Index">Cancelar</a>
@@ -64,6 +73,9 @@
 
     </div>
 </form>
+
+<script type="text/javascript" src="/js/previewImagen.js">
+</script>
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

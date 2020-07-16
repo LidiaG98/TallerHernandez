@@ -13,8 +13,8 @@ namespace TallerHernandez.Models
     public class ControlDB
     {
         //string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
-        //string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
-        string connection = "Data Source=SQL5063.site4now.net;Initial Catalog=DB_A648B5_dv17003;User Id=DB_A648B5_dv17003_admin;Password=gorditos2020;";
+        string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
+        //string connection = "Data Source=SQL5063.site4now.net;Initial Catalog=DB_A648B5_dv17003;User Id=DB_A648B5_dv17003_admin;Password=gorditos2020;";
 
         /*CRUD EMPLEADO*/
 
@@ -302,6 +302,8 @@ namespace TallerHernandez.Models
                     cliente.apellido = dataReader["APELLIDO"].ToString();
                     cliente.telefono = dataReader["TELEFONO"].ToString();
                     cliente.correo = dataReader["CORREO"].ToString();
+                    cliente.image = new Imagen();
+                    cliente.image.nombreImagen = dataReader["nombreimagen"].ToString();
 
                 }
                 cn.Close();
@@ -332,7 +334,7 @@ namespace TallerHernandez.Models
                     cliente.nombre = dataReader["NOMBRE"].ToString();
                     cliente.apellido = dataReader["APELLIDO"].ToString();
                     cliente.telefono = dataReader["TELEFONO"].ToString();
-                    cliente.correo = dataReader["CORREO"].ToString();
+                    cliente.correo = dataReader["CORREO"].ToString();                    
                     listCliente.Add(cliente);
                 }
                 cn.Close();
@@ -351,7 +353,8 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@APELLIDO", cliente.apellido);
                 cmd.Parameters.AddWithValue("@TELEFONO", cliente.telefono);
                 cmd.Parameters.AddWithValue("@CORREO", cliente.correo);
-                cmd.Parameters.AddWithValue("@PUNTAJE", 0);
+                cmd.Parameters.AddWithValue("@PUNTAJE", 0);               
+                cmd.Parameters.AddWithValue("@NOMBREIMAGEN", cliente.image.nombreImagen);
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -370,7 +373,8 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@APELLIDO", cliente.apellido);
                 cmd.Parameters.AddWithValue("@TELEFONO", cliente.telefono);
                 cmd.Parameters.AddWithValue("@CORREO", cliente.correo);
-                cmd.Parameters.AddWithValue("@PUNTAJE", cliente.puntaje);
+                cmd.Parameters.AddWithValue("@PUNTAJE", cliente.puntaje);                
+                cmd.Parameters.AddWithValue("@NOMBREIMAGEN", cliente.image.nombreImagen);
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -487,6 +491,7 @@ namespace TallerHernandez.Models
                     vehiculo.estado = dataReader["ESTADO"].ToString();
                     vehiculo.procedimiento = dataReader["PROCEDIMIENTO"].ToString();
                     vehiculo.comentario = dataReader["COMENTARIO"].ToString();
+
                 }
                 cn.Close();
             }
@@ -507,6 +512,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@ESTADO", vehiculo.estado);
                 cmd.Parameters.AddWithValue("@PROCEDIMIENTO", vehiculo.procedimiento);
                 cmd.Parameters.AddWithValue("@COMENTARIO", vehiculo.comentario);
+                cmd.Parameters.AddWithValue("@NOMBREIMAGEN", vehiculo.image.nombreImagen);
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
@@ -527,6 +533,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@ESTADO", vehiculo.estado);
                 cmd.Parameters.AddWithValue("@PROCEDIMIENTO", vehiculo.procedimiento);
                 cmd.Parameters.AddWithValue("@COMENTARIO", vehiculo.comentario);
+                cmd.Parameters.AddWithValue("@NOMBREIMAGEN", vehiculo.image.nombreImagen);
                 cn.Open();
                 cmd.ExecuteNonQuery();
                 cn.Close();
