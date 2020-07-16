@@ -9,10 +9,12 @@ body {
 }
 .bg-cover {
     width: 100%;
-    height: 400px;
+    height: 300px;
     background: url("/images/automobile1.jpg") no-repeat center;
     background-size: cover;
     bottom: 60px;
+    position: absolute;    
+    left: 0;
 }
 .superRedondo {
     border-radius: 25px;

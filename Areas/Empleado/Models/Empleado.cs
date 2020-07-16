@@ -31,7 +31,7 @@ namespace TallerHernandez.Areas.Empleado.Models
         public String dui { get; set; }
         [Required(ErrorMessage = "Ingrese el salario del empleado")]
         [Display(Name = "Salario")]
-        [DataType(DataType.Currency,ErrorMessage ="Ingrese la cantidad en números")]
+        [RegularExpression(@"[0-9]*[\.]?[0-9]{0,2}$", ErrorMessage = "El salario debe ser un número")]
         public float salario { get; set; }
 
         [Required(ErrorMessage = "Ingrese el teléfono del empleado")]
@@ -47,6 +47,8 @@ namespace TallerHernandez.Areas.Empleado.Models
 
         public String idUsuario { get; set; }
 
+        [Display(Name = "Rol")]
+        [Required(ErrorMessage = "Elija un rol para el empleado")]
         public String idRol { get; set; }
         public Imagen imagen { get; set; }
 
