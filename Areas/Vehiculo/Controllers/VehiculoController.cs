@@ -196,13 +196,21 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Eliminar([Bind] Models.Vehiculo v)
         {
-            var imagePath = Path.Combine(hostEnvironment.WebRootPath, "uploads", v.image.nombreImagen);
-            if (System.IO.File.Exists(imagePath))
+            try
             {
-                System.IO.File.Delete(imagePath);
+                var imagePath = Path.Combine(hostEnvironment.WebRootPath, "uploads", v.image.nombreImagen);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+                vehiculoCRUD.EliminarVehiculo(v.placa);
+                return RedirectToAction("Index");
+            }            
+            catch(ArgumentNullException e)
+            {
+                vehiculoCRUD.EliminarVehiculo(v.placa);
+                return RedirectToAction("Index");
             }
-            vehiculoCRUD.EliminarVehiculo(v.placa);
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
