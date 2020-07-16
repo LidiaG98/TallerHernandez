@@ -64,6 +64,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@Telefono", emp.telefono);
                 cmd.Parameters.AddWithValue("@Correo", emp.correo);
                 cmd.Parameters.AddWithValue("@IdUser", emp.idUsuario);
+                cmd.Parameters.AddWithValue("@NombreImagen", emp.imagen.nombreImagen);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -88,6 +89,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@Salario", emp.salario);
                 cmd.Parameters.AddWithValue("@Telefono", emp.telefono);
                 cmd.Parameters.AddWithValue("@Correo", emp.correo);
+                cmd.Parameters.AddWithValue("@nombreImagen", emp.correo);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -133,6 +135,9 @@ namespace TallerHernandez.Models
                     emp.salario = (float)Convert.ToDecimal(dr["Salario"].ToString());
                     emp.telefono = dr["Telefono"].ToString();
                     emp.correo = dr["Correo"].ToString();
+                    emp.idUsuario = dr["idUser"].ToString();
+                    emp.imagen = new Imagen();
+                    emp.imagen.nombreImagen = dr["nombreImagen"].ToString();
                 }
                 con.Close();
             }
@@ -221,9 +226,30 @@ namespace TallerHernandez.Models
 
         //Crear contraseña por defecto para la cuenta del nuevo empleado
         public String crearContra(String nombre)
-        {
+        {            
             String contra="@"+nombre.ToUpper()+"123a";
+            contra = contra.Replace(" ","");
             return contra;
+        }
+
+        //Insertar datos de imagen 
+        public void InsertarImagen(Imagen imagen)
+        {
+            using (SqlConnection con = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Imagen_InsertarImagen", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@NombreImagen", imagen.nombreImagen);
+                cmd.Parameters.AddWithValue("@ImagePath", imagen.imagePath);
+                cmd.Parameters.AddWithValue("@PerteneceA", imagen.perteneceA);
+                cmd.Parameters.AddWithValue("@IdDueño", imagen.idDuenio);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
         }
 
         //CRUD CLIENTE
