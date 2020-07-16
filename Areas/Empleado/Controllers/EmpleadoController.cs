@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TallerHernandez.Areas.Empleado.Models;
 using TallerHernandez.Models;
 
@@ -16,12 +20,14 @@ namespace TallerHernandez.Areas.Empleado.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IWebHostEnvironment hostEnvironment;
+
         public EmpleadoController(RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, IWebHostEnvironment hostEnvironment)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
-
+            this.hostEnvironment = hostEnvironment;
         }
 
         ControlDB dBempleado = new ControlDB();
@@ -84,7 +90,17 @@ namespace TallerHernandez.Areas.Empleado.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind] Models.Empleado objEmp)
         {
-            if (ModelState.IsValid)
+            bool imagenNula=false;
+            try
+            {
+                if(objEmp.imagen.imageFile == null)
+                {
+                    imagenNula = false;
+                }
+            }
+            catch (Exception e) { imagenNula = true; }
+
+            if (ModelState.IsValid && imagenNula)
             {
                 var user = new IdentityUser { UserName = objEmp.correo, Email = objEmp.correo };
                 var result = await userManager.CreateAsync(user, dBempleado.crearContra(objEmp.nombre));
@@ -95,7 +111,10 @@ namespace TallerHernandez.Areas.Empleado.Controllers
                     if (result.Succeeded)
                     {
                         dBempleado.InsertarEmpleado(objEmp);
-                        return RedirectToAction("Empleado");
+                        Models.datosUsuario d = new datosUsuario();
+                        d.correo = objEmp.correo;
+                        d.contra = dBempleado.crearContra(objEmp.nombre);
+                        return RedirectToAction("datosUsuario",d);
                     }                    
                 }
                 foreach(var error in result.Errors)
@@ -103,7 +122,55 @@ namespace TallerHernandez.Areas.Empleado.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            return View(objEmp);
+            else if (ModelState.IsValid && objEmp.imagen.imageFile!=null)
+            {
+                //Rellenar datos de imagen
+                Imagen i = objEmp.imagen;
+                i.idDuenio = objEmp.idEmpleado.ToString();
+                i.perteneceA = "Empleado";                
+                //Crear nombre y ruta. Guardar en folder uploads
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = objEmp.nombre;
+                fileName = fileName.Replace(" ","");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                i.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);                    
+                }
+       
+                //Crear usuario
+                var user = new IdentityUser { UserName = objEmp.correo, Email = objEmp.correo };
+                var result = await userManager.CreateAsync(user, dBempleado.crearContra(objEmp.nombre));
+                if (result.Succeeded)
+                {
+                    result = await userManager.AddToRoleAsync(user, objEmp.idRol);
+                    objEmp.idUsuario = user.Id;
+                    if (result.Succeeded)
+                    {
+                        objEmp.imagen.nombreImagen = i.nombreImagen;
+                        dBempleado.InsertarEmpleado(objEmp);                        
+                        //Insertar detalles de imagen en tabla
+                        dBempleado.InsertarImagen(i);
+                        Models.datosUsuario d = new datosUsuario();
+                        d.correo = objEmp.correo;
+                        d.contra = dBempleado.crearContra(objEmp.nombre);
+                        return RedirectToAction("datosUsuario", d);
+                    }
+                }
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+                return View(objEmp);            
+        }
+
+        public IActionResult datosUsuario(datosUsuario datos)
+        {
+            return View(datos);
         }
 
         public IActionResult Edit(int? id)
@@ -163,11 +230,24 @@ namespace TallerHernandez.Areas.Empleado.Controllers
 
         [HttpPost,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteEmp([Bind]Models.Empleado emp)
+        public async Task<IActionResult> DeleteEmp([Bind]Models.Empleado emp)
         {
             if (emp != null)
             {
+                emp = dBempleado.BuscarEmpleado(emp.idEmpleado);
+                var user = await userManager.FindByIdAsync(emp.idUsuario);                
+                var rolesForUser = await userManager.GetRolesAsync(user);
+                if (rolesForUser.Count() > 0)
+                {
+                    foreach (var item in rolesForUser.ToList())
+                    {
+                        // item should be the name of the role
+                        var result = await userManager.RemoveFromRoleAsync(user, item);
+                    }
+                }
                 dBempleado.EliminarEmpleado(emp.idEmpleado);
+                await userManager.DeleteAsync(user);                
+                                
                 return RedirectToAction("Empleado");
             }
             else
@@ -184,7 +264,7 @@ namespace TallerHernandez.Areas.Empleado.Controllers
             List<Empleado.Models.Empleado> listEmpleado = new List<Empleado.Models.Empleado>();
             if (vm.E.nombre == null)
             {
-                return NotFound();
+                vm.E.nombre = "";
             }
             listEmpleado = dBempleado.BusquedaEmpleado(vm.E).ToList();
             vm.Empleados = listEmpleado;

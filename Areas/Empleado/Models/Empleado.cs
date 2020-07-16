@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Empleado.Models
 {
@@ -47,6 +48,7 @@ namespace TallerHernandez.Areas.Empleado.Models
         public String idUsuario { get; set; }
 
         public String idRol { get; set; }
+        public Imagen imagen { get; set; }
 
 
     }
