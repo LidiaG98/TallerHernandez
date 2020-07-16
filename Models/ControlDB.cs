@@ -138,6 +138,7 @@ namespace TallerHernandez.Models
                     emp.idEmpleado = Convert.ToInt32(dr["IDEMPLEADO"].ToString());
                     emp.idModo = Convert.ToInt32(dr["IDMODO"].ToString());
                     emp.idArea = Convert.ToInt32(dr["IDAREA"].ToString());
+                    emp.idRol = dr["IDMODO"].ToString();
                     emp.nombre = dr["Nombre"].ToString();
                     emp.apellido = dr["Apellido"].ToString();
                     emp.dui = dr["Dui"].ToString();

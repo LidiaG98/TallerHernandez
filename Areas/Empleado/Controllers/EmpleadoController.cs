@@ -197,13 +197,61 @@ namespace TallerHernandez.Areas.Empleado.Controllers
             {
                 return NotFound();
             }
+            List<AreaViewModel> ma = new List<AreaViewModel>();
+            ma = dBempleado.ObtenerArea().ToList();
+            List<SelectListItem> items = ma.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.nombreArea.ToString(),
+                    Value = d.idArea.ToString(),
+                    Selected = false
+                };
+            });
+            List<MPagoViewModel> mPago = new List<MPagoViewModel>();
+            mPago = dBempleado.ObtenerModoPago().ToList();
+            List<SelectListItem> pagos = mPago.ConvertAll(b =>
+            {
+                return new SelectListItem()
+                {
+                    Text = b.tipoPago.ToString(),
+                    Value = b.idModo.ToString(),
+                    Selected = false
+                };
+            });
+            ViewBag.pagos = pagos;
+            ViewBag.items = items;
             return View(emp);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind] Models.Empleado objEmp)
-        {                       
+        {
+            List<AreaViewModel> ma = new List<AreaViewModel>();
+            ma = dBempleado.ObtenerArea().ToList();
+            List<SelectListItem> items = ma.ConvertAll(d =>
+            {
+                return new SelectListItem()
+                {
+                    Text = d.nombreArea.ToString(),
+                    Value = d.idArea.ToString(),
+                    Selected = false
+                };
+            });
+            List<MPagoViewModel> mPago = new List<MPagoViewModel>();
+            mPago = dBempleado.ObtenerModoPago().ToList();
+            List<SelectListItem> pagos = mPago.ConvertAll(b =>
+            {
+                return new SelectListItem()
+                {
+                    Text = b.tipoPago.ToString(),
+                    Value = b.idModo.ToString(),
+                    Selected = false
+                };
+            });
+            ViewBag.pagos = pagos;
+            ViewBag.items = items;
             if (ModelState.IsValid)
             {
                 try
@@ -330,6 +378,17 @@ namespace TallerHernandez.Areas.Empleado.Controllers
             }
             listEmpleado = dBempleado.BusquedaEmpleado(vm.E).ToList();
             vm.Empleados = listEmpleado;
+            //Obteniendo areas
+            List<AreaViewModel> ma = new List<AreaViewModel>();
+            ma = dBempleado.ObtenerArea().ToList();
+
+            //Obteniendo modos de pago
+            List<MPagoViewModel> mPago = new List<MPagoViewModel>();
+            mPago = dBempleado.ObtenerModoPago().ToList();
+
+            //Pasando lista de pagos y areas a vista
+            ViewBag.pagos = mPago;
+            ViewBag.items = ma;
             return View("Empleado", vm);
         }
     }

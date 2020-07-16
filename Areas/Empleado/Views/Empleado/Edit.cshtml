@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+    List<SelectListItem> pagos = (List<SelectListItem>)ViewBag.pagos;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -54,15 +56,21 @@
 
                     <div class="form-group">
                         <label asp-for="idModo" class="control-label"></label>
-                        <input asp-for="idModo" class="form-control" />
+                        @*<input asp-for="idModo" class="form-control" />*@
+                        @Html.DropDownList("idModo", pagos, "Seleccione el modo de pago", new { @class = "form-control" })
                         <span asp-validation-for="idModo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="idArea" class="control-label"></label>
-                        <input asp-for="idArea" class="form-control" />
+                        @*<input asp-for="idArea" class="form-control" />*@
+                        @Html.DropDownList("idArea", items, "Seleccione el área de trabajo", new { @class = "form-control" })
                         <span asp-validation-for="idArea" class="text-danger"></span>
                     </div>
-
+                    <div class="form-group">
+                        @*<label asp-for="idRol" class="control-label"></label>*@
+                        <input asp-for="idRol" class="form-control" type="hidden" />
+                        <span asp-validation-for="idRol" class="text-danger"></span>
+                    </div>
                     <div class="form-group">
                         <label asp-for="dui" class="control-label"></label>
                         <input asp-for="dui" class="form-control" />
@@ -84,10 +92,10 @@
                         <span asp-validation-for="correo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Guardar Cambios" class="btn btn-success btn-block"/>
+                        <input type="submit" value="Guardar Cambios" class="btn btn-success btn-block" />
                     </div>
                     <div>
-                        <a class="btn btn-dark btn-block"asp-action="Index">Cancelar</a>
+                        <a class="btn btn-dark btn-block" asp-action="Index">Cancelar</a>
                     </div>
                 </div>
             </div>
