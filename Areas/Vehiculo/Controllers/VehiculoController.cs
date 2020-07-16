@@ -21,12 +21,12 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
-        
+
         public IActionResult Index()
         {
             List<Models.Vehiculo> listVehiculo = new List<Models.Vehiculo>();
             listVehiculo = vehiculoCRUD.ObtenerTodosVehiculos().ToList();
-            List<Cliente.Models.Cliente> listClientes = vehiculoCRUD.ObtenerTodos().ToList();           
+            List<Cliente.Models.Cliente> listClientes = vehiculoCRUD.ObtenerTodos().ToList();
             ViewModel model = new ViewModel();
             model.v = new Models.Vehiculo();
             model.Vehiculos = listVehiculo;
@@ -44,34 +44,23 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> InsertarVehiculo([Bind] AsignarClienteModel vm)
         {
-            if (vm.v.image.imageFile.FileName == "" || vm.v.image.imageFile.FileName == null)
+            if (vm.v.image.nombreImagen != null && vm.v.image.nombreImagen != "")
             {
                 vehiculoCRUD.InsertarVehiculo(vm.v);
                 return RedirectToAction("Index");
             }
             else
             {
-                Imagen i = vm.v.image;
-                string rootPath = hostEnvironment.WebRootPath;
-                string fileName = vm.v.placa;
-                fileName = fileName.Replace(" ", "");
-                string extension = Path.GetExtension(i.imageFile.FileName);
-                i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(rootPath + "/uploads/", fileName);
-                i.imagePath = path;
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await i.imageFile.CopyToAsync(fileStream);
-                }
+                vm.v.image.nombreImagen = "";
                 vehiculoCRUD.InsertarVehiculo(vm.v);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");                
             }
-            
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AsignarCliente([Bind] Models.Vehiculo v)
+        public async Task <IActionResult> AsignarCliente([Bind] Models.Vehiculo v)
         {
             bool imagenNula = false;
             try
@@ -86,18 +75,31 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
             AsignarClienteModel model = new AsignarClienteModel();
             if (ModelState.IsValid && imagenNula)
             {
-                model.v.image = new Imagen();
-                model.c = new Cliente.Models.Cliente();
                 model.v = v;
+                model.v.image = new Imagen();
+                model.v.image.nombreImagen = "";
+                model.c = new Cliente.Models.Cliente();                
                 model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
                 return View(model);
             }
             else if (ModelState.IsValid && v.image.imageFile != null)
             {
-                Imagen i = v.image;                
-                model.c = new Cliente.Models.Cliente();
                 model.v = v;
+                Imagen i = v.image;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = v.placa;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                i.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }               
+                model.c = new Cliente.Models.Cliente();                
                 model.v.image = i;
+                model.v.image.nombreImagen = fileName;
                 model.v.image.imageFile = i.imageFile;                
                 model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
                 return View(model);
@@ -107,13 +109,47 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AsignarClienteActualizar([Bind] Models.Vehiculo v)
-        {
-            AsignarClienteModel model = new AsignarClienteModel();
-            if (ModelState.IsValid)
+        public async Task<IActionResult> AsignarClienteActualizar([Bind] Models.Vehiculo v)
+        {                
+            bool imagenNula = false;
+            try
             {
-                model.c = new Cliente.Models.Cliente();
+                if (v.image.imageFile == null)
+                {
+                    imagenNula = false;
+                }
+            }
+            catch (Exception e) { imagenNula = true; }
+
+            AsignarClienteModel model = new AsignarClienteModel();
+            if (ModelState.IsValid && imagenNula)
+            {
                 model.v = v;
+                model.v.image = new Imagen();
+                model.v.image.nombreImagen = "";                
+                model.c = new Cliente.Models.Cliente();                
+                model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
+                return View(model);
+            }
+            else if (ModelState.IsValid && v.image.imageFile != null)
+            {
+                model.v = v;
+                Imagen i = v.image;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = v.placa;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                i.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }
+                model.c = new Cliente.Models.Cliente();
+                model.v.image = i;
+                model.v.image.nombreImagen = fileName;
+                model.v.image.imageFile = i.imageFile;                                
                 model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
                 return View(model);
             }
@@ -160,6 +196,11 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Eliminar([Bind] Models.Vehiculo v)
         {
+            var imagePath = Path.Combine(hostEnvironment.WebRootPath, "uploads", v.image.nombreImagen);
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
             vehiculoCRUD.EliminarVehiculo(v.placa);
             return RedirectToAction("Index");
         }

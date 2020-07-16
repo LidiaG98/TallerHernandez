@@ -11,15 +11,16 @@
     <div class="col-7">
         <h1>Clientes</h1>
         <div class="row align-items-center">
-            <form asp-action="BusquedaAsignar" class="form-inline col-12">
+            <form asp-action="BusquedaAsignar" enctype="multipart/form-data" class="form-inline col-12">
                 <input asp-for="v.placa" type="hidden" />
                 <input asp-for="v.marca" type="hidden" />
                 <input asp-for="v.modelo" type="hidden" />
                 <input asp-for="v.ano" type="hidden" />
                 <input asp-for="v.estado" type="hidden" />
                 <input asp-for="v.procedimiento" type="hidden" />
-                <input asp-for="v.comentario" type="hidden" />
+                <input asp-for="v.comentario" type="hidden" />                
                 <input asp-for="v.image" type="hidden" />
+                <input asp-for="v.image.imageFile" type="hidden" />
                 <input asp-for="c.nombre" type="text" class="col-8" placeholder="Ingrese el nombre de un cliente a buscar" />
                 <input type="submit" class="col-2 offset-1 btn btn-block btn-warning" value="Buscar" />
             </form>
@@ -69,7 +70,7 @@
                     @Html.DisplayFor(modelItem => cliente.correo)
                 </td>
                 <td>
-                    <form asp-action="InsertarVehiculo">
+                    <form asp-action="InsertarVehiculo" enctype="multipart/form-data">
                         <input asp-for="v.placa" type="hidden" />
                         <input asp-for="v.marca" type="hidden" />
                         <input asp-for="v.modelo" type="hidden" />
@@ -77,10 +78,12 @@
                         <input asp-for="v.estado" type="hidden" />
                         <input asp-for="v.procedimiento" type="hidden" />
                         <input asp-for="v.comentario" type="hidden" />
-                        <input asp-for="v.idcliente" type="hidden" value="@cliente.ID" />
-                        <input asp-for="v.image" type="hidden" />
+                        <input asp-for="v.image" type="file" value="@Model.v.image"/>
+                        <input asp-for="v.image.nombreImagen" type="hidden" />
                         <input asp-for="v.image.imageFile" type="hidden" />
                         <input asp-for="v.image.imageFile.FileName" type="hidden" />
+                        <input asp-for="v.image.imageFile.Length" type="hidden" />
+                        <input asp-for="v.idcliente" type="hidden" value="@cliente.ID" />
                         <input type="submit" asp-for="v.idcliente" asp-action="InsertarVehiculo" value="Asignar" asp-route-id="@cliente.ID" class="btn btn-info" />
                     </form>
                 </td>

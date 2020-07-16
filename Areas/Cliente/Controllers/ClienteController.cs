@@ -160,7 +160,7 @@ namespace TallerHernandez.Areas.Cliente.Controllers
                     string fileName = c.nombre;
                     fileName = fileName.Replace(" ", "");
                     string extension = Path.GetExtension(i.imageFile.FileName);
-                    i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    i.nombreImagen = fileName = fileName + extension;
                     string path = Path.Combine(rootPath + "/uploads/", fileName);
                     i.imagePath = path;
                     using (var fileStream = new FileStream(path, FileMode.Create))

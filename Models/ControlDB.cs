@@ -12,9 +12,9 @@ namespace TallerHernandez.Models
 {
     public class ControlDB
     {
-        //string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
-        string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
-        //string connection = "Data Source=SQL5063.site4now.net;Initial Catalog=DB_A648B5_dv17003;User Id=DB_A648B5_dv17003_admin;Password=gorditos2020;";
+
+        string connection = "Data Source = SQL5063.site4now.net; Initial Catalog = DB_A648B5_dv17003; User Id = DB_A648B5_dv17003_admin; Password=gorditos2020;";
+        
 
         /*CRUD EMPLEADO*/
 
@@ -499,7 +499,8 @@ namespace TallerHernandez.Models
                     vehiculo.estado = dataReader["ESTADO"].ToString();
                     vehiculo.procedimiento = dataReader["PROCEDIMIENTO"].ToString();
                     vehiculo.comentario = dataReader["COMENTARIO"].ToString();
-
+                    vehiculo.image = new Imagen();
+                    vehiculo.image.nombreImagen = dataReader["nombreimagen"].ToString();
                 }
                 cn.Close();
             }
