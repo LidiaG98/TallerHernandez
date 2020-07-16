@@ -12,8 +12,9 @@ namespace TallerHernandez.Models
 {
     public class ControlDB
     {
-        string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
+        //string connection = "Data Source=DESKTOP-R5D6DU5\\LIDIA;Initial Catalog=taller;Integrated Security=True";
         //string connection = "Data Source=DESKTOP-965NUUB\\TALLERHERNANDEZ;Initial Catalog=TallerHernandez;Integrated Security=True;";
+        string connection = "Data Source=SQL5063.site4now.net;Initial Catalog=DB_A648B5_dv17003;User Id=DB_A648B5_dv17003_admin;Password=gorditos2020;";
 
         /*CRUD EMPLEADO*/
 
@@ -355,6 +356,19 @@ namespace TallerHernandez.Models
             using (SqlConnection cn = new SqlConnection(connection))
             {
                 SqlCommand cmd = new SqlCommand("Cliente_EliminarCliente", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IDCLIENTE", idcliente);
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                cn.Close();
+            }
+        }
+
+        public void EliminarClienteVehiculo(int? idcliente)
+        {
+            using (SqlConnection cn = new SqlConnection(connection))
+            {
+                SqlCommand cmd = new SqlCommand("Cliente_EliminarVehiculo", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IDCLIENTE", idcliente);
                 cn.Open();

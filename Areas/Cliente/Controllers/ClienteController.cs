@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using TallerHernandez.Areas.Cliente.Models;
 using TallerHernandez.Models;
 
@@ -85,8 +86,37 @@ namespace TallerHernandez.Areas.Cliente.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Eliminar([Bind] Models.Cliente c)
         {           
-            clienteCRUD.EliminarCliente(c.ID);
-            return RedirectToAction("Index");                     
+            try
+            {
+                clienteCRUD.EliminarCliente(c.ID);
+                return RedirectToAction("Index");
+            }
+            catch(SqlException e)
+            {
+                return View("EliminarTodo", c);    
+            }
+        }
+
+        public IActionResult EliminarTodo(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Models.Cliente cliente = clienteCRUD.ObtenerCliente(id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EliminarTodo([Bind] Models.Cliente c)
+        {           
+                clienteCRUD.EliminarClienteVehiculo(c.ID);
+                return RedirectToAction("Index");                        
         }
 
         [HttpPost]
