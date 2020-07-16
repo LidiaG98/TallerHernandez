@@ -10,20 +10,22 @@
 <h4>Realice los cambios que necesite en el formulario siguiente</h4>
 <hr />
 <form asp-area="Empleado" asp-controller="Empleado" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="imagen.nombreImagen" />
     <div class="row">
         <div class="col-12 superRedondo" style="background-color:#fff">
             <div class="row">
                 <div class="col-md-6 col-sm-12 pt-4 pl-4 pr-4 pb-3">
                     @*<div class="text-center"><h3>Registrar Empleado</h3></div>*@
                     <div class="text-center pt-4">
-                        @if (Model.imagen.nombreImagen == "")
+                        @if (Model.imagen.nombreImagen == "" || Model.imagen.nombreImagen == null)
                         {
-                            <img class="rounded-circle" src="/images/user.png" alt="usuario" style="width:75%;height:70%" id="file-preview-zone"/>
+                            <img class="rounded-circle" src="/images/user.png" alt="usuario" style="width:75%;height:70%" id="file-preview-zone"
+                                 @*data-holder-rendered="true"*@/>
                         }
                         else
                         {
                             <img class="rounded-circle" src="@("~/uploads/"+Model.imagen.nombreImagen)" asp-append-version="true"
-                                 alt="usuario" style="width:65%;height:60%" id="file-preview-zone" />
+                                 alt="usuario" style="width:65%;height:60%" id="file-preview-zone"  />
                         }
                     </div>
                     <div class="caption text-center mb-4 mt-2">

@@ -38,6 +38,19 @@ namespace TallerHernandez.Areas.Empleado.Controllers
             ViewModel model = new ViewModel();
             model.E = new Models.Empleado();
             model.Empleados = empList;
+
+            //Obteniendo areas
+            List<AreaViewModel> ma = new List<AreaViewModel>();           
+            ma = dBempleado.ObtenerArea().ToList();
+
+            //Obteniendo modos de pago
+            List<MPagoViewModel> mPago = new List<MPagoViewModel>();
+            mPago = dBempleado.ObtenerModoPago().ToList();
+
+            //Pasando lista de pagos y areas a vista
+            ViewBag.pagos = mPago;
+            ViewBag.items = ma;
+
             return View(model);
         }
 
@@ -189,10 +202,44 @@ namespace TallerHernandez.Areas.Empleado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind] Models.Empleado objEmp)
+        public async Task<IActionResult> Edit([Bind] Models.Empleado objEmp)
         {                       
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if(objEmp.imagen.imageFile == null)
+                    {
+                        dBempleado.ActualizarEmpleado(objEmp);
+                        return RedirectToAction("Empleado");
+                    }
+                }
+                catch (Exception eL)
+                {
+
+                }
+                //Eliminar imagen anterior
+                Models.Empleado e = dBempleado.BuscarEmpleado(objEmp.idEmpleado);
+                Imagen i = new Imagen();
+                i.imageFile = objEmp.imagen.imageFile;
+                var imagePath = Path.Combine(hostEnvironment.WebRootPath, "uploads", e.imagen.nombreImagen);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+                //Crear nombre y ruta. Guardar en folder uploads
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = objEmp.nombre;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                i.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }
+                objEmp.imagen.nombreImagen = i.nombreImagen;
                 dBempleado.ActualizarEmpleado(objEmp);
                 return RedirectToAction("Empleado");
             }
@@ -245,8 +292,23 @@ namespace TallerHernandez.Areas.Empleado.Controllers
                         var result = await userManager.RemoveFromRoleAsync(user, item);
                     }
                 }
-                dBempleado.EliminarEmpleado(emp.idEmpleado);
-                await userManager.DeleteAsync(user);                
+                //Eliminar imagen
+                try
+                {
+                    var imagePath = Path.Combine(hostEnvironment.WebRootPath, "uploads", emp.imagen.nombreImagen);
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                    dBempleado.EliminarEmpleado(emp.idEmpleado);
+                    await userManager.DeleteAsync(user);
+                }
+                catch (ArgumentNullException aNull)
+                {
+                    dBempleado.EliminarEmpleado(emp.idEmpleado);
+                    await userManager.DeleteAsync(user);
+                }
+                               
                                 
                 return RedirectToAction("Empleado");
             }

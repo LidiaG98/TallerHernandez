@@ -65,7 +65,15 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@Telefono", emp.telefono);
                 cmd.Parameters.AddWithValue("@Correo", emp.correo);
                 cmd.Parameters.AddWithValue("@IdUser", emp.idUsuario);
-                cmd.Parameters.AddWithValue("@NombreImagen", emp.imagen.nombreImagen);
+                try
+                {
+                    cmd.Parameters.AddWithValue("@NombreImagen", emp.imagen.nombreImagen);
+                }
+                catch (NullReferenceException e)
+                {
+                    cmd.Parameters.AddWithValue("@NombreImagen", "");
+                }
+                
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -90,7 +98,7 @@ namespace TallerHernandez.Models
                 cmd.Parameters.AddWithValue("@Salario", emp.salario);
                 cmd.Parameters.AddWithValue("@Telefono", emp.telefono);
                 cmd.Parameters.AddWithValue("@Correo", emp.correo);
-                cmd.Parameters.AddWithValue("@nombreImagen", emp.correo);
+                cmd.Parameters.AddWithValue("@nombreImagen", emp.imagen.nombreImagen);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
