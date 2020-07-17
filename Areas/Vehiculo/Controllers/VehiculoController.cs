@@ -67,7 +67,7 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
             {
                 if (v.image.imageFile == null)
                 {
-                    imagenNula = false;
+                    imagenNula = true;
                 }
             }
             catch (Exception e) { imagenNula = true; }
@@ -116,7 +116,7 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
             {
                 if (v.image.imageFile == null)
                 {
-                    imagenNula = false;
+                    imagenNula = true;
                 }
             }
             catch (Exception e) { imagenNula = true; }
@@ -124,9 +124,7 @@ namespace TallerHernandez.Areas.Vehiculo.Controllers
             AsignarClienteModel model = new AsignarClienteModel();
             if (ModelState.IsValid && imagenNula)
             {
-                model.v = v;
-                model.v.image = new Imagen();
-                model.v.image.nombreImagen = "";                
+                model.v = v;                              
                 model.c = new Cliente.Models.Cliente();                
                 model.cliente = vehiculoCRUD.ObtenerTodos().ToList();
                 return View(model);
