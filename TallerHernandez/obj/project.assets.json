@@ -8960,11 +8960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\TallerHernandez\\TallerHernandez.csproj",
+      "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
       "projectName": "TallerHernandez",
-      "projectPath": "C:\\Users\\Fernando\\Desktop\\TallerHernandez\\TallerHernandez.csproj",
+      "projectPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
       "packagesPath": "C:\\Users\\Fernando\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fernando\\Desktop\\TallerHernandez\\obj\\",
+      "outputPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Fernando\\AppData\\Roaming\\NuGet\\NuGet.Config",
