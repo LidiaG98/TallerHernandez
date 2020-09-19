@@ -26,18 +26,21 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
+                        </li>                       
+                        <li class="nav-item">
+                            <a class="nav-link " asp-area="" asp-controller="Recepcions" asp-action="">Recepciones</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Configuración</a>
+                            <div class="dropdown-menu">
+                                <a class="nav-link " asp-area="" asp-controller="ModoPagoes" asp-action="">Pagos</a>
+                                <a class="nav-link " asp-area="" asp-controller="Rols" asp-action="">Puestos</a>
+                                <a class="nav-link " asp-area="" asp-controller="Areas" asp-action="">Areas</a>
+                                <a class="nav-link " asp-area="" asp-controller="Mantenimiento" asp-action="">Mantenimientos</a>
+                            </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Areas" asp-action="">Areas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Rols" asp-action="">Puestos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="ModoPagoes" asp-action="">Pagos</a>
-                        </li>
-                        <li class="nav-item">
-                             <partial name="_LoginPartial" />
+                            <partial name="_LoginPartial" />
                         </li>
                     </ul>
 

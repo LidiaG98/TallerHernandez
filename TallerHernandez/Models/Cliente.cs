@@ -31,6 +31,8 @@ namespace TallerHernandez.Models
 
         public ICollection<Automovil> automovils { get; set; }
 
+        public ICollection<Recepcion> recepcion { get; set; }
+
 
     }
 }
