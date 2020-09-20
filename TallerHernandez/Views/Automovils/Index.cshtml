@@ -4,35 +4,41 @@
     ViewData["Title"] = "Index";
 }
 
-    <div class="row align">
-        <div class="col-md-3 col-sm-12">
-            <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
-        </div>
-        <div class="col-md-9 col-sm-12 mb-5">
-            <h1 class="mb-3">Automóviles</h1>
-            <p>
-                <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Nuevo Auto</a>
-            </p>
-
-            <form class="form-inline" asp-action="Index" method="get">
-                <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa una placa o marca" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
-                <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
-                <input name="__RequestVerificationToken" type="hidden">
-                <a asp-action="Index">Todos los registros</a>
-            </form>
-
-        </div>
+<div class="row align">
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
     </div>
+    <div class="col-md-9 col-sm-12 mb-5">
+        <h1 class="mb-3">Automóviles</h1>
+        <p>
+            <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Nuevo Auto</a>
+        </p>
+
+        <form class="form-inline" asp-action="Index" method="get">
+            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa una placa o marca" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+            <input name="__RequestVerificationToken" type="hidden">
+            <a asp-action="Index">Todos los registros</a>
+        </form>
+
+    </div>
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
+    <!-- Default checked -->
+    <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="switchAuto">
+
+        <label class="custom-control-label" for="switchAuto">Tabla/cartas</label>
+    </div>
 </p>
-<table class="table table-striped table-responsive-sm">
+<table class="table table-striped table-responsive-sm" id="tAuto">
     <thead class="thead-dark text-center">
         <tr>
-           
+
             <th>
-         <a  asp-action="Index" asp-route-OrdenA="@ViewData["Ordenmarca"]">      @Html.DisplayNameFor(model => model.marca)</a>
+                <a asp-action="Index" asp-route-OrdenA="@ViewData["Ordenmarca"]">      @Html.DisplayNameFor(model => model.marca)</a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-OrdenA="@ViewData["Ordenanio"]">     @Html.DisplayNameFor(model => model.anio)</a>
@@ -53,33 +59,96 @@
         </tr>
     </thead>
     <tbody class="thead-dark text-center">
-@foreach (var item in Model) {
-        <tr>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.anio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.proceso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.comentario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cliente.clienteID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.automovilID" class="btn btn-light btn-block">Editar</a> 
-                <a asp-action="Details" asp-route-id="@item.automovilID" class="btn btn-info btn-block">Detalles</a> 
-                <a asp-action="Delete" asp-route-id="@item.automovilID" class="btn btn-danger btn-block">Eliminar</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.anio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.proceso)
+                </td>
+                <td>
+                    @if (item.estado)
+                    {
+                        <p class="btn btn-success">Terminado</p>
+                    }
+                    else
+                    {
+                        <p class=" btn btn-info">En proceso</p>
+                    }
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comentario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cliente.clienteID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.automovilID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.automovilID" class="p-2" style="color:#ff0000;"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<div class="container" id="cAuto" >
+    <div class="row align-items-center">
+        @foreach (var item in Model)
+
+        {
+            <div class="card col-xl-3 col-lg-3 col-md-6  col-sm-1 " style="width: 18rem;">
+
+
+                <img src="/images/logoTaller.png" alt="Automovil" class="card-img-top">
+
+
+
+                <div class="card-body">
+                    <h5 class="card-ti">@Html.DisplayFor(modelItem => item.marca)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.proceso)</p>
+
+
+                </div>
+                <div>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.comentario)</p>
+                </div>
+
+
+
+                <div class="d-flex justify-content-end ">
+                    @if (item.estado)
+                    {
+                        <p class="card-text btn btn-success p-2">Terminado</p>
+                    }
+                    else
+                    {
+                        <p class="card-text btn btn-info p-2">En proceso</p>
+                    }
+
+                    <a asp-action="Edit" asp-route-id="@item.automovilID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.automovilID" class="p-2" style="color:#ff0000;"><i class="fas fa-trash-alt"></i></a>
+                    <!-----
+                        <i class="fas fa-info-circle p-2" style="color:#1985a8;"></i>
+                        <i class="far fa-edit p-2" style="color:#e2df37;"></i>
+                        <i class="fas fa-trash-alt p-2" style="color:#ff0000;"></i>
+                    -->
+
+                </div>
+
+            </div>
+
+        }
+    </div>
+</div>
+
+   
+
+

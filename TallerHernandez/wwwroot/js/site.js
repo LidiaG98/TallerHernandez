@@ -6,6 +6,9 @@
 $('#modalC').on('shown.bs.modal', function () {
     $('#clienteID').focus();
 });
+$('#modalAr').on('shown.bs.modal', function () {
+    $('#areaNom').focus();
+});
 var nuevoCliente = () => {
 
     var clienteID = document.getElementById("clienteID").value;
@@ -18,3 +21,25 @@ var nuevoCliente = () => {
     var cliente = new Cliente(clienteID, nombre, apellido, correo, telefono,puntos, accion);
     cliente.nuevoCliente();
 }
+var nuevoArea = () => {
+    var areaNom = document.getElementById("areaNom").value;
+    var accion = "Areas/nuevoArea";
+    var area = new Area(areaNom,accion);
+    area.nuevoArea();
+}
+$(document).ready(function () {
+    $('#switchAuto').on('click',function () {
+        if ($('#switchAuto').is(':checked'))
+        {
+            $('#tAuto').show();
+            $('#cAuto').hide();
+        } else {
+            $('#tAuto').hide();
+            $('#cAuto').show();
+
+        }
+        
+       
+    });
+});
+

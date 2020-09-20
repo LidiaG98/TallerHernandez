@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
+using TallerHernandez.ModelModal;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
@@ -13,10 +15,12 @@ namespace TallerHernandez.Controllers
     public class AreasController : Controller
     {
         private readonly TallerHernandezContext _context;
+        public AreaModal areaModal;
 
         public AreasController(TallerHernandezContext context)
         {
             _context = context;
+            areaModal = new AreaModal(context);
         }
 
         // GET: Areas
@@ -66,6 +70,12 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Areas/Create
+       
+        public List<IdentityError> nuevoArea(string areaNom)
+        {
+           
+            return areaModal.nuevoArea(areaNom);
+        }
         public IActionResult Create()
         {
             return View();
