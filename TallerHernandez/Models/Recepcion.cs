@@ -18,6 +18,8 @@ namespace TallerHernandez.Models
 
         [Required(ErrorMessage = "Debe de especificar la fecha de entrada del automóvil")]
         [Display(Name = "Ingreso")]
+        //[DisplayFormat(DataFormatString = "{dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.DateTime)]
         public DateTime fechaEntrada { get; set; }
 
         [Required(ErrorMessage = "Debe de especificar la fecha aproximada de salida del automóvil")]
@@ -35,6 +37,7 @@ namespace TallerHernandez.Models
         public Empleado empleado { get; set; }
 
         [Required]
+        [Display(Name = "Automóvil")]
         public string automovilID { get; set; }
         public Automovil Automovil { get; set; }
 
@@ -46,7 +49,10 @@ namespace TallerHernandez.Models
         public int procedimientoID { get; set; }
         public Procedimiento procedimiento { get; set; }
 
-        public ICollection<AsignacionTarea> asignacionTarea { get; set; }
+        [Required]
+        [Display(Name = "Estado")]
+        [Range(0,1)]
+        public int estado { get; set; } // 1 = en proceso, 0 = finalizado
 
     }
 }
