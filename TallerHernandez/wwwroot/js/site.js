@@ -6,6 +6,9 @@
 $('#modalC').on('shown.bs.modal', function () {
     $('#clienteID').focus();
 });
+
+
+
 var nuevoCliente = () => {
 
     var clienteID = document.getElementById("clienteID").value;
@@ -18,3 +21,9 @@ var nuevoCliente = () => {
     var cliente = new Cliente(clienteID, nombre, apellido, correo, telefono,puntos, accion);
     cliente.nuevoCliente();
 }
+
+/**
+ CODIGO DE ASIGNACION DE TAREAS
+ */
+
+

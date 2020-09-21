@@ -9188,19 +9188,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lidia\\.nuget\\packages\\": {}
+    "C:\\Users\\vancr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj",
+      "projectUniqueName": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
       "projectName": "TallerHernandez",
-      "projectPath": "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj",
-      "packagesPath": "C:\\Users\\lidia\\.nuget\\packages\\",
-      "outputPath": "D:\\Sprint02\\TallerHernandez\\obj\\",
+      "projectPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
+      "packagesPath": "C:\\Users\\vancr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lidia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vancr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9273,7 +9273,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

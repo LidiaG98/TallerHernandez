@@ -43,5 +43,6 @@ namespace TallerHernandez.Models
         public ModoPago modoPago { get; set; }
 
         public ICollection<Recepcion> recepcion { get; set; }
+        public ICollection<AsignacionTarea> asignacionTarea { get; set; }
     }
 }

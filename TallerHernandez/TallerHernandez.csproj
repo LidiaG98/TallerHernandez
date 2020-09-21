@@ -10,6 +10,8 @@
     <Compile Remove="Migrations\20200918184608_Recepcion1.0.Designer.cs" />
     <Compile Remove="Migrations\20200918230321_Recepcion1.2.cs" />
     <Compile Remove="Migrations\20200918230321_Recepcion1.2.Designer.cs" />
+    <Compile Remove="Migrations\20200920034334_[Migracion2].cs" />
+    <Compile Remove="Migrations\20200920034334_[Migracion2].Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

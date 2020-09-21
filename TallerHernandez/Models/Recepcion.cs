@@ -46,5 +46,7 @@ namespace TallerHernandez.Models
         public int procedimientoID { get; set; }
         public Procedimiento procedimiento { get; set; }
 
+        public ICollection<AsignacionTarea> asignacionTarea { get; set; }
+
     }
 }

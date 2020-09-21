@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TallerHernandez.Models.AsignacionTarea>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Asignación de Tareas</h1>
+
+<p>
+    <a asp-action="Create">Crear Nuevo</a>
+</p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Filtro: <input class="col-md-5" type="text" placeholder="Ingrese la placa del automóvil o nombre del encargado" name="cadena" value="@ViewData["Filtro"]" />
+            <input type="submit" value="Buscar" class="btn btn-secondary" />
+            <a asp-action="Index">Todos los registros</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Automóvil
+            </th>
+            <th>
+                Mantenimiento
+            </th>
+            <th>
+                Procedimiento
+            </th>
+            <th>
+                Encargado
+            </th>
+            <th>
+                Entrega
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.recepcion.automovilID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.recepcion.mantenimientoID) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.recepcion.procedimientoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.empleado.empleadoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.recepcion.fechaSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estadoTarea)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.asignacionTareaID" class="btn btn-sm btn-light btn-block">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.asignacionTareaID" class="btn btn-sm btn-info btn-block">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.asignacionTareaID" class="btn btn-sm btn-danger btn-block">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
