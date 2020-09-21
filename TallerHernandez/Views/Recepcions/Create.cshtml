@@ -13,6 +13,7 @@
 <hr />
 <form id="regForm" asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="estado" value="1" hidden/>
     <!-- One "tab" for each step in the form: -->
     <div class="tab">
         <h4>Información</h4>
