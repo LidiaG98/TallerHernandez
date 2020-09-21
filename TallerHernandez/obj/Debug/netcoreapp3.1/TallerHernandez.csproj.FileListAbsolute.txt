@@ -575,9 +575,6 @@ D:\Sprint02\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csprojAssemblyReference.cache
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfoInputs.cache
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfo.cs
-D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csproj.CoreCompileInputs.cache
-D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cs
-D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cache
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.RazorAssemblyInfo.cache
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.RazorAssemblyInfo.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.TagHelpers.input.cache
@@ -648,3 +645,6 @@ D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Mantenimiento\Ed
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Mantenimiento\Index.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Recepcions\AgregarVehiculo.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Recepcions\Create.cshtml.g.cs
+D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csproj.CoreCompileInputs.cache
+D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cs
+D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cache

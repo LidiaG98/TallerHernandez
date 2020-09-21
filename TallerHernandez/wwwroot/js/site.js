@@ -18,3 +18,5 @@ var nuevoCliente = () => {
     var cliente = new Cliente(clienteID, nombre, apellido, correo, telefono,puntos, accion);
     cliente.nuevoCliente();
 }
+
+
