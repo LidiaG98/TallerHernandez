@@ -74,7 +74,7 @@ namespace TallerHernandez.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("recepcionID,diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID")] Recepcion recepcion)
+            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace TallerHernandez.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("recepcionID,diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID")] Recepcion recepcion)
+            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
         {
             if (id != recepcion.recepcionID)
             {
