@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace TallerHernandez.Controllers
 
         // GET: Rols
         public async Task<IActionResult> Index(string OrdenA,string Buscar)
-        {
+        {            
             ViewData["OrdenNom"] = String.IsNullOrEmpty(OrdenA) ? "nom_desc" : "";
 
             ViewData["Filtro"] = Buscar;
@@ -55,7 +56,7 @@ namespace TallerHernandez.Controllers
 
         // GET: Rols/Details/5
         public async Task<IActionResult> Details(int? id)
-        {
+        {            
             if (id == null)
             {
                 return NotFound();
@@ -161,33 +162,61 @@ namespace TallerHernandez.Controllers
             return View(rol);
         }
 
-        // GET: Rols/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        //// GET: Rols/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var rol = await _context.Rol
+        //        .FirstOrDefaultAsync(m => m.rolID == id);
+        //    if (rol == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(rol);
+        //}
+
+        //// POST: Rols/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var rol = await _context.Rol.FindAsync(id);
+        //    _context.Rol.Remove(rol);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string? id)
         {
-            if (id == null)
+            var role = await _rolemanager.FindByIdAsync(id);
+
+            if (role == null)
             {
-                return NotFound();
+                ViewBag.ErrorMessage = $"Role with Id = {id} cannot be found";
+                return View("NotFound");
             }
-
-            var rol = await _context.Rol
-                .FirstOrDefaultAsync(m => m.rolID == id);
-            if (rol == null)
+            else
             {
-                return NotFound();
+                var result = await _rolemanager.DeleteAsync(role);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("Index");
             }
-
-            return View(rol);
-        }
-
-        // POST: Rols/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var rol = await _context.Rol.FindAsync(id);
-            _context.Rol.Remove(rol);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool RolExists(int id)

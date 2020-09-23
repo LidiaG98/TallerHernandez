@@ -6,6 +6,7 @@
 $('#modalC').on('shown.bs.modal', function () {
     $('#clienteID').focus();
 });
+
 var nuevoCliente = () => {
 
     var clienteID = document.getElementById("clienteID").value;
@@ -19,4 +20,44 @@ var nuevoCliente = () => {
     cliente.nuevoCliente();
 }
 
+
+//Funciones para roles
+
+var rolNomCrear;
+
+$('#modalCrearRol').on('shown.bs.modal', function () {
+    $('#rolNomCrear').focus();
+});
+
+function crearRol(action) {
+    //obteniendo datos de los inputs
+    rolNomCrear = $('input[name=rolNomCrear]')[0].value;
+
+    //verificando que no esten vacíos
+    if (rolNomCrear == "") {
+        $('#rolNomCrear').focus();
+        alert("Ingrese el nombre del rol");
+    }
+    else {
+        console.log(rolNomCrear);
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: {
+                rolNomCrear
+            },
+            success: function (response) {
+                if (response === "Save") {
+                    console.log("Si");
+                    window.location.href = "Rols";
+                }
+                else {
+                    console.log("nel");
+                    $('mensajecrear').html("Ha ocurrido algún error, no se puede insertar el rol");
+                }
+            }
+        });
+    }
+
+}
 

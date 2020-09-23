@@ -806,7 +806,6 @@ C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\bin\Debug
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csprojAssemblyReference.cache
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfoInputs.cache
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfo.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csproj.CoreCompileInputs.cache
@@ -915,3 +914,7 @@ C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.dll
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.pdb
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.genruntimeconfig.cache
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\Index.cshtml.g.cs
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csprojAssemblyReference.cache
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\Edit.cshtml.g.cs
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\ManageUserRoles.cshtml.g.cs
