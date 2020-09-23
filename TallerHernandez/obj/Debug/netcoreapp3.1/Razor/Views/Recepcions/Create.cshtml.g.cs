@@ -13,14 +13,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "D:\Sprint02\TallerHernandez\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
 using TallerHernandez;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "D:\Sprint02\TallerHernandez\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
 using TallerHernandez.Models;
 
 #line default
@@ -91,7 +91,7 @@ using TallerHernandez.Models;
         {
             WriteLiteral("\r\n");
 #nullable restore
-#line 3 "D:\Sprint02\TallerHernandez\Views\Recepcions\Create.cshtml"
+#line 3 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\Recepcions\Create.cshtml"
   
     ViewData["Title"] = "Create";
     //var today = DateTime.Today.Date;

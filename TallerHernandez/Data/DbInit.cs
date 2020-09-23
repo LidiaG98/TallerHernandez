@@ -12,6 +12,42 @@ namespace TallerHernandez.Data
         {
             context.Database.EnsureCreated();
 
+            if (context.Area.Any())
+            {
+                return;
+            }
+            else
+            {
+                var area = new Area[]
+                {
+                    new Area{areaNom="Mecánica"},
+                    new Area{areaNom="Administración"}
+                };
+                foreach (Area a in area)
+                {
+                    context.Add(a);
+                }
+                context.SaveChanges();
+            }
+            if (context.ModoPago.Any())
+            {
+                return;
+            }
+            else
+            {
+                var modoPago = new ModoPago[]
+                    {
+                    new ModoPago{tipo="Cheque"},
+                    new ModoPago{tipo="Efectivo"},
+                    new ModoPago{tipo="PayPal"}
+                    };
+                foreach (ModoPago Mp in modoPago)
+                {
+                    context.Add(Mp);
+
+                }
+                context.SaveChanges();
+            }
             if (context.Mantenimiento.Any())
             {
                 return;
@@ -46,23 +82,7 @@ namespace TallerHernandez.Data
                 }
                 context.SaveChanges();
             }            
-            if (context.Area.Any())
-            {
-                return;
-            }
-            else
-            {
-                var area = new Area[]
-                {
-                    new Area{areaNom="Mecánica"},
-                    new Area{areaNom="Administración"}                    
-                };
-                foreach (Area a in area)
-                {
-                    context.Add(a);
-                }
-                context.SaveChanges();
-            }            
+                      
             if (context.Automovil.Any())
             {
                 return;
@@ -93,25 +113,7 @@ namespace TallerHernandez.Data
                 }
                 context.SaveChanges();
             }
-            if (context.ModoPago.Any())
-            {
-                return;
-            }
-            else
-            {
-                var modoPago = new ModoPago[]
-                    {
-                    new ModoPago{tipo="Cheque"},
-                    new ModoPago{tipo="Efectivo"},
-                    new ModoPago{tipo="PayPal"} 
-                    };
-                    foreach(ModoPago Mp in modoPago)
-                {
-                    context.Add(Mp);
-                   
-                }
-                context.SaveChanges();
-            }                     
+                                 
         }
     }
 }

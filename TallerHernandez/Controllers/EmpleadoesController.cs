@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,11 @@ namespace TallerHernandez.Controllers
     public class EmpleadoesController : Controller
     {
         private readonly TallerHernandezContext _context;
-
-        public EmpleadoesController(TallerHernandezContext context)
+        private UserManager<IdentityUser> _identityUser;
+        public EmpleadoesController(TallerHernandezContext context, UserManager<IdentityUser> identityUser)
         {
             _context = context;
+            _identityUser = identityUser;
         }
 
         // GET: Empleadoes
@@ -94,6 +96,9 @@ namespace TallerHernandez.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(empleado);
+                var user = new IdentityUser { UserName = empleado.correo, Email = empleado.correo };
+                var pass = empleado.nombre + "@123";
+                var result = await _identityUser.CreateAsync(user, pass);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
