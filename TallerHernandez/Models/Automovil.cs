@@ -30,6 +30,8 @@ namespace TallerHernandez.Models
 
         public Cliente cliente { get; set; }
 
-        
+        public ICollection<Recepcion> recepcion { get; set; }
+
+
     }
 }

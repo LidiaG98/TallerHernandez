@@ -15,5 +15,8 @@ namespace TallerHernandez.Models
         public string areaNom { get; set; }
         public ICollection<Empleado> empleados { get; set; }
 
+        public ICollection<Procedimiento> procedimiento { get; set; }
+        public ICollection<Mantenimiento> mantenimiento { get; set; }
+
     }
 }

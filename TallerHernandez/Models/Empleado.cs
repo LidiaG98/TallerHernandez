@@ -41,5 +41,7 @@ namespace TallerHernandez.Models
         [Display(Name = "Pago")]
         public int modopagoID { get; set; }
         public ModoPago modoPago { get; set; }
+
+        public ICollection<Recepcion> recepcion { get; set; }
     }
 }
