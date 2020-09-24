@@ -54,5 +54,7 @@ namespace TallerHernandez.Models
         [Range(0,1)]
         public int estado { get; set; } // 1 = en proceso, 0 = finalizado
 
+        public ICollection<AsignacionTarea> asignacionTarea { get; set; }
+
     }
 }

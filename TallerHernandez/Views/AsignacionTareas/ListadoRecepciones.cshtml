@@ -1,0 +1,36 @@
+﻿<div id="modalDetalleRecepcion" class="modal-fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Listado de trabajos a asignar</h4>
+                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="formulario-datos-both">
+                <form class="form-inline" asp-action="Recepcions/Listado" method="get">
+                    <div class="form-actions no-color">
+                        <p>
+                            Filtro: <input type="text" name="cadena" value="@ViewData["CurrentFilter"]" />
+                            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+                            <a asp-action="Recepcions/Listado">Todos los registros</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead style="background-color: darkgrey; color:white">
+                        <tr>
+                            <td>Automóvil</td>
+                            <td>Procedimiento</td>
+                            <td>Mantenimiento</td>
+                            <td>Entrega</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla_detalle_recepcion"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

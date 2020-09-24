@@ -11,7 +11,7 @@ namespace TallerHernandez.Data
         public static void Iniz(TallerHernandezContext context)
         {
             context.Database.EnsureCreated();
-
+           
             if (context.Area.Any())
             {
                 return;
@@ -21,11 +21,41 @@ namespace TallerHernandez.Data
                 var area = new Area[]
                 {
                     new Area{areaNom="Mecánica"},
-                    new Area{areaNom="Administración"}
+                    new Area{areaNom="Administración"}                    
                 };
                 foreach (Area a in area)
                 {
                     context.Add(a);
+                }
+                context.SaveChanges();
+            }            
+            if (context.Automovil.Any())
+            {
+                return;
+            }
+            if (context.Cliente.Any())
+            {
+                return;
+            }
+            if (context.Empleado.Any())
+            {
+                return;
+            }
+            if (context.Rol.Any())
+            {
+                return;
+            }
+            else
+            {
+                var rol = new Rol[]
+                {
+                    new Rol{rolNom="Mecánico"},
+                    new Rol{rolNom="Gerente"},
+                    new Rol{rolNom="recepcionista"}
+                };
+                foreach(Rol r in rol)
+                {
+                    context.Add(r);
                 }
                 context.SaveChanges();
             }
@@ -39,12 +69,12 @@ namespace TallerHernandez.Data
                     {
                     new ModoPago{tipo="Cheque"},
                     new ModoPago{tipo="Efectivo"},
-                    new ModoPago{tipo="PayPal"}
+                    new ModoPago{tipo="PayPal"} 
                     };
-                foreach (ModoPago Mp in modoPago)
+                    foreach(ModoPago Mp in modoPago)
                 {
                     context.Add(Mp);
-
+                   
                 }
                 context.SaveChanges();
             }
@@ -81,39 +111,7 @@ namespace TallerHernandez.Data
                     context.Add(p);
                 }
                 context.SaveChanges();
-            }            
-                      
-            if (context.Automovil.Any())
-            {
-                return;
             }
-            if (context.Cliente.Any())
-            {
-                return;
-            }
-            if (context.Empleado.Any())
-            {
-                return;
-            }
-            if (context.Rol.Any())
-            {
-                return;
-            }
-            else
-            {
-                var rol = new Rol[]
-                {
-                    new Rol{rolNom="Mecánico"},
-                    new Rol{rolNom="Gerente"},
-                    new Rol{rolNom="recepcionista"}
-                };
-                foreach(Rol r in rol)
-                {
-                    context.Add(r);
-                }
-                context.SaveChanges();
-            }
-                                 
         }
     }
 }

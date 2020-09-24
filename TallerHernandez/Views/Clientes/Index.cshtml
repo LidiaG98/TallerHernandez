@@ -11,7 +11,7 @@
         <div class="col-md-9 col-sm-12 mb-5">
             <h1 class="mb-3">Clientes</h1>
             <p>
-                <a class="btn btn-outline-primary font-weight-bold rounded-pill" href="/Cliente/Insertar?area=Cliente">Crear Cliente</a>
+                <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Crear Cliente</a>
             </p>
 
             <form class="form-inline" asp-action="Index" method="get">
@@ -24,9 +24,7 @@
         </div>
     </div>
 
-<p>
-    <a asp-action="Create">Crear Nuevo</a>
-</p>
+
 <p>
     <a data-toggle="modal" data-target="#modalC" class="btn btn-info">Nuevo cliente</a>
 </p>
@@ -45,13 +43,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.telefono)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.imagen)
-            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.puntos)
             </th>
-            <th></th>
+            <th>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ordenar Por:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["OrdenNom"]">    @Html.DisplayNameFor(model => model.nombre)</a>
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["OrdenAp"]">  @Html.DisplayNameFor(model => model.apellido)</a>
+                        
+                    </div>
+                </div>
+            </th>
         </tr>
     </thead>
     <tbody class="thead-dark text-center">
@@ -69,16 +76,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.telefono)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.imagen)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.puntos)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.clienteID" class="btn btn-sm btn-light btn-block">Editar</a> 
-                <a asp-action="Details" asp-route-id="@item.clienteID" class="btn btn-sm btn-info btn-block">Details</a> 
-                <a asp-action="Delete" asp-route-id="@item.clienteID" class="btn btn-sm btn-danger btn-block">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.clienteID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
+                <a asp-action="Details" asp-route-id="@item.clienteID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.clienteID" class="p-2" style="color:#ff0000;"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
 }
