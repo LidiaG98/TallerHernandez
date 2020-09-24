@@ -21,6 +21,9 @@ namespace TallerHernandez.ViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+     
+        [EmailAddress]
+        public string EmailAntiguo { get; set; }
 
         //[Required]
         //[DataType(DataType.Password)]

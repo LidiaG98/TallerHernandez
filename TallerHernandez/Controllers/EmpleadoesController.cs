@@ -132,8 +132,10 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
+        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado, string? EmailAntiguo)
         {
+            var user = await _identityUser.FindByEmailAsync(EmailAntiguo);
+
             if (id != empleado.empleadoID)
             {
                 return NotFound();
@@ -143,6 +145,8 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
+                    user.Email = empleado.correo;
+                    await _identityUser.UpdateAsync(user);
                     _context.Update(empleado);
                     await _context.SaveChangesAsync();
                 }
@@ -192,6 +196,8 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var empleado = await _context.Empleado.FindAsync(id);
+            var user = await _identityUser.FindByEmailAsync(empleado.correo);
+            await _identityUser.DeleteAsync(user);
             _context.Empleado.Remove(empleado);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

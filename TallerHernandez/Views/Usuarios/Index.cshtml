@@ -4,64 +4,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Todos los usuarios</h1>
-@if (Model.Any())
-{
-    <a asp-action="Register" asp-controller="Account"
-       class="btn btn-primary mb-3" style="width:auto">
-        Add new user
-    </a>
+<div class="row align">
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
+    </div>
+    <div class="col-md-9 col-sm-12 mb-5">
+        <h1 class="mb-3">Usuarios</h1>
+        @*<p>
+            <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Agregar Rol</a>
+        </p>*@
 
-    foreach (var m in Model)
+        <form class="form-inline" asp-action="Buscar" method="get">
+            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa el nombre del Usuario" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+            <input name="__RequestVerificationToken" type="hidden">
+            <a asp-action="Index" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2">Mostrar Todos</a>
+        </form>
+
+    </div>
+</div>
+
+<div class="row align-content-center">
+    @foreach (var m in Model)
     {
-        <div class="card mb-3">
-            <div class="card-header">
-                User Id : @m.user.Id
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">@m.user.UserName</h5>
-                <h5 class="card-title">@m.empleado.nombre</h5>
-                <h5 class="card-title">@m.empleado.apellido</h5>
-            </div>
-            <div class="card-footer">
-                <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-danger">Editar Cuenta</a>
-                <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.empleadoID" class="btn btn-danger">Editar Información</a>
-                <form method="post" asp-action="Delete" asp-route-id="@m.user.Id">
-                    <span id="confirmDeleteSpan_@m.user.Id" style="display:none">
-                        <span>¿Estás seguro de eliminar este Usuario?</span>
-                        <button type="submit" class="btn btn-danger">Si</button>
-                        <a href="#" class="btn btn-primary"
-                           onclick="confirmDelete('@m.user.Id', false)">No</a>
-                    </span>
+    <div class="card" style="width: 30rem;">
+        <div class="card-header" >
+            User Id : @m.user.Id
+        </div>
+        <div class="card-body text-center">
+            <table class="table-responsive col-12 align-items-center" style="border-spacing: 15px;">
+                <tr>
+                    <td><h5>Usuario:</h5></td>
+                    <td><h6>@m.user.UserName</h6></td>
+                </tr>
+                <tr>
+                    <td><h5>Nombre:</h5></td>
+                    <td><h6>@m.empleado.nombre</h6></td>
+                </tr>
+                <tr>
+                    <td><h5>Apellido:</h5></td>
+                    <td><h6>@m.empleado.apellido</h6></td>
+                </tr>
+                <tr>
+                    <td><h5>Correo:</h5></td>
+                    <td><h6>@m.empleado.correo</h6></td>
+                </tr>
+            </table>                      
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-block btn-outline-primary">Editar Cuenta</a>
+            <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.empleadoID" class="btn btn-block btn-outline-warning">Editar Información</a>
+            <form method="post" asp-action="Delete" asp-route-id="@m.user.Id">
+                <span id="confirmDeleteSpan_@m.user.Id" style="display:none">
+                    <span>¿Estás seguro de eliminar este Usuario?</span>
+                    <button type="submit" class="btn btn-outline-danger btn-block">Si</button>
+                    <a href="#" class="btn btn-outline-success btn-block"
+                       onclick="confirmDelete('@m.user.Id', false)">No</a>
+                </span>
 
-                    <span id="deleteSpan_@m.user.Id">
-                        <a href="#" class="btn btn-danger"
-                           onclick="confirmDelete('@m.user.Id', true)">Eliminar</a>
-                    </span>
-                </form>
-            </div>
-        </div>
-    }
-}
-else
-{
-    <div class="card">
-        <div class="card-header">
-            No users created yet
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">
-                Use the button below to create a user
-            </h5>
-            <a class="btn btn-primary" style="width:auto"
-               asp-controller="Account" asp-action="Register">
-                Add new user
-            </a>
+                <span id="deleteSpan_@m.user.Id">
+                    <a href="#" class="btn btn-outline-danger btn-block"
+                       onclick="confirmDelete('@m.user.Id', true)">Eliminar</a>
+                </span>
+            </form>
         </div>
     </div>
-}
+    }
+</div>
 
-@section Scripts {
+@section Scripts
+{
 
     <script src="~/js/CustomJS.js"></script>
+    <script src="~/js/site.js"></script>
 }
