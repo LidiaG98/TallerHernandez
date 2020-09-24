@@ -1,0 +1,224 @@
+﻿@model IEnumerable<TallerHernandez.Models.AsignacionTarea>
+
+@{
+    ViewData["Title"] = "TareasFinalizadas";
+}
+<div class="row align">
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
+    </div>
+    <div class="col-md-9 col-sm-12 mb-5">
+        <h1>Listado de tareas finalizadas</h1>
+        <form asp-action="TareasFinalizadas" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Filtro: <input class="col-md-5" type="text" placeholder="Ingrese la placa del automóvil o nombre del encargado" name="cadena" value="@ViewData["Filtro"]" />
+                    <input type="submit" value="Buscar" class="btn btn-secondary" />
+                    <a asp-action="TareasFinalizadas">Todos los registros</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table table-striped table-responsive-sm">
+    <thead class="thead-dark text-center">
+        <tr>
+            <th>
+                Automóvil
+            </th>
+            <th>
+                Mantenimiento
+            </th>
+            <th>
+                Procedimiento
+            </th>
+            <th>
+                Encargado
+            </th>
+            <th>
+                Entrega
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="thead-dark text-center">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recepcion.automovilID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recepcion.mantenimiento.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recepcion.procedimiento.procedimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.empleado.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recepcion.fechaSalida)
+                </td>
+                @if (item.estadoTarea.Equals(false))
+                {
+                    <td>
+                        No finalizada
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Finalizada
+                    </td>
+                }
+                <td>
+                    <a class="btn btn-sm btn-light btn-block" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')">Editar</a>
+                    <a class="btn btn-sm btn-info btn-block" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')">Detalles</a>
+                    <a class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!----Modal Eliminar-->
+<div class="modal fade" id="modalEliminarAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="">Esta seguro de eliminar la asignación de tarea?</h4>
+                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="automovilID" class="control-label"><strong>Automóvil</strong></label>
+                    <p id="automovilID">Placa automóvil</p>
+                </div>
+                <div class="form-group">
+                    <label for="nomMantenimiento" class="control-label"><strong>Mantenimiento</strong></label>
+                    <p id="mantenimiento">Mantenimiento</p>
+                </div>
+                <div class="form-group">
+                    <label for="nomProcedimiento" class="control-label"><strong>Procedimiento</strong></label>
+                    <p id="procedimiento">Procedimiento</p>
+                </div>
+                <div class="form-group">
+                    <label for="empleadoID" class="control-label"><strong>Encargado</strong></label>
+                    <p id="empleadoID">Encargado</p>
+                </div>
+                <div class="form-group">
+                    <label for="fechaSalida" class="control-label"><strong>Entrega</strong></label>
+                    <p id="fechaSalida">Entrega</p>
+                </div>
+                <div class="form-group">
+                    <label for="estadoTarea" class="control-label"><strong>Estado</strong></label>
+                    <p id="estadoTarea">Estado</p>
+                </div>
+                <input type="hidden" name="asignacionTareaID" id="asignacionTareaID">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="EliminarAsignacionTareaFinalizada('DeleteAsignacionTarea')">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----Modal Detalle-->
+<div class="modal fade" id="modalDetalleAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="">Detalles de la asignación de tarea</h4>
+                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="dAutomovilID" class="control-label"><strong>Automóvil</strong></label>
+                    <p id="dAutomovilID">Placa automóvil</p>
+                </div>
+                <div class="form-group">
+                    <label for="dNomMantenimiento" class="control-label"><strong>Mantenimiento</strong></label>
+                    <p id="dMantenimiento">Mantenimiento</p>
+                </div>
+                <div class="form-group">
+                    <label for="dNomProcedimiento" class="control-label"><strong>Procedimiento</strong></label>
+                    <p id="dProcedimiento">Procedimiento</p>
+                </div>
+                <div class="form-group">
+                    <label for="dEmpleadoID" class="control-label"><strong>Encargado</strong></label>
+                    <p id="dEmpleadoID">Encargado</p>
+                </div>
+                <div class="form-group">
+                    <label for="dFechaSalida" class="control-label"><strong>Entrega</strong></label>
+                    <p id="dFechaSalida">Entrega</p>
+                </div>
+                <div class="form-group">
+                    <label for="dEstadoTarea" class="control-label"><strong>Estado</strong></label>
+                    <p id="dEstadoTarea">Estado</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" data-target="#modalEditarAsignacion" data-toggle="modal" onclick="OcultarDetalleAsignacion()">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="modalEditarAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Editar estado de asignación de tarea</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" name="Id" id="Id" />
+                    <div class="form-group">
+                        <label for="eAutomovil" class="control-label"><strong>Automóvil</strong></label>
+                        <input readonly name="eAutomovil" id="eAutomovil" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eMantenimiento" class="control-label"><strong>Mantenimiento</strong></label>
+                        <input readonly name="eMantenimiento" id="eMantenimiento" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eProcedimiento" class="control-label"><strong>Procedimiento</strong></label>
+                        <input readonly name="eProcedimiento" id="eProcedimiento" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eEmpleado" class="control-label"><strong>Encargado</strong></label>
+                        <input readonly name="eEmpleado" id="eEmpleado" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eFechaSalida" class="control-label"><strong>Entrega</strong></label>
+                        <input readonly name="eFechaSalida" id="eFechaSalida" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eEstadoTarea" class="control-label"><strong>Estado</strong></label>
+                        <select name="eEstadoTarea" id="eEstadoTarea" class="form-control">
+                            <option value="false">No Finalizada</option>
+                            <option value="true">Finalizada</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="EditarAsignacionTareaFinalizada('EditarAsignacionTarea')">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>

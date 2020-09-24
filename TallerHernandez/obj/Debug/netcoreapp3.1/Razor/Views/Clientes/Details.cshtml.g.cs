@@ -26,7 +26,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8185f20957ff00e5b0af6435f572cc3d82e72946", @"/Views/Clientes/Details.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8400e5e4eefdb8ce0de211b1fbfd7021f2f09d3b", @"/Views/Clientes/Details.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b7e356a25368190d6b799e21830ceead35565db", @"/Views/_ViewImports.cshtml")]
     public class Views_Clientes_Details : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<TallerHernandez.Models.Cliente>
     {
@@ -65,7 +65,20 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n<h1>Details</h1>\r\n\r\n<div>\r\n    <h4>Cliente</h4>\r\n    <hr />\r\n    <dl class=\"row\">\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n<h1>Detalle</h1>\r\n\r\n<div class=\"row\">\r\n    <div class=\"col-md-8 border border-success\">\r\n        <h4>Cliente</h4>\r\n        <hr />\r\n        <div");
+            BeginWriteAttribute("class", " class=\"", 229, "\"", 237, 0);
+            EndWriteAttribute();
+            WriteLiteral(@">
+            <div class=""text-center pt-4"">
+                <img class=""rounded-circle"" width=""200"" height=""200"" src=""/images/automobile1.jpg"" alt=""usuario"" id=""file-preview-zone"" />
+            </div>
+        </div>
+    </div>
+        <div class=""col-md-4"">
+           
+            <dl>
+                <dt class=""col-sm-2"">
+                    ");
 #nullable restore
 #line 14 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.nombre));
@@ -73,7 +86,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 17 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.nombre));
@@ -81,7 +94,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dd>\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n                </dd>\r\n                <dt class=\"col-sm-2\">\r\n                    ");
 #nullable restore
 #line 20 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.apellido));
@@ -89,7 +102,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 23 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.apellido));
@@ -97,7 +110,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dd>\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n                </dd>\r\n                <dt class=\"col-sm-2\">\r\n                    ");
 #nullable restore
 #line 26 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.correo));
@@ -105,7 +118,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 29 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.correo));
@@ -113,7 +126,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dd>\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n                </dd>\r\n                <dt class=\"col-sm-2\">\r\n                    ");
 #nullable restore
 #line 32 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.telefono));
@@ -121,7 +134,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 35 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.telefono));
@@ -129,7 +142,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dd>\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n                </dd>\r\n                <dt class=\"col-sm-2\">\r\n                    ");
 #nullable restore
 #line 38 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.imagen));
@@ -137,7 +150,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 41 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.imagen));
@@ -145,7 +158,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dd>\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n                </dd>\r\n                <dt class=\"col-sm-2\">\r\n                    ");
 #nullable restore
 #line 44 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.puntos));
@@ -153,7 +166,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n        </dt>\r\n        <dd class = \"col-sm-10\">\r\n            ");
+            WriteLiteral("\r\n                </dt>\r\n                <dd class=\"col-sm-10\">\r\n                    ");
 #nullable restore
 #line 47 "D:\Sprint02\TallerHernandez\Views\Clientes\Details.cshtml"
        Write(Html.DisplayFor(model => model.puntos));
@@ -208,7 +221,7 @@ using TallerHernandez.Models;
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n</div>\r\n");
+            WriteLiteral("\r\n    </div>\r\n");
         }
         #pragma warning restore 1998
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

@@ -26,7 +26,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"380325d674855c10d45bd6d8964b830f3564d386", @"/Views/Automovils/Details.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ad2c3f578da2fb1b03e1d3a90ecf48de8039ed67", @"/Views/Automovils/Details.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b7e356a25368190d6b799e21830ceead35565db", @"/Views/_ViewImports.cshtml")]
     public class Views_Automovils_Details : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<TallerHernandez.Models.Automovil>
     {
@@ -65,7 +65,19 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n<h1>Details</h1>\r\n\r\n<div>\r\n    <h4>Automovil</h4>\r\n    <hr />\r\n    <dl class=\"row\">\r\n        <dt class = \"col-sm-2\">\r\n            ");
+            WriteLiteral("\r\n<h1>Detalle</h1>\r\n\r\n<<div class=\"row\">\r\n    <div class=\"col-md-8 border border-success\">\r\n        <h4>Cliente</h4>\r\n        <hr />\r\n        <div");
+            BeginWriteAttribute("class", " class=\"", 232, "\"", 240, 0);
+            EndWriteAttribute();
+            WriteLiteral(@">
+            <div class=""text-center pt-4"">
+                <img class=""rounded-circle"" width=""200"" height=""200"" src=""/images/automobile1.jpg"" alt=""usuario"" id=""file-preview-zone"" />
+            </div>
+        </div>
+    </div>
+        <div class=""col-md-4"">
+            <dl>
+        <dt class = ""col-sm-2"">
+            ");
 #nullable restore
 #line 14 "D:\Sprint02\TallerHernandez\Views\Automovils\Details.cshtml"
        Write(Html.DisplayNameFor(model => model.marca));

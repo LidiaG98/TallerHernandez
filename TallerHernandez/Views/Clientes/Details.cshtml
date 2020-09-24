@@ -4,51 +4,61 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalle</h1>
 
-<div>
-    <h4>Cliente</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.correo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.correo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.imagen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.imagen)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.puntos)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.puntos)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.clienteID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="row">
+    <div class="col-md-8 border border-success">
+        <h4>Cliente</h4>
+        <hr />
+        <div class="">
+            <div class="text-center pt-4">
+                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+            </div>
+        </div>
+    </div>
+        <div class="col-md-4">
+           
+            <dl>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.nombre)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.apellido)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.apellido)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.correo)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.correo)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.telefono)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.telefono)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.imagen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.imagen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.puntos)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.puntos)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.clienteID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>

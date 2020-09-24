@@ -11,7 +11,7 @@ class Cliente {
     }
     nuevoCliente() {
         if (this.clienteID == "") {
-            document - getElementById("clienteID").focus();
+            document.getElementById("clienteID").focus();
         } else {
             if (this.nombre == "") {
                 document.getElementById("nombre").focus();

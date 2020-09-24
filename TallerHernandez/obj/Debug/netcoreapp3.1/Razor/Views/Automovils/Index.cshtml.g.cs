@@ -26,7 +26,7 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f6774452312f3e22d46dba8fea2ac48ffeecd388", @"/Views/Automovils/Index.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1ae3ce1c1e5075ff88861bc262c9f2e51905a984", @"/Views/Automovils/Index.cshtml")]
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b7e356a25368190d6b799e21830ceead35565db", @"/Views/_ViewImports.cshtml")]
     public class Views_Automovils_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<TallerHernandez.Models.Automovil>>
     {
@@ -35,12 +35,14 @@ using TallerHernandez.Models;
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Index", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("form-inline"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_4 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("method", "get", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_6 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-light btn-block"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_7 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_8 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-info btn-block"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_9 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_10 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("btn btn-danger btn-block"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("dropdown-item"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_6 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Edit", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_7 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("p-2"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_8 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("style", new global::Microsoft.AspNetCore.Html.HtmlString("color:#e2df37;"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_9 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Details", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_10 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("style", new global::Microsoft.AspNetCore.Html.HtmlString("color:#1985a8;"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_11 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "Delete", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_12 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("style", new global::Microsoft.AspNetCore.Html.HtmlString("color:#ff0000;"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         #line hidden
         #pragma warning disable 0649
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext __tagHelperExecutionContext;
@@ -77,15 +79,15 @@ using TallerHernandez.Models;
 #line hidden
 #nullable disable
             WriteLiteral(@"
-    <div class=""row align"">
-        <div class=""col-md-3 col-sm-12"">
-            <img src=""/images/logoTaller.png"" style=""max-height: 90%; max-width:100%;"">
-        </div>
-        <div class=""col-md-9 col-sm-12 mb-5"">
-            <h1 class=""mb-3"">Automóviles</h1>
-            <p>
-                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd3887499", async() => {
+<div class=""row align"">
+    <div class=""col-md-3 col-sm-12"">
+        <img src=""/images/logoTaller.png"" style=""max-height: 90%; max-width:100%;"">
+    </div>
+    <div class=""col-md-9 col-sm-12 mb-5"">
+        <h1 class=""mb-3"">Automóviles</h1>
+        <p>
+            ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a9848230", async() => {
                 WriteLiteral("Nuevo Auto");
             }
             );
@@ -101,10 +103,10 @@ using TallerHernandez.Models;
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n            </p>\r\n\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd3888777", async() => {
-                WriteLiteral("\r\n                <input class=\"col-md-7 col-sm-12 mr-sm-2 mb-2\" type=\"text\" placeholder=\"ingresa una placa o marca\" data-val=\"true\" data-val-required=\"The nombre field is required.\" id=\"Buscar\" name=\"Buscar\"");
-                BeginWriteAttribute("value", " value=\"", 801, "\"", 828, 1);
+            WriteLiteral("\r\n        </p>\r\n\r\n        ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a9849500", async() => {
+                WriteLiteral("\r\n            <input class=\"col-md-7 col-sm-12 mr-sm-2 mb-2\" type=\"text\" placeholder=\"ingresa una placa o marca\" data-val=\"true\" data-val-required=\"The nombre field is required.\" id=\"Buscar\" name=\"Buscar\"");
+                BeginWriteAttribute("value", " value=\"", 757, "\"", 784, 1);
 #nullable restore
 #line 18 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
 WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
@@ -113,8 +115,8 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
 #line hidden
 #nullable disable
                 EndWriteAttribute();
-                WriteLiteral(">\r\n                <input type=\"submit\" class=\"col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2\" value=\"Buscar\">\r\n                <input name=\"__RequestVerificationToken\" type=\"hidden\">\r\n                ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd3889846", async() => {
+                WriteLiteral(">\r\n            <input type=\"submit\" class=\"col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2\" value=\"Buscar\">\r\n            <input name=\"__RequestVerificationToken\" type=\"hidden\">\r\n            ");
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98410576", async() => {
                     WriteLiteral("Todos los registros");
                 }
                 );
@@ -129,7 +131,7 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
                 }
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
-                WriteLiteral("\r\n            ");
+                WriteLiteral("\r\n        ");
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_FormTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper>();
@@ -148,24 +150,27 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n\r\n        </div>\r\n    </div>\r\n\r\n<p>\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38812597", async() => {
-                WriteLiteral("Create New");
-            }
-            );
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
-            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_1.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_1);
-            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
-            if (!__tagHelperExecutionContext.Output.IsContentModified)
-            {
-                await __tagHelperExecutionContext.SetOutputContentAsync();
-            }
-            Write(__tagHelperExecutionContext.Output);
-            __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n</p>\r\n<table class=\"table table-striped table-responsive-sm\">\r\n    <thead class=\"thead-dark text-center\">\r\n        <tr>\r\n           \r\n            <th>\r\n         ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38813934", async() => {
+            WriteLiteral(@"
+
+    </div>
+</div>
+
+<p>
+   
+    <!-- Default checked -->
+    <div class=""custom-control custom-switch"">
+        <input type=""checkbox"" class=""custom-control-input"" id=""switchAuto"">
+
+        <label class=""custom-control-label"" for=""switchAuto"">Tabla/cartas</label>
+    </div>
+</p>
+<table class=""table table-striped table-responsive-sm"" id=""tAuto"">
+    <thead class=""thead-dark text-center"">
+        <tr>
+
+            <th>
+                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98413745", async() => {
                 WriteLiteral("      ");
 #nullable restore
 #line 35 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
@@ -203,7 +208,7 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n            </th>\r\n            <th>\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38816415", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98416284", async() => {
                 WriteLiteral("     ");
 #nullable restore
 #line 38 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
@@ -272,17 +277,104 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n            </th>\r\n            <th></th>\r\n        </tr>\r\n    </thead>\r\n    <tbody class=\"thead-dark text-center\">\r\n");
+            WriteLiteral(@"
+            </th>
+            <th>
+                <div class=""dropdown"">
+                <button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+                    Ordenar Por:
+                </button>
+                <div class=""dropdown-menu"" aria-labelledby=""dropdownMenuButton"">
+                    ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98420464", async() => {
+                WriteLiteral("      ");
 #nullable restore
-#line 56 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
- foreach (var item in Model) {
+#line 64 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                Write(Html.DisplayNameFor(model => model.marca));
 
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("        <tr>\r\n            \r\n            <td>\r\n                ");
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_5);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
+            if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
+            {
+                throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-OrdenA", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
+            }
+            BeginWriteTagHelperAttribute();
 #nullable restore
-#line 60 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+#line 64 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+            WriteLiteral(ViewData["Ordenmarca"]);
+
+#line default
+#line hidden
+#nullable disable
+            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["OrdenA"] = __tagHelperStringValueBuffer;
+            __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-OrdenA", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["OrdenA"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            WriteLiteral("\r\n                    ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98423101", async() => {
+                WriteLiteral("     ");
+#nullable restore
+#line 65 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                Write(Html.DisplayNameFor(model => model.anio));
+
+#line default
+#line hidden
+#nullable disable
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_5);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_2.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_2);
+            if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
+            {
+                throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-OrdenA", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
+            }
+            BeginWriteTagHelperAttribute();
+#nullable restore
+#line 65 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+            WriteLiteral(ViewData["Ordenanio"]);
+
+#line default
+#line hidden
+#nullable disable
+            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["OrdenA"] = __tagHelperStringValueBuffer;
+            __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-OrdenA", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["OrdenA"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            WriteLiteral("\r\n                   >\r\n                </div>\r\n                </div>\r\n            </th>\r\n        </tr>\r\n    </thead>\r\n    <tbody class=\"thead-dark text-center\">\r\n");
+#nullable restore
+#line 73 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+            foreach (var item in Model)
+        {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("        <tr>\r\n\r\n            <td data-toggle=\"tooltip\" data-placement=\"top\" title=\"<img src=\'/uploads/item.imagenN)\'  width=\'200\' height=\'100\'>\">\r\n                ");
+#nullable restore
+#line 78 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Automovils\Index.cshtml"
            Write(Html.DisplayFor(modelItem => item.marca));
 
 #line default
@@ -304,15 +396,34 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n            </td>\r\n            <td>\r\n                ");
+            WriteLiteral("\r\n            </td>\r\n            <td>\r\n");
 #nullable restore
-#line 69 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
-           Write(Html.DisplayFor(modelItem => item.estado));
+#line 87 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                if (item.estado)
+                {
 
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n            </td>\r\n            <td>\r\n                ");
+            WriteLiteral("                    <p class=\"btn btn-success\">Terminado</p>\r\n");
+#nullable restore
+#line 90 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+                else
+                {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("                    <p class=\" btn btn-info\">En proceso</p>\r\n");
+#nullable restore
+#line 94 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+
+#line default
+#line hidden
+#nullable disable
+                WriteLiteral("\r\n            </td>\r\n            <td>\r\n                ");
 #nullable restore
 #line 72 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
            Write(Html.DisplayFor(modelItem => item.comentario));
@@ -329,14 +440,80 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
 #line hidden
 #nullable disable
             WriteLiteral("\r\n            </td>\r\n            <td>\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38822196", async() => {
-                WriteLiteral("Editar");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98428795", async() => {
+                WriteLiteral("<i class=\"far fa-edit\"></i>");
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_5.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_5);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_6.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_6);
+            if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
+            {
+                throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
+            }
+            BeginWriteTagHelperAttribute();
+#nullable restore
+#line 104 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Automovils\Index.cshtml"
+                                       WriteLiteral(item.automovilID);
+
+#line default
+#line hidden
+#nullable disable
+            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
+            __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_8);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            WriteLiteral("\r\n                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98431161", async() => {
+                WriteLiteral("<i class=\"fas fa-info-circle\"></i>");
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_9.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_9);
+            if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
+            {
+                throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
+            }
+            BeginWriteTagHelperAttribute();
+#nullable restore
+#line 105 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                WriteLiteral(item.automovilID);
+
+#line default
+#line hidden
+#nullable disable
+            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
+            __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_10);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            WriteLiteral("\r\n                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98433538", async() => {
+                WriteLiteral("<i class=\"fas fa-trash-alt\"></i>");
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_11.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_11);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -352,7 +529,8 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
             __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_6);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_12);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
@@ -360,15 +538,122 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral(" \r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38824433", async() => {
-                WriteLiteral("Detalles");
+            WriteLiteral("\r\n            </td>\r\n          \r\n        </tr>\r\n");
+#nullable restore
+#line 110 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+            }
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("    </tbody>\r\n</table>\r\n<div class=\"container\" id=\"cAuto\"  >\r\n    <div class=\"row align-items-center\">\r\n");
+#nullable restore
+#line 115 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+            foreach (var item in Model)
+
+        {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("        <div class=\"card col-xl-3 col-lg-3 col-md-6  col-sm-1 \" style=\"width: 18rem;\">\r\n\r\n");
+#nullable restore
+#line 120 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                if (item.imagenN == "")
+            {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("                <img src=\"/images/logoTaller.png\" alt=\"Automovil\" class=\"card-img-top\">\r\n");
+#nullable restore
+#line 123 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+                else
+            {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("            <img");
+            BeginWriteAttribute("src", " src=\"", 4995, "\"", 5025, 2);
+            WriteAttributeValue("", 5001, "/uploads/", 5001, 9, true);
+#nullable restore
+#line 126 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                    WriteAttributeValue("", 5010, item.imagenN, 5010, 15, false);
+
+#line default
+#line hidden
+#nullable disable
+            EndWriteAttribute();
+            WriteLiteral(" alt=\"Automovil\" width=\"200\" height=\"100\" class=\"card-img-top\">\r\n");
+#nullable restore
+#line 127 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+
+#line default
+#line hidden
+#nullable disable
+                WriteLiteral("\r\n\r\n\r\n\r\n\r\n\r\n            <div class=\"card-body\">\r\n                <h5 class=\"card-ti\">");
+#nullable restore
+#line 135 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                Write(Html.DisplayFor(modelItem => item.marca));
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("</h5>\r\n                <p class=\"card-text\">");
+#nullable restore
+#line 136 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                Write(Html.DisplayFor(modelItem => item.proceso));
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("</p>\r\n\r\n\r\n            </div>\r\n            <div>\r\n                <p class=\"card-text\">");
+#nullable restore
+#line 141 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                Write(Html.DisplayFor(modelItem => item.comentario));
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("</p>\r\n            </div>\r\n\r\n\r\n\r\n            <div class=\"d-flex justify-content-end \">\r\n");
+#nullable restore
+#line 147 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                if (item.estado)
+                {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("                    <p class=\"card-text btn btn-success p-2\">Terminado</p>\r\n");
+#nullable restore
+#line 150 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+                else
+                {
+
+#line default
+#line hidden
+#nullable disable
+            WriteLiteral("                    <p class=\"card-text btn btn-info p-2\">En proceso</p>\r\n");
+#nullable restore
+#line 154 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                }
+
+#line default
+#line hidden
+#nullable disable
+                WriteLiteral("\r\n                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98440015", async() => {
+                WriteLiteral("<i class=\"far fa-edit\"></i>");
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
-            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_7.Value;
-            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_7);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_6.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_6);
             if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
             {
                 throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
@@ -384,6 +669,7 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
             __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
             __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_8);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -392,9 +678,9 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral(" \r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f6774452312f3e22d46dba8fea2ac48ffeecd38826675", async() => {
-                WriteLiteral("Eliminar");
+            WriteLiteral("\r\n                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98442381", async() => {
+                WriteLiteral("<i class=\"fas fa-info-circle\"></i>");
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
@@ -416,6 +702,7 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
             __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
             __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
             __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_10);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
@@ -424,7 +711,50 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n            </td>\r\n        </tr>\r\n");
+            WriteLiteral("\r\n                ");
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ae3ce1c1e5075ff88861bc262c9f2e51905a98444758", async() => {
+                WriteLiteral("<i class=\"fas fa-trash-alt\"></i>");
+            }
+            );
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
+            __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper);
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.Action = (string)__tagHelperAttribute_11.Value;
+            __tagHelperExecutionContext.AddTagHelperAttribute(__tagHelperAttribute_11);
+            if (__Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues == null)
+            {
+                throw new InvalidOperationException(InvalidTagHelperIndexerAssignment("asp-route-id", "Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper", "RouteValues"));
+            }
+            BeginWriteTagHelperAttribute();
+#nullable restore
+#line 158 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
+                WriteLiteral(item.automovilID);
+
+#line default
+#line hidden
+#nullable disable
+            __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
+            __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"] = __tagHelperStringValueBuffer;
+            __tagHelperExecutionContext.AddTagHelperAttribute("asp-route-id", __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper.RouteValues["id"], global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_7);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_12);
+            await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
+            if (!__tagHelperExecutionContext.Output.IsContentModified)
+            {
+                await __tagHelperExecutionContext.SetOutputContentAsync();
+            }
+            Write(__tagHelperExecutionContext.Output);
+            __tagHelperExecutionContext = __tagHelperScopeManager.End();
+            WriteLiteral(@"
+                <!-----
+            <i class=""fas fa-info-circle p-2"" style=""color:#1985a8;""></i>
+            <i class=""far fa-edit p-2"" style=""color:#e2df37;""></i>
+            <i class=""fas fa-trash-alt p-2"" style=""color:#ff0000;""></i>
+        -->
+
+            </div>
+
+        </div>
+");
 #nullable restore
 #line 83 "D:\Sprint02\TallerHernandez\Views\Automovils\Index.cshtml"
 }
@@ -432,7 +762,7 @@ WriteAttributeValue("", 809, ViewData["Filtro"], 809, 19, false);
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("    </tbody>\r\n</table>\r\n");
+            WriteLiteral("    </div>\r\n</div>\r\n\r\n   \r\n\r\n\r\n");
         }
         #pragma warning restore 1998
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]

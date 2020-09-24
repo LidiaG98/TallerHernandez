@@ -4,12 +4,20 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalle</h1>
 
-<div>
-    <h4>Automovil</h4>
-    <hr />
-    <dl class="row">
+<<div class="row">
+    <div class="col-md-8 border border-success">
+        <h4>Cliente</h4>
+        <hr />
+        <div class="">
+            <div class="text-center pt-4">
+                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+            </div>
+        </div>
+    </div>
+        <div class="col-md-4">
+            <dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.marca)
         </dt>
@@ -47,8 +55,9 @@
             @Html.DisplayFor(model => model.cliente.clienteID)
         </dd>
     </dl>
+            </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.automovilID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regresar</a>
 </div>
