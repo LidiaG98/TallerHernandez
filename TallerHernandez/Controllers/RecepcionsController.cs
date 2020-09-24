@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -57,10 +58,14 @@ namespace TallerHernandez.Controllers
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre");
             ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");
-            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre");
+            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre");            
             var auto = _context.Automovil.FromSqlRaw("SELECT * FROM AUTOMOVIL");            
             ViewBag.autos = auto.ToList();
-            return View();
+            Recepcion r = new Recepcion();
+            string fa = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);           
+            
+            return View(r);
         }
 
         // POST: Recepcions/Create
@@ -69,7 +74,7 @@ namespace TallerHernandez.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("recepcionID,diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID")] Recepcion recepcion)
+            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +85,7 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");
+            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimientoID");
             ViewData["mantenimientoID"] = new SelectList(_context.Procedimiento, "mantenimientoID", "mantenimientoID");         
 
             return View(recepcion);
@@ -102,8 +107,8 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");
-            ViewData["mantenimientoID"] = new SelectList(_context.Procedimiento, "mantenimientoID", "mantenimientoID");
+            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimientoID");
+            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "mantenimientoID");
             return View(recepcion);
         }
 
@@ -113,7 +118,7 @@ namespace TallerHernandez.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("recepcionID,diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID")] Recepcion recepcion)
+            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
         {
             if (id != recepcion.recepcionID)
             {
@@ -144,7 +149,7 @@ namespace TallerHernandez.Controllers
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
             ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");
-            ViewData["mantenimientoID"] = new SelectList(_context.Procedimiento, "mantenimientoID", "mantenimientoID");            
+            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "mantenimientoID");            
             return View(recepcion);
         }
 

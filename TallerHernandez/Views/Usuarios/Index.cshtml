@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TallerHernandez.ViewModels.UsuarioTrabajadorViewModel>
+@{
+    ViewData["Title"] = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Todos los usuarios</h1>
+@if (Model.Any())
+{
+    <a asp-action="Register" asp-controller="Account"
+       class="btn btn-primary mb-3" style="width:auto">
+        Add new user
+    </a>
+
+    foreach (var m in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                User Id : @m.user.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@m.user.UserName</h5>
+                <h5 class="card-title">@m.empleado.nombre</h5>
+                <h5 class="card-title">@m.empleado.apellido</h5>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-danger">Editar Cuenta</a>
+                <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.empleadoID" class="btn btn-danger">Editar Información</a>
+                <form method="post" asp-action="Delete" asp-route-id="@m.user.Id">
+                    <span id="confirmDeleteSpan_@m.user.Id" style="display:none">
+                        <span>¿Estás seguro de eliminar este Usuario?</span>
+                        <button type="submit" class="btn btn-danger">Si</button>
+                        <a href="#" class="btn btn-primary"
+                           onclick="confirmDelete('@m.user.Id', false)">No</a>
+                    </span>
+
+                    <span id="deleteSpan_@m.user.Id">
+                        <a href="#" class="btn btn-danger"
+                           onclick="confirmDelete('@m.user.Id', true)">Eliminar</a>
+                    </span>
+                </form>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No users created yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create a user
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Account" asp-action="Register">
+                Add new user
+            </a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+
+    <script src="~/js/CustomJS.js"></script>
+}

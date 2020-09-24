@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj": {}
+    "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj": {
+    "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
+        "projectUniqueName": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
         "projectName": "TallerHernandez",
-        "projectPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
-        "packagesPath": "C:\\Users\\Fernando\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\obj\\",
+        "projectPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
+        "packagesPath": "C:\\Users\\Revenge\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Fernando\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Revenge\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -67,10 +67,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
-            },
-            "bootstrap.chosen": {
-              "target": "Package",
-              "version": "[1.0.0, )"
             }
           },
           "imports": [
@@ -91,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

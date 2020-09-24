@@ -36,6 +36,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.mantenimiento)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -65,7 +68,16 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.mantenimiento.mantenimientoID)
-            </td>
+            </td>            
+           @if (item.estado.Equals(1)){
+            <td>
+            En proceso
+            
+            </td>}
+            else{
+            <td>
+            Finalizado
+            </td>}            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.recepcionID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.recepcionID">Details</a> |

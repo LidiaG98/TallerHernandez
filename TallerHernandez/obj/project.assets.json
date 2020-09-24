@@ -2,15 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "bootstrap.chosen/1.0.0": {
-        "type": "package",
-        "dependencies": {
-          "jQuery": "1.6.4"
-        }
-      },
-      "jQuery/1.6.4": {
-        "type": "package"
-      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.6": {
         "type": "package",
         "compile": {
@@ -2892,42 +2883,6 @@
     }
   },
   "libraries": {
-    "bootstrap.chosen/1.0.0": {
-      "sha512": "gq1QwZ53xlx1mKUBbSP9+o0AVsL61g6RQ5Jia/ghXb4CurA1aJUZtoOnO77fZrSsuRNh0J7I5ct5qTu2otQUmg==",
-      "type": "package",
-      "path": "bootstrap.chosen/1.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bootstrap.chosen.1.0.0.nupkg.sha512",
-        "bootstrap.chosen.nuspec",
-        "content/Content/bootstrap-chosen.css",
-        "content/Content/bootstrap-chosen.less",
-        "content/Content/bootstrap-chosen.scss",
-        "content/Content/chosen-sprite.png",
-        "content/Content/chosen-sprite@2x.png",
-        "content/Scripts/chosen.jquery.js",
-        "content/Scripts/chosen.jquery.min.js"
-      ]
-    },
-    "jQuery/1.6.4": {
-      "sha512": "8RzoZQFeFYL/cINRXksLWyl8D5TKctZ/2G8hrlOLLM5OgFNI9h3t3l5tB+BBbsBUxaPUageVe0p9ruU5jrFeow==",
-      "type": "package",
-      "path": "jquery/1.6.4",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Content/Scripts/jquery-1.6.4-vsdoc.js",
-        "Content/Scripts/jquery-1.6.4.js",
-        "Content/Scripts/jquery-1.6.4.min.js",
-        "Tools/install.ps1",
-        "Tools/jquery-1.6.4-vsdoc-para.js",
-        "Tools/uninstall.ps1",
-        "jquery.1.6.4.nupkg.sha512",
-        "jquery.nuspec"
-      ]
-    },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.6": {
       "sha512": "+OyVi4mANQgFC9cIH/J+BKNFWBVgTIO16HZfBp+vtTv/FFzWCV1zhxRJ3u+ZVoEouA/LboOBbP3wg8jroKH8ug==",
       "type": "package",
@@ -9229,24 +9184,23 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.8",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.8",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.8",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
-      "bootstrap.chosen >= 1.0.0"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Fernando\\.nuget\\packages\\": {}
+    "C:\\Users\\Revenge\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
+      "projectUniqueName": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
       "projectName": "TallerHernandez",
-      "projectPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
-      "packagesPath": "C:\\Users\\Fernando\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\obj\\",
+      "projectPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
+      "packagesPath": "C:\\Users\\Revenge\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Fernando\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Revenge\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9299,10 +9253,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[3.1.4, )"
-          },
-          "bootstrap.chosen": {
-            "target": "Package",
-            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -9323,7 +9273,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }
