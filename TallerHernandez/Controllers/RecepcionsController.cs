@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
 using TallerHernandez.ModelModal;
 using TallerHernandez.Models;
+
 
 namespace TallerHernandez.Controllers
 {
@@ -73,6 +75,23 @@ namespace TallerHernandez.Controllers
         public List<IdentityError> agregarProcedimiento(string procedimiento, string precio, string areaID)
         {
             return procedimientoModels.agregarProcedimiento(procedimiento, precio, areaID);
+        }
+
+        public IActionResult obtenerDuenio(string? id) {
+            List<Automovil> duenioId = new List<Automovil>();
+            duenioId = _context.Automovil.FromSqlRaw("SELECT * FROM Automovil WHERE automovilID='"+id+"'").ToList();
+            List<Cliente> duenio = new List<Cliente>();
+            duenio = _context.Cliente.FromSqlRaw("SELECT * FROM Cliente WHERE clienteID='" + duenioId[0].clienteID + "'").ToList();
+            List<SelectListItem> resp = duenio.ConvertAll(d => {
+                return new SelectListItem()
+                {
+                    Text = d.nombre,
+                    Value = d.clienteID,
+                    Selected = true
+                };
+            });
+            string json = JsonSerializer.Serialize(resp);
+            return Ok(json);
         }
 
         // GET: Recepcions/Create
@@ -159,10 +178,10 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimientoID");
-            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "mantenimientoID");
+            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
+            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
+            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");
+            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre");
             return View(recepcion);
         }
 
@@ -227,7 +246,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            return View(recepcion);
+            return PartialView(recepcion);
         }
 
         // POST: Recepcions/Delete/5

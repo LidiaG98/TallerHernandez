@@ -2,42 +2,50 @@
 
 @{
     ViewData["Title"] = "Create";
-    //var today = DateTime.Today.Date;
-    //var minDate = new DateTime(today.Year, 1, 1);
-    //var maxDate = new DateTime(today.Year, 12, 31);
+    var placas = ViewBag.automovilID as List<SelectListItem>;
+    var duenio = ViewBag.clienteID as List<SelectListItem>;
 }
 
 
 <h1>Ficha de ingreso</h1>
 <hr />
 <div class="mb-3">
-    <a class="btn btn-outline-danger btn-sm" asp-action="Index">Regresar</a>
+    <a class="btn btn-outline-primary font-weight-bold btn-sm" asp-action="Index">Regresar</a>
 </div>
 <form id="regForm" asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input asp-for="estado" value="1" hidden />
     <!-- One "tab" for each step in the form: -->
     <div class="tab">
-        <h4>Información</h4>        
-            <div class="form-group">
-                <label asp-for="automovilID" class="control-label"></label>
-                <select asp-for="automovilID" class="form-control search" asp-items="ViewBag.automovilID" id="carro"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="fechaEntrada" class="control-label"></label>
-                <input asp-for="fechaEntrada" class="form-control" id="fentrada" />
-                <span asp-validation-for="fechaEntrada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="empleadoID" class="control-label"></label>
-                <select asp-for="empleadoID" class="search form-control" asp-items="ViewBag.empleadoID" id="mecanico"></select>
-            </div>        
+        <h4>Información</h4>
+        <small class="text-danger">Los campos marcados con (*) son obligatorios</small>
+        <div class="form-group">
+            <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>
+            @*<select asp-for="automovilID" class="form-control search" asp-items="ViewBag.automovilID" id="carro"></select>*@
+            @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new
+            {
+                @class = "form-control search",
+            data_cascade_combo = "#stypes",
+            data_cascade_combo_source = Url.Action("obtenerDuenio", "Recepcions"),
+            data_cascade_combo_param_name = "id"
+            })
+            <span asp-validation-for="automovilID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="fechaEntrada" class="control-label"></label><span class="text-danger">*</span>
+            <input asp-for="fechaEntrada" class="form-control" id="fentrada" />
+            <span asp-validation-for="fechaEntrada" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="empleadoID" class="control-label"></label><span class="text-danger">*</span>
+            <select asp-for="empleadoID" class="search form-control" asp-items="ViewBag.empleadoID" id="mecanico"></select>
+        </div>
     </div>
 
     <div class="tab">
         <h4>Servicio</h4>
         <div class="form-group">
-            <label asp-for="diagnostico" class="control-label"></label>
+            <label asp-for="diagnostico" class="control-label"></label><span class="text-danger">*</span>
             <textarea asp-for="diagnostico" class="form-control" oninput="this.className = 'form-control '" rows="3" id="diag"></textarea>
             <span asp-validation-for="diagnostico" class="text-danger"></span>
         </div>
@@ -64,7 +72,7 @@
         </div>
         <div id="div-mantenimiento" class="d-none">
             <div class="form-group">
-                <label asp-for="mantenimientoID" class="control-label"></label>
+                <label asp-for="mantenimientoID" class="control-label"></label><span class="text-danger">*</span>
                 @*<select asp-for="mantenimientoID" class="search form-control" asp-items="ViewBag.mantenimientoID"></select>*@
                 @Html.DropDownList("mantenimientoID", (SelectList)ViewBag.ListaM, "Seleccione una opción", new { @class = "search form-control", @id = "sman", @onchange = "ocultar()" })
                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -74,7 +82,7 @@
         </div>
         <div id="div-procedimiento" class="d-block">
             <div class="form-group">
-                <label asp-for="procedimientoID" class="control-label"></label>
+                <label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>
                 @*<select asp-for="procedimientoID" class="search form-control" asp-items="ViewBag.procedimientoID"></select>*@
                 @Html.DropDownList("procedimientoID", (SelectList)ViewBag.ListaP, "Seleccione una opción", new { @class = "search form-control activo", @id = "sproc", @onchange = "ocultar()" })
                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#modalProc">
@@ -88,14 +96,16 @@
 
     <div class="tab">
         <h4>Finalizar</h4>
+        
         <div class="form-group">
-            <label asp-for="fechaSalida" class="control-label"></label>
+            <label asp-for="fechaSalida" class="control-label"></label><span class="text-danger">*</span>
             <input asp-for="fechaSalida" class="form-control" value="" />
             <span asp-validation-for="fechaSalida" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="clienteID" class="control-label"></label>
-            <select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>
+            @*<select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>*@
+            @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes",})            
         </div>
         <div class="form-group">
             <p>Repuestos</p>
@@ -199,27 +209,56 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.search').select2();
-        });        
+        });
 
         function show1() {
             //document.getElementById('div1').style.display = 'none';
             document.getElementById('div-procedimiento').className = 'd-block';
             document.getElementById('div-mantenimiento').className = 'd-none';
             document.getElementById('sproc').className += ' activo';
-            document.getElementById('sman').className = 'search form-control select2-hidden-accessible';            
+            document.getElementById('sman').className = 'search form-control select2-hidden-accessible';
         };
         function show2() {
             document.getElementById('div-mantenimiento').className = 'd-block';
             document.getElementById('div-procedimiento').className = 'd-none';
             document.getElementById('sman').className += ' activo';
-            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible';            
+            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible';
         };
         function show3() {
             document.getElementById('div-mantenimiento').className = 'd-block';
             document.getElementById('div-procedimiento').className = 'd-block';
             document.getElementById('sman').className = 'search form-control select2-hidden-accessible activo';
-            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible activo';            
+            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible activo';
         };
+
+        //Obtener dueño del automovil
+        $(document).on('change', '[data-cascade-combo]', function (event) {
+
+            var id = $(this).attr('data-cascade-combo');
+
+            var url = $(this).attr('data-cascade-combo-source');
+
+            var paramName = $(this).attr('data-cascade-combo-param-name');
+
+            var data = {};
+            data[paramName] = id;
+
+            $.ajax({
+                url: url,                
+                data: {
+                    id: $(this).val()
+                },
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {                 
+                    $(id).html('');
+                    $.each(response, (index, type) => {
+                        var content = '<option value="' + type.Value + '">' + type.Text + '</option>';
+                        $(id).append(content);                        
+                    });                        
+                }
+            });
+        });
     </script>
 
 }

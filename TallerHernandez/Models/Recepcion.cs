@@ -36,7 +36,7 @@ namespace TallerHernandez.Models
         public string empleadoID { get; set; }
         public Empleado empleado { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Seleccione un automóvil")]
         [Display(Name = "Automóvil")]
         public string automovilID { get; set; }
         public Automovil Automovil { get; set; }
