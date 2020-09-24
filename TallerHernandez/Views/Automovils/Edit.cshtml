@@ -4,19 +4,38 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Automovil</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4 border border-success">
+            <div class="text-center pt-4" style="margin-right:30%;">
+                <img class="rounded-circle align-self-center" src="/uploads/@(Model.imagenN)" alt="usuario" width="200" height="200" id="file-preview-zone" />
+            </div>
+            <div class="caption text-center mb-4 mt-2">
+                <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
+                <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden />
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="automovilID" />
+            <div class="form-group">
+                <label asp-for="automovilID" class="control-label"></label>
+                <input asp-for="automovilID" class="form-control" />
+                <span asp-validation-for="automovilID" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="col-md-8">
             <div class="form-group">
                 <label asp-for="marca" class="control-label"></label>
                 <input asp-for="marca" class="form-control" />
                 <span asp-validation-for="marca" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="imagenN" class="control-label"></label>
+                <input asp-for="imagenN" class="form-control" />
+                <span asp-validation-for="imagenN" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="anio" class="control-label"></label>
@@ -40,19 +59,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="clienteID" class="control-label"></label>
-                <select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>
-                <span asp-validation-for="clienteID" class="text-danger"></span>
+                <select asp-for="clienteID" class="form-control chosen-s" id="prueba" asp-items="ViewBag.clienteID"></select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group d-flex justify-content-end">
+                <input type="submit" value="Actualizar" class="btn btn-success" />
             </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        </div>
+
+    </div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

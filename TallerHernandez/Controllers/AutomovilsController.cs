@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace TallerHernandez.Controllers
     public class AutomovilsController : Controller
     {
         private readonly TallerHernandezContext _context;
+        private readonly IWebHostEnvironment hostEnvironment;
 
-        public AutomovilsController(TallerHernandezContext context)
+        public AutomovilsController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this.hostEnvironment = hostEnvironment;
         }
 
         // GET: Automovils
@@ -75,7 +79,10 @@ namespace TallerHernandez.Controllers
         // GET: Automovils/Create
         public IActionResult Create()
         {
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID");
+           
+
+            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
+            
             return View();
         }
 
@@ -84,14 +91,47 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("automovilID,marca,anio,proceso,estado,comentario,clienteID")] Automovil automovil)
+        public async Task<IActionResult> Create([Bind("automovilID,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
         {
-            if (ModelState.IsValid)
+            bool imagenNula = false;
+
+            try
             {
+                if (automovil.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e);  } //Verifica si ha subido o no una imagen a la hora de crear
+
+
+            if (ModelState.IsValid && imagenNula)
+            {
+                automovil.imagenN = "logoTaller.png";
                 _context.Add(automovil);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            else if (ModelState.IsValid && automovil.imagen != null) //Modelo valido y si subio una imagen
+            {
+                Imagen i = automovil.imagen;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = automovil.automovilID;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                //cliente.imagen.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }
+                automovil.imagenN = fileName;
+                _context.Add(automovil);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+           
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", automovil.clienteID);
             return View(automovil);
         }
@@ -99,6 +139,7 @@ namespace TallerHernandez.Controllers
         // GET: Automovils/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            
             if (id == null)
             {
                 return NotFound();
@@ -118,8 +159,19 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("automovilID,marca,anio,proceso,estado,comentario,clienteID")] Automovil automovil)
+        public async Task<IActionResult> Edit(string id, [Bind("automovilID,marca,anio,proceso,imagen,imagenN,estado,comentario,clienteID")] Automovil automovil)
         {
+           
+            bool imagenNula = false;
+            try
+            {
+                if (automovil.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }
+
             if (id != automovil.automovilID)
             {
                 return NotFound();
@@ -128,9 +180,36 @@ namespace TallerHernandez.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-                    _context.Update(automovil);
-                    await _context.SaveChangesAsync();
+                {if (imagenNula)
+                    {
+                        
+                        
+                        _context.Update(automovil);
+                        await _context.SaveChangesAsync();
+
+                    }
+                    else if(automovil.imagen!=null)
+                    {
+                        Imagen i = automovil.imagen;
+                        string rootPath = hostEnvironment.WebRootPath;
+                        string fileName = automovil.automovilID;
+                        fileName = fileName.Replace(" ", "");
+                        string extension = Path.GetExtension(i.imageFile.FileName);
+                        i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(rootPath + "/uploads/", fileName);
+                        //cliente.imagen.imagePath = path;
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await i.imageFile.CopyToAsync(fileStream);
+                        }
+                        automovil.imagenN = fileName;
+
+                        _context.Update(automovil);
+                        await _context.SaveChangesAsync();
+
+                    }
+                 
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -13,6 +13,9 @@ $('#modalEditarAsignacion').on('shown.bs.modal', function () {
 
 
 
+$('#modalAr').on('shown.bs.modal', function () {
+    $('#areaNom').focus();
+});
 var nuevoCliente = () => {
 
     var clienteID = document.getElementById("clienteID").value;
@@ -249,4 +252,33 @@ function EditarTareaFinalizadaEmpleado(action) {
         }
     })
 }
+
+var nuevoArea = () => {
+    var areaNom = document.getElementById("areaNom").value;
+    var accion = "Areas/nuevoArea";
+    var area = new Area(areaNom,accion);
+    area.nuevoArea();
+}
+$('#cAuto').hide();
+$('#tAuto').show();
+$(document).ready(function () {
+    $('#switchAuto').on('click',function () {
+        if ($('#switchAuto').is(':checked'))
+        {
+            
+            $('#tAuto').hide();
+            $('#cAuto').show();
+        } else {
+            $('#cAuto').hide();
+            $('#tAuto').show();
+
+        }
+        
+       
+    });
+});
+$(document).ready(function () {
+    $('.chosen-s').chosen();
+});
+
 

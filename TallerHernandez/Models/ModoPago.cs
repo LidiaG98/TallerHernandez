@@ -8,10 +8,11 @@ namespace TallerHernandez.Models
 {
     public class ModoPago
     {
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         [Display(Name="Código")]
         public int modopagoID { get; set; }
         [Display(Name ="Tipo")]
-        [Required]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public string tipo { get; set; }
         public ICollection<Empleado> empleados { get; set; }
     }
