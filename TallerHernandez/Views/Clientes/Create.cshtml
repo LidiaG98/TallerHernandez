@@ -4,19 +4,31 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Nuevo</h1>
 
 <h4>Cliente</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4 border border-success ">
+
+            <div class="text-center pt-4">
+                <img class="rounded-circle" src="/images/automobile1.jpg" alt="usuario"  width="200" height="200" id="file-preview-zone" />
+            </div>
+            <div class="caption text-center mb-4 mt-2">
+                <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
+                <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden/>
+            </div>
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="clienteID" class="control-label"></label>
                 <input asp-for="clienteID" class="form-control" />
                 <span asp-validation-for="clienteID" class="text-danger"></span>
             </div>
+           
+        </div>
+        <div class="col-md-8">
             <div class="form-group">
                 <label asp-for="nombre" class="control-label"></label>
                 <input asp-for="nombre" class="form-control" />
@@ -37,26 +49,25 @@
                 <input asp-for="telefono" class="form-control" />
                 <span asp-validation-for="telefono" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="imagen" class="control-label"></label>
-                <input asp-for="imagen" class="form-control" />
-                <span asp-validation-for="imagen" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="puntos" class="control-label"></label>
-                <input asp-for="puntos" class="form-control" />
+                <input asp-for="puntos" min="0" class="form-control" />
                 <span asp-validation-for="puntos" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group d-flex justify-content-end">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+
     </div>
-</div>
+   
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +14,13 @@ namespace TallerHernandez.Controllers
 {
     public class EmpleadoesController : Controller
     {
+        private readonly IWebHostEnvironment hostEnvironment;
         private readonly TallerHernandezContext _context;
 
-        public EmpleadoesController(TallerHernandezContext context)
+        public EmpleadoesController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this.hostEnvironment = hostEnvironment;
         }
 
         // GET: Empleadoes
@@ -91,11 +95,46 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
         {
-            if (ModelState.IsValid)
+            bool imagenNula = false;
+
+            try
             {
+                if (empleado.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
+
+
+            if (ModelState.IsValid && imagenNula)
+            {
+                empleado.imagenN = "/images/logoTaller.png";
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            else if(ModelState.IsValid && empleado.imagen != null) //Modelo valido y si subio una imagen
+            {
+                Imagen i = empleado.imagen;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = empleado.nombre;
+                fileName = fileName.Replace(" ", "");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                //cliente.imagen.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);
+                }
+                empleado.imagenN = fileName;
+                    _context.Add(empleado);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                
+
+               
             }
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", empleado.areaID);
             ViewData["modopagoID"] = new SelectList(_context.ModoPago, "modopagoID", "tipo", empleado.modopagoID);
@@ -127,8 +166,17 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
+        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado)
         {
+            bool imagenNula = false;
+            try
+            {
+                if (empleado.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }
             if (id != empleado.empleadoID)
             {
                 return NotFound();
@@ -138,8 +186,32 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
-                    _context.Update(empleado);
-                    await _context.SaveChangesAsync();
+                    if (imagenNula)
+                    {
+                        _context.Update(empleado);
+                        await _context.SaveChangesAsync();
+
+                    }
+                    else if (empleado.imagen != null)
+                    {
+                        Imagen i = empleado.imagen;
+                        string rootPath = hostEnvironment.WebRootPath;
+                        string fileName = empleado.empleadoID;
+                        fileName = fileName.Replace(" ", "");
+                        string extension = Path.GetExtension(i.imageFile.FileName);
+                        i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(rootPath + "/uploads/", fileName);
+                        //cliente.imagen.imagePath = path;
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await i.imageFile.CopyToAsync(fileStream);
+                        }
+                        empleado.imagenN = fileName;
+
+                        _context.Update(empleado);
+                        await _context.SaveChangesAsync();
+
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -8,10 +8,11 @@ namespace TallerHernandez.Models
 {
     public class Area
     {
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         [Display(Name = "Código")]
         public int AreaID { get; set; }
         [Display(Name = "Nombre")]
-        [Required]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public string areaNom { get; set; }
         public ICollection<Empleado> empleados { get; set; }
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj": {}
+    "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj": {}
   },
   "projects": {
-    "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj": {
+    "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj",
+        "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
         "projectName": "TallerHernandez",
-        "projectPath": "D:\\Sprint02\\TallerHernandez\\TallerHernandez.csproj",
-        "packagesPath": "C:\\Users\\lidia\\.nuget\\packages\\",
-        "outputPath": "D:\\Sprint02\\TallerHernandez\\obj\\",
+        "projectPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\TallerHernandez.csproj",
+        "packagesPath": "C:\\Users\\Fernando\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Fernando\\Desktop\\Proyecto\\TallerHernandez\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lidia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Fernando\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -67,6 +67,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "bootstrap.chosen": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [
@@ -87,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

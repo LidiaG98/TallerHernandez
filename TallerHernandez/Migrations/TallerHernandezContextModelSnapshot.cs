@@ -253,6 +253,9 @@ namespace TallerHernandez.Migrations
                     b.Property<bool>("estado")
                         .HasColumnType("bit");
 
+                    b.Property<string>("imagenN")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("marca")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,7 +284,7 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("imagenN")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
@@ -316,7 +319,7 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("imagenN")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("modopagoID")

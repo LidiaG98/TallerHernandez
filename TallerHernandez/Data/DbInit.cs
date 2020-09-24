@@ -12,40 +12,7 @@ namespace TallerHernandez.Data
         {
             context.Database.EnsureCreated();
 
-            if (context.Mantenimiento.Any())
-            {
-                return;
-            }
-            else
-            {
-                var mantenimiento = new Mantenimiento[]
-                {
-                    new Mantenimiento{nombre="Mantenimiento 1",precio=50,areaID=1},
-                    new Mantenimiento{nombre="Mantenimiento 2",precio=100,areaID=2}
-                };
-                foreach (Mantenimiento m in mantenimiento)
-                {
-                    context.Add(m);
-                }
-                context.SaveChanges();
-            }
-            if (context.Procedimiento.Any())
-            {
-                return;
-            }
-            else
-            {
-                var procedimiento = new Procedimiento[]
-                {
-                    new Procedimiento{procedimiento="Procedimiento 1",areaID=1},
-                    new Procedimiento{procedimiento="Procedimiento 2",areaID=2}
-                };
-                foreach (Procedimiento p in procedimiento)
-                {
-                    context.Add(p);
-                }
-                context.SaveChanges();
-            }            
+                      
             if (context.Area.Any())
             {
                 return;
@@ -111,7 +78,41 @@ namespace TallerHernandez.Data
                    
                 }
                 context.SaveChanges();
-            }                     
+            }
+            if (context.Mantenimiento.Any())
+            {
+                return;
+            }
+            else
+            {
+                var mantenimiento = new Mantenimiento[]
+                {
+                    new Mantenimiento{nombre="Mantenimiento 1",precio=50,areaID=1},
+                    new Mantenimiento{nombre="Mantenimiento 2",precio=100,areaID=2}
+                };
+                foreach (Mantenimiento m in mantenimiento)
+                {
+                    context.Add(m);
+                }
+                context.SaveChanges();
+            }
+            if (context.Procedimiento.Any())
+            {
+                return;
+            }
+            else
+            {
+                var procedimiento = new Procedimiento[]
+                {
+                    new Procedimiento{procedimiento="Procedimiento 1",areaID=1},
+                    new Procedimiento{procedimiento="Procedimiento 2",areaID=2}
+                };
+                foreach (Procedimiento p in procedimiento)
+                {
+                    context.Add(p);
+                }
+                context.SaveChanges();
+            }
         }
     }
 }

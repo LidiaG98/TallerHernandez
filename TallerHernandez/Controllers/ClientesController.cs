@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,17 +12,20 @@ using TallerHernandez.Data;
 using TallerHernandez.ModelModal;
 using TallerHernandez.Models;
 
+
 namespace TallerHernandez.Controllers
 {
     public class ClientesController : Controller
-    {
+    {   private readonly IWebHostEnvironment hostEnvironment;
         private readonly TallerHernandezContext _context;
         private ClienteModal clienteModal;
+        
 
-        public ClientesController(TallerHernandezContext context)
+        public ClientesController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             clienteModal = new ClienteModal(context);
+            this.hostEnvironment = hostEnvironment;
         }
 
         // GET: Clientes
@@ -91,13 +96,45 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("clienteID,nombre,apellido,correo,telefono,imagen,puntos")] Cliente cliente)
         {
-            if (ModelState.IsValid)
+            bool imagenNula = false;
+
+            try
             {
+                if (cliente.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
+
+
+            if (ModelState.IsValid && imagenNula)
+            {
+                cliente.imagenN = "/images/logoTaller.png";
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cliente);
+            else if (ModelState.IsValid && cliente.imagen != null) //Modelo valido y si subio una imagen
+            {  
+                Imagen i = cliente.imagen;
+                string rootPath = hostEnvironment.WebRootPath;
+                string fileName = cliente.nombre;
+                fileName = fileName.Replace(" ","");
+                string extension = Path.GetExtension(i.imageFile.FileName);
+                i.nombreImagen= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(rootPath + "/uploads/", fileName);
+                //cliente.imagen.imagePath = path;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await i.imageFile.CopyToAsync(fileStream);                    
+                }
+                cliente.imagenN = fileName;
+                   _context.Add(cliente);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+                return View(cliente);
         }
 
         // GET: Clientes/Edit/5
@@ -121,8 +158,18 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("clienteID,nombre,apellido,correo,telefono,imagen,puntos")] Cliente cliente)
+        public async Task<IActionResult> Edit(string id, [Bind("clienteID,nombre,apellido,correo,telefono,imagen,imagenN,puntos")] Cliente cliente)
         {
+
+            bool imagenNula = false;
+            try
+            {
+                if (cliente.imagen == null)
+                {
+                    imagenNula = true;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }
             if (id != cliente.clienteID)
             {
                 return NotFound();
@@ -132,8 +179,32 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
+                    if (imagenNula)
+                    {
+                        _context.Update(cliente);
+                        await _context.SaveChangesAsync();
+
+                    }
+                    else if (cliente.imagen != null)
+                    {
+                        Imagen i = cliente.imagen;
+                        string rootPath = hostEnvironment.WebRootPath;
+                        string fileName = cliente.clienteID;
+                        fileName = fileName.Replace(" ", "");
+                        string extension = Path.GetExtension(i.imageFile.FileName);
+                        i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        string path = Path.Combine(rootPath + "/uploads/", fileName);
+                        //cliente.imagen.imagePath = path;
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await i.imageFile.CopyToAsync(fileStream);
+                        }
+                        cliente.imagenN = fileName;
+
+                        _context.Update(cliente);
+                        await _context.SaveChangesAsync();
+
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

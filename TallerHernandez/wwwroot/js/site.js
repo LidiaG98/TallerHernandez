@@ -27,19 +27,26 @@ var nuevoArea = () => {
     var area = new Area(areaNom,accion);
     area.nuevoArea();
 }
+$('#cAuto').hide();
+$('#tAuto').show();
 $(document).ready(function () {
     $('#switchAuto').on('click',function () {
         if ($('#switchAuto').is(':checked'))
         {
-            $('#tAuto').show();
-            $('#cAuto').hide();
-        } else {
+            
             $('#tAuto').hide();
             $('#cAuto').show();
+        } else {
+            $('#cAuto').hide();
+            $('#tAuto').show();
 
         }
         
        
     });
 });
+$(document).ready(function () {
+    $('.chosen-s').chosen();
+});
+
 
