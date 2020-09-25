@@ -967,7 +967,6 @@ D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Details.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Edit.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Index.cshtml.g.cs
-D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\ListadoRecepciones.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasFinalizadas.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasFinalizadasEmpleado.cshtml.g.cs
@@ -976,3 +975,5 @@ D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Procedimientoes\
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Procedimientoes\Details.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Procedimientoes\Edit.cshtml.g.cs
 D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Procedimientoes\Index.cshtml.g.cs
+D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\CrearAsignacion.cshtml.g.cs
+D:\Sprint02\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\EmpleadoAsig.cshtml.g.cs
