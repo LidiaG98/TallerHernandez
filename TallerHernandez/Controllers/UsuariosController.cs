@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
 using TallerHernandez.ViewModels;
 
@@ -32,12 +33,66 @@ namespace TallerHernandez.Controllers
             {
                 var m = new UsuarioTrabajadorViewModel
                 {
-                    user = users[i],
-                    empleado = empleados[i]
+                    user = users[i]                    
                 };
+                for (int j = 0; j < empleados.Length; j++)
+                {
+                    if(users[i].Email.Equals(empleados[j].correo))
+                    {
+                        m.empleado = empleados[j];
+                    }
+                }                
                 model.Add(m);
             }            
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Buscar(string? Buscar)
+        {
+            var model = new List<UsuarioTrabajadorViewModel>();
+            var users = _userManager.Users.ToArray();
+            var empleados = _context.Empleado.ToArray();
+            if(Buscar != null)
+            {
+                for (int i = 0; i < users.Length; i++)
+                {
+                    if (users[i].UserName.Contains(Buscar) || users[i].Email.Contains(Buscar))
+                    {
+                        var m = new UsuarioTrabajadorViewModel
+                        {
+                            user = users[i]
+                        };
+                        for (int j = 0; j < empleados.Length; j++)
+                        {
+                            if (users[i].Email.Equals(empleados[j].correo))
+                            {
+                                m.empleado = empleados[j];
+                            }
+                        }
+                        model.Add(m);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < users.Length; i++)
+                {
+                    var m = new UsuarioTrabajadorViewModel
+                    {
+                        user = users[i]
+                    };
+                    for (int j = 0; j < empleados.Length; j++)
+                    {
+                        if (users[i].Email.Equals(empleados[j].correo))
+                        {
+                            m.empleado = empleados[j];
+                        }
+                    }
+                    model.Add(m);
+                }
+            }
+            return View("Index",model);
         }
 
         [HttpGet]
@@ -57,6 +112,7 @@ namespace TallerHernandez.Controllers
             {
                 Id = user.Id,
                 Email = user.Email,
+                EmailAntiguo = user.Email,
                 UserName = user.UserName,
                 Roles = rols
             };
@@ -70,7 +126,8 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> Edit(EditUsuarioViewModel model)
         {
             var user = await _userManager.FindByIdAsync(model.Id);
-
+            var empleado =  _context.Empleado.Where(e => e.correo == model.EmailAntiguo).FirstOrDefault();
+            
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
@@ -79,9 +136,11 @@ namespace TallerHernandez.Controllers
             else
             {
                 user.Email = model.Email;
-                user.UserName = model.UserName;                
+                user.UserName = model.UserName;
+                empleado.correo = model.Email;
 
                 var result = await _userManager.UpdateAsync(user);
+                _context.Empleado.Update(empleado);
 
                 if (result.Succeeded)
                 {
@@ -101,6 +160,7 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            var empleado = _context.Empleado.Where(e => e.correo == user.Email).FirstOrDefault();
 
             if (user == null)
             {
@@ -109,6 +169,7 @@ namespace TallerHernandez.Controllers
             }
             else
             {
+                _context.Empleado.Remove(empleado);
                 var result = await _userManager.DeleteAsync(user);
 
                 if (result.Succeeded)

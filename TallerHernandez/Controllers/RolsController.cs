@@ -139,16 +139,19 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> Edit(EditRoleViewModel rol)
         {
             var role = await _rolemanager.FindByIdAsync(rol.Id);
-            if(role == null)
+            var rolDb = _context.Rol.Where(r => r.rolNom == role.Name).FirstOrDefault();
+            if (role == null)
             {
                 return NotFound();
             }
             else
             {
                 role.Name = rol.Name;
+                rolDb.rolNom = rol.Name;
                 if (ModelState.IsValid)
                 {
                     var result = await _rolemanager.UpdateAsync(role);
+                    _context.Rol.Update(rolDb);
                     if (result.Succeeded)
                     {
                         return RedirectToAction(nameof(Index));
@@ -195,6 +198,7 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> Delete(string? id)
         {
             var role = await _rolemanager.FindByIdAsync(id);
+            var rol = _context.Rol.Where(r => r.rolNom == role.Name).FirstOrDefault();
 
             if (role == null)
             {
@@ -204,6 +208,8 @@ namespace TallerHernandez.Controllers
             else
             {
                 var result = await _rolemanager.DeleteAsync(role);
+                _context.Rol.Remove(rol);
+                await _context.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {
