@@ -83,7 +83,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return View(mantenimiento);
+            return PartialView(mantenimiento);
         }
 
         // POST: Mantenimiento/Edit/5
@@ -116,10 +116,10 @@ namespace TallerHernandez.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Json(new { SAVE = "Y" });
             }
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return View(mantenimiento);
+            return PartialView("Edit", mantenimiento);
         }
 
         // GET: Mantenimiento/Delete/5

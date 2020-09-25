@@ -162,12 +162,10 @@ namespace TallerHernandez.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +202,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -400,6 +396,9 @@ namespace TallerHernandez.Migrations
                     b.Property<int>("areaID")
                         .HasColumnType("int");
 
+                    b.Property<float>("precio")
+                        .HasColumnType("real");
+
                     b.Property<string>("procedimiento")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -441,10 +440,10 @@ namespace TallerHernandez.Migrations
                     b.Property<DateTime>("fechaSalida")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("mantenimientoID")
+                    b.Property<int?>("mantenimientoID")
                         .HasColumnType("int");
 
-                    b.Property<int>("procedimientoID")
+                    b.Property<int?>("procedimientoID")
                         .HasColumnType("int");
 
                     b.HasKey("recepcionID");
@@ -599,15 +598,11 @@ namespace TallerHernandez.Migrations
 
                     b.HasOne("TallerHernandez.Models.Mantenimiento", "mantenimiento")
                         .WithMany("recepcion")
-                        .HasForeignKey("mantenimientoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("mantenimientoID");
 
                     b.HasOne("TallerHernandez.Models.Procedimiento", "procedimiento")
                         .WithMany("recepcion")
-                        .HasForeignKey("procedimientoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("procedimientoID");
                 });
 #pragma warning restore 612, 618
         }
