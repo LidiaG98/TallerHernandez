@@ -125,19 +125,23 @@ function EditarAsignacionTarea(action) {
         encargado = val.empleadoID;
     });
 
-    $.ajax({
-        type: "POST",
-        url: action,
-        data: { id, recepcion, encargado, estado },
-        success: function (response) {
-            if (response == "Save") {
-                window.location.href = "AsignacionTareas";
+    if (estado == "0") {
+        document.getElementById("mensaje").innerHTML = "**Seleccione un estado";
+    } else {
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: { id, recepcion, encargado, estado },
+            success: function (response) {
+                if (response == "Save") {
+                    window.location.href = "AsignacionTareas";
+                }
+                else {
+                    alert("No se pueden editar el estado de la tarea")
+                }
             }
-            else {
-                alert("No se pueden editar el estado de la tarea")
-            }
-        }
-    })
+        });
+    }   
 }
 
 function EliminarAsignacionTarea(action) {

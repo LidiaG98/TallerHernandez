@@ -9,20 +9,19 @@
     </div>
     <div class="col-md-9 col-sm-12 mb-5">
         <h1>Asignación de Tareas</h1>
-        <form asp-action="Index" method="get">
-            <div class="form-actions no-color">
-                <p>
-                    Filtro: <input class="col-md-5" type="text" placeholder="Ingrese la placa del automóvil o nombre del encargado" name="cadena" value="@ViewData["Filtro"]" />
-                    <input type="submit" value="Buscar" class="btn btn-secondary" />
-                    <a asp-action="Index">Todos los registros</a>
-                </p>
-            </div>
+        <p>
+            <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="CrearAsignacion">Nueva Asignación</a>
+        </p>
+
+        <form class="form-inline" asp-action="Index" method="get">
+            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingresa una placa o nombre del encargado" data-val="true" data-val-required="The nombre field is required." id="cadena" name="cadena" value="@ViewData["Filtro"]">
+            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+            <input name="__RequestVerificationToken" type="hidden">
+            <a asp-action="Index">Todos los registros</a>
         </form>
     </div>
 </div>
-<p>
-    <a asp-action="CrearAsignacion">Crear Nuevo</a>
-</p>
+
 <table class="table table-striped table-responsive-sm">
     <thead class="thead-dark text-center">
         <tr>
@@ -220,8 +219,10 @@
                         <input readonly name="eFechaSalida" id="eFechaSalida" class="form-control" />
                     </div>
                     <div class="form-group">
+                        <label id="mensaje" class="col-md-1 control-label" ></label>
                         <label for="eEstadoTarea" class="control-label"><strong>Estado</strong></label>
                         <select name="eEstadoTarea" id="eEstadoTarea" class="form-control">
+                            <option value="0">Seleccione un estado</option>
                             <option value="false">No Finalizada</option>
                             <option value="true">Finalizada</option>
                         </select>

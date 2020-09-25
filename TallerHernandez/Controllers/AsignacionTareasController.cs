@@ -85,16 +85,45 @@ namespace TallerHernandez.Controllers
 
         // GET: AsignacionTareas/Create
 
-        public async Task<IActionResult> CrearAsignacion()
+        public async Task<IActionResult> CrearAsignacion(string cadena, string OrdenAsig)
         {
             var recepcions = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
                 Include(r => r.mantenimiento).Include(r => r.procedimiento).Where(r=>r.estado == 1);
 
-            return View(await recepcions.ToListAsync());
+            ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
+            ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
+            ViewData["Filtro"] = cadena;
+
+            if (!String.IsNullOrEmpty(cadena))
+            {
+                recepcions = recepcions.Where(r => r.automovilID.Contains(cadena) || r.empleado.nombre.Contains(cadena));
+            }
+
+            switch (OrdenAsig)
+            {
+                case "auto_desc":
+                    recepcions = recepcions.OrderByDescending(r => r.automovilID);
+                    break;
+                case "nom_asc":
+                    recepcions = recepcions.OrderBy(r => r.empleado.nombre);
+                    break;
+                case "nom_desc":
+                    recepcions = recepcions.OrderByDescending(r => r.empleado.nombre);
+                    break;
+                default:
+                    recepcions = recepcions.OrderBy(s => s.automovilID);
+                    break;
+            }
+
+            return View(await recepcions.AsNoTracking().ToListAsync());
         }
 
-        public async Task<IActionResult> EmpleadoAsig(int id)
+        public async Task<IActionResult> EmpleadoAsig(int id, string cadena, string OrdenAsig)
         {
+            ViewData["OrdenAp"] = String.IsNullOrEmpty(OrdenAsig) ? "ape_desc" : "";
+            ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
+            ViewData["Filtro"] = cadena;
+
             ViewBag.recepcionID = id;
             var encargado = from a in _context.Empleado.Include(a => a.area).Include(a => a.modoPago).Include(a => a.rol)
                             select a;
@@ -127,44 +156,28 @@ namespace TallerHernandez.Controllers
 
                 ViewBag.encargados = empleado.ToList();
             }
-
-            return View(await encargado.ToListAsync());
-        }
-
-        public IActionResult Create()
-        {
-            //Recepcion recepcion;
-             
-            /*if (!String.IsNullOrEmpty(automovil))
+            if (!String.IsNullOrEmpty(cadena))
             {
-                var empleado = from s in _context.Empleado.Include(e => e.area).Include(e => e.modoPago).Include(e => e.rol) select s;
-                recepcion = (Recepcion)(from r in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
-                Include(r => r.mantenimiento).Include(r => r.procedimiento).Where(r => r.automovilID == automovil)
-                                        select r);
-                if (!recepcion.mantenimientoID.Equals("") && recepcion.procedimientoID.Equals(""))
-                {
-                    empleado = empleado.Where(s => s.areaID == recepcion.mantenimiento.areaID);
-                    ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "nombre");
-                }
-                else if (recepcion.mantenimientoID.Equals("") && !recepcion.procedimientoID.Equals(""))
-                {
-                    empleado = empleado.Where(s => s.areaID == recepcion.procedimiento.areaID);
-                    ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "nombre");
-                }
-                else if (!recepcion.mantenimientoID.Equals("") && !recepcion.procedimientoID.Equals(""))
-                {
-                    empleado = empleado.Where(s => s.rol.rolNom.Equals("Mecánico"));
-                    ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "nombre");
-                }
-            }*/
+                encargado = encargado.Where(r => r.apellido.Contains(cadena) || r.nombre.Contains(cadena));
+            }
 
-            var empleado = from s in _context.Empleado.Include(e => e.area).Include(e => e.modoPago).Include(e => e.rol) select s;
-            empleado = empleado.Where(s => s.rol.rolNom.Equals("Mecánico"));
+            switch (OrdenAsig)
+            {
+                case "ape_desc":
+                    encargado = encargado.OrderByDescending(r => r.apellido);
+                    break;
+                case "nom_asc":
+                    encargado = encargado.OrderBy(r => r.nombre);
+                    break;
+                case "nom_desc":
+                    encargado = encargado.OrderByDescending(r => r.nombre);
+                    break;
+                default:
+                    encargado = encargado.OrderBy(s => s.apellido);
+                    break;
+            }
 
-            ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID");
-            ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "nombre");
-
-            return View();
+            return View(await encargado.AsNoTracking().ToListAsync());
         }
 
         // POST: AsignacionTareas/Create
@@ -427,7 +440,6 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> TareasEnProcesoEmpleado(string OrdenAsig, string cadena)
         {
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
-            ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
             ViewData["Filtro"] = cadena;
 
             ClaimsPrincipal currentUser = this.User;
@@ -450,12 +462,6 @@ namespace TallerHernandez.Controllers
                 case "auto_desc":
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
                     break;
-                case "nom_asc":
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
-                    break;
-                case "nom_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
-                    break;
                 default:
                     asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
                     break;
@@ -468,7 +474,6 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> TareasFinalizadasEmpleado(string OrdenAsig, string cadena)
         {
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
-            ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
             ViewData["Filtro"] = cadena;
 
             ClaimsPrincipal currentUser = this.User;
@@ -490,12 +495,6 @@ namespace TallerHernandez.Controllers
             {
                 case "auto_desc":
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
-                    break;
-                case "nom_asc":
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
-                    break;
-                case "nom_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
                     asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
