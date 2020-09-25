@@ -11,8 +11,7 @@ namespace TallerHernandez.Data
         public static void Iniz(TallerHernandezContext context)
         {
             context.Database.EnsureCreated();
-
-                      
+           
             if (context.Area.Any())
             {
                 return;

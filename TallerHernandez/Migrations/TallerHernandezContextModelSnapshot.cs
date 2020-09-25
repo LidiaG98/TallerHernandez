@@ -431,9 +431,6 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("estado")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("fechaEntrada")
                         .HasColumnType("datetime2");
 

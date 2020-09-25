@@ -52,7 +52,9 @@ namespace TallerHernandez.Models
         [Required]
         [Display(Name = "Estado")]
         [Range(0,1)]
-        public int estado { get; set; } // 1 = en proceso, 0 = finalizado
+        public int estado { get; set; } // 1 = No asignado, 0 = Asignado
+
+        public ICollection<AsignacionTarea> asignacionTarea { get; set; }
 
     }
 }

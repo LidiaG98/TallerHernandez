@@ -13,14 +13,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
 using TallerHernandez;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
 using TallerHernandez.Models;
 
 #line default
@@ -78,7 +78,7 @@ using TallerHernandez.Models;
         {
             WriteLiteral("\r\n");
 #nullable restore
-#line 3 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
+#line 3 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\Recepcions\Create.cshtml"
   
     ViewData["Title"] = "Create";
     var today = DateTime.Today.Date;
@@ -167,22 +167,14 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
                 __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.SelectTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper);
 #nullable restore
-#line 22 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
-__Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.automovilID);
+#line 18 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
+__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.diagnostico);
 
 #line default
 #line hidden
 #nullable disable
-                __tagHelperExecutionContext.AddTagHelperAttribute("asp-for", __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.For, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-                __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_3);
-#nullable restore
-#line 22 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
-__Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.automovilID;
-
-#line default
-#line hidden
-#nullable disable
-                __tagHelperExecutionContext.AddTagHelperAttribute("asp-items", __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                __tagHelperExecutionContext.AddTagHelperAttribute("asp-validation-for", __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For, global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+                __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_0);
                 await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
                 if (!__tagHelperExecutionContext.Output.IsContentModified)
                 {
@@ -190,14 +182,14 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.automovilI
                 }
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
-                WriteLiteral("\r\n        </div>\r\n        <div class=\"form-group\">\r\n            ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9c067a8625e7bc3e4fed25f0e9b1425cd8f0003717044", async() => {
+                WriteLiteral("\r\n            </div>\r\n            <div class=\"form-group\">\r\n                ");
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("label", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0607617edc698c85746f3c64494bb9532c65ab1213044", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper);
 #nullable restore
-#line 25 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
+#line 21 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.fechaEntrada);
 
 #line default
@@ -315,8 +307,8 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.empleadoID
                 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper);
 #nullable restore
-#line 38 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
-__Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.diagnostico);
+#line 28 "C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\Views\Recepcions\Create.cshtml"
+__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.fechaSalida);
 
 #line default
 #line hidden

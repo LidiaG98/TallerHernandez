@@ -10,15 +10,24 @@
     <Compile Remove="Migrations\20200918184608_Recepcion1.0.Designer.cs" />
     <Compile Remove="Migrations\20200918230321_Recepcion1.2.cs" />
     <Compile Remove="Migrations\20200918230321_Recepcion1.2.Designer.cs" />
+    <Compile Remove="Migrations\20200920034334_[Migracion2].cs" />
+    <Compile Remove="Migrations\20200920034334_[Migracion2].Designer.cs" />
+    <Compile Remove="Migrations\20200924022323_esto.cs" />
+    <Compile Remove="Migrations\20200924022323_esto.Designer.cs" />
+    <Compile Remove="Migrations\20200924054423_[MigracionProyecto3].cs" />
+    <Compile Remove="Migrations\20200924054423_[MigracionProyecto3].Designer.cs" />
+    <Compile Remove="Migrations\20200924054611_[MigracionProyecto3].cs" />
+    <Compile Remove="Migrations\20200924054611_[MigracionProyecto3].Designer.cs" />
+    <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].cs" />
+    <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="bootstrap.chosen" Version="1.0.0" />
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
