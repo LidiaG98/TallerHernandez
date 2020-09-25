@@ -44,7 +44,17 @@
             <th>
                 Estado
             </th>
-            <th></th>
+            <th>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ordenar Por:
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-action="TareasEnProcesoEmpleado" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">      @Html.DisplayNameFor(model => model.recepcion.automovilID)</a>
+                        <a class="dropdown-item" asp-action="TareasEnProcesoEmpleado" asp-route-OrdenAsig="@ViewData["OrdenNom"]">     @Html.DisplayNameFor(model => model.empleado.nombre)</a>
+                    </div>
+                </div>
+            </th>
         </tr>
     </thead>
     <tbody class="thead-dark text-center">
@@ -78,10 +88,10 @@
                         Finalizada
                     </td>
                 }
-                <td>
-                    <a class="btn btn-sm btn-light btn-block" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')">Editar</a>
-                    <a class="btn btn-sm btn-info btn-block" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')">Detalles</a>
-                </td>
+            <td>
+                <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')"><i class="far fa-edit"></i></a>
+                <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
+            </td>
             </tr>
         }
     </tbody>

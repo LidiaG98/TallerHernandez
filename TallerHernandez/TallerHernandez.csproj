@@ -12,6 +12,14 @@
     <Compile Remove="Migrations\20200918230321_Recepcion1.2.Designer.cs" />
     <Compile Remove="Migrations\20200920034334_[Migracion2].cs" />
     <Compile Remove="Migrations\20200920034334_[Migracion2].Designer.cs" />
+    <Compile Remove="Migrations\20200924022323_esto.cs" />
+    <Compile Remove="Migrations\20200924022323_esto.Designer.cs" />
+    <Compile Remove="Migrations\20200924054423_[MigracionProyecto3].cs" />
+    <Compile Remove="Migrations\20200924054423_[MigracionProyecto3].Designer.cs" />
+    <Compile Remove="Migrations\20200924054611_[MigracionProyecto3].cs" />
+    <Compile Remove="Migrations\20200924054611_[MigracionProyecto3].Designer.cs" />
+    <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].cs" />
+    <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

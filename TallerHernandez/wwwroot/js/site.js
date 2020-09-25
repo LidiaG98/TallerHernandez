@@ -46,6 +46,20 @@ function GetAsignacionTarea(id, action) {
     });
 }
 
+function GetListadoEncargado(id, action) {
+    alert(id);
+    parseInt(id,10);
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            console.log(response);
+            mostrarAsignacionTarea(response);
+        }
+    });
+}
+
 var items;
 function mostrarAsignacionTarea(response) {
     items = response;
@@ -91,6 +105,8 @@ function mostrarAsignacionTarea(response) {
         else {
             $('select[name=eEstadoTarea]').val(val.estadoTarea);
         }
+
+        $('input[name=nombreEmpleado]').val(val.recepcionID);
     });
 }
 
@@ -142,7 +158,7 @@ function EliminarAsignacionTarea(action) {
 }
 
 function OcultarDetalleAsignacion() {
-    $("#modalDetalleAsignacion").modal("hide");
+    $("#modalDetalleAsignacion").hide();
 }
 
 //ASIGNACION TAREAS FINALIZADAS

@@ -71,12 +71,12 @@
             </td>            
            @if (item.estado.Equals(1)){
             <td>
-            En proceso
+            No Asignado
             
             </td>}
             else{
             <td>
-            Finalizado
+            Asignado
             </td>}            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.recepcionID">Edit</a> |
