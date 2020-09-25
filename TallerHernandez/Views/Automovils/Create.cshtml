@@ -11,7 +11,7 @@
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="row">
-        <div class="col-md-4 border border-success">
+        <div class="col-md-4 bg-white shadow" style="z-index:4;">
             <div class="text-center pt-4" style="margin-right:30%;">
                 <img class="rounded-circle align-self-center" src="/images/automobile1.jpg" alt="usuario" width="200" height="200" id="file-preview-zone" />
             </div>
@@ -24,10 +24,15 @@
                 <label asp-for="automovilID" class="control-label"></label>
                 <input asp-for="automovilID" class="form-control" />
                 <span asp-validation-for="automovilID" class="text-danger"></span>
+                @if (@ViewData["id"].ToString() == "verdad")
+                {
+                    <span class="text-danger">Este automovil ya está registrado</span>
+                    }
+                
             </div>
          
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 bg-white">
             <div class="form-group">
                 <label asp-for="marca" class="control-label"></label>
                 <input asp-for="marca" class="form-control" />

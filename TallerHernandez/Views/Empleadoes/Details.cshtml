@@ -10,9 +10,9 @@
         <h4>Cliente</h4>
         <hr />
         <div class="row">
-            <div class="col-md-4  bg-white shadow">
+            <div class="col-md-4  bg-white shadow" style="z-index:4;">
                 <div class="text-center pt-4">
-                    <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+                    <img class="rounded-circle" width="200" height="200" src="/images/@(Model.imagenN)" alt="usuario" id="file-preview-zone" />
                 </div>
                 
 
@@ -42,7 +42,7 @@
                 </div>
 
             </div>
-            <div class="col-md-8" style=" background-image: url('../images/fondo 1-02.png') !important;">
+            <div class="col-md-8 bg-white" style=" background-image: url('../images/fondo 1-02.png') !important;">
                 <div class="form-group">
                     <label asp-for="correo" class="control-label"></label>
                     <input asp-for="correo" class="form-control"   disabled/>
@@ -61,18 +61,18 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="areaID" class="control-label"></label>
-                    <input asp-for="areaID" class="form-control" value="@ViewData["area"]" disabled>
-
+                    <input asp-for="areaID" class="form-control" value="@ViewData["area"]" disabled hidden>
+                    <p class="form-control">@ViewData["area"]</p>
                 </div>
                 <div class="form-group">
                     <label asp-for="rolID" class="control-label"></label>
-                    <input asp-for="rolID" class="form-control"  value="@ViewData["rol"]" disabled>
-                    <p>@ViewData["rol"]</p>
+                    <input asp-for="rolID" class="form-control"  value="@ViewData["rol"]" disabled hidden>
+                    <p class="form-control">@ViewData["rol"]</p>
                 </div>
                 <div class="form-group">
                     <label asp-for="modopagoID" class="control-label"></label>
-                    <input asp-for="modopagoID" class="form-control"  value="@ViewData["pago"]" disabled>
-                    <p>@ViewData["pago"]</p>
+                    <input asp-for="modopagoID" class="form-control"  value="@ViewData["pago"]" disabled hidden>
+                    <p class="form-control">@ViewData["pago"]</p>
                 </div>
                 <div class="form-group d-flex justify-content-end">
                     <a class="btn btn-info "  asp-action="Index">Regresar</a>

@@ -10,20 +10,25 @@ namespace TallerHernandez.Models
 {
     public class Empleado
     {
+        [RegularExpression(@"^[0-9]{8}-[0-9]{1}$", ErrorMessage = "El formato de DUI no es correcto, ¿Está colocando el guión?")]
         [Display(Name = "DUI")]
-
+        [Key]
         public string empleadoID { get; set; }
         [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
+        [RegularExpression(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$", ErrorMessage = "Ingrese un nombre valido")]
         public string nombre { get; set; }
         [Display(Name = "Apellido")]
+        [RegularExpression(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$", ErrorMessage = "Ingrese un apellido valido")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string apellido { get; set; }
         [Display(Name = "Correo")]
+        [RegularExpression(@"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", ErrorMessage = "Ingrese un correo válido")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Ingrese un número de teléfono válido")]
        
         public string correo { get; set; }
+
         [Display(Name = "Teléfono")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Ingrese un número de teléfono válido")]

@@ -364,9 +364,6 @@ C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\runti
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csprojAssemblyReference.cache
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfoInputs.cache
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.AssemblyInfo.cs
-C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csproj.CoreCompileInputs.cache
-C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.RazorAssemblyInfo.cache
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.RazorAssemblyInfo.cs
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.TagHelpers.input.cache
@@ -976,3 +973,12 @@ C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\Razor
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\Edit.cshtml.g.cs
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\Index.cshtml.g.cs
 C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\Usuarios\ManageUserRoles.cshtml.g.cs
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csproj.CoreCompileInputs.cache
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Fernando\Desktop\Proyecto\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.MvcApplicationPartsAssemblyInfo.cache

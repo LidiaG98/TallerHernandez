@@ -88,6 +88,7 @@ namespace TallerHernandez.Controllers
         // GET: Empleadoes/Create
         public IActionResult Create()
         {
+            ViewData["id"] = "falso";
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom");
             ViewData["modopagoID"] = new SelectList(_context.ModoPago, "modopagoID", "tipo");
             ViewData["rolID"] = new SelectList(_context.Rol, "rolID", "rolNom");
@@ -101,7 +102,10 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
         {
-            bool imagenNula = false;
+            ViewData["id"] = "falso";
+            if (!(EmpleadoExists(empleado.empleadoID)))
+            {
+                bool imagenNula = false;
 
             try
             {
@@ -115,7 +119,7 @@ namespace TallerHernandez.Controllers
 
             if (ModelState.IsValid && imagenNula)
             {
-                empleado.imagenN = "/images/logoTaller.png";
+                empleado.imagenN = "logoTaller.png";
                 _context.Add(empleado);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -142,7 +146,12 @@ namespace TallerHernandez.Controllers
 
                
             }
-            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", empleado.areaID);
+        }
+            else
+            {
+                ViewData["id"] = "verdad";
+            }
+    ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", empleado.areaID);
             ViewData["modopagoID"] = new SelectList(_context.ModoPago, "modopagoID", "tipo", empleado.modopagoID);
             ViewData["rolID"] = new SelectList(_context.Rol, "rolID", "rolNom", empleado.rolID);
             return View(empleado);

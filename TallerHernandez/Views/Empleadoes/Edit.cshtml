@@ -11,9 +11,9 @@
 <hr />
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="row">
-        <div class="col-md-4 border border-success">
+        <div class="col-md-4 bg-white shadow" style="z-index:4;">
             <div class="text-center pt-4">
-                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+                <img class="rounded-circle" width="200" height="200" src="/images/@(Model.imagenN)" alt="usuario" id="file-preview-zone" />
             </div>
             <div class="caption text-center mb-4 mt-2">
                 <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
@@ -46,7 +46,7 @@
             </div>
 
         </div>
-        <div class="col-md-8" style=" background-image: url('../images/fondo 1-02.png');">
+        <div class="col-md-8 bg-white" style=" background-image: url('../images/fondo 1-02.png');">
             <div class="form-group">
                 <label asp-for="correo" class="control-label"></label>
                 <input asp-for="correo" class="form-control" />

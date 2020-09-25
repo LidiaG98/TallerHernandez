@@ -201,3 +201,45 @@ function EliminarEmpleado(action) {
 }
 
 
+function AhiTeVoyA(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.AreaID);
+
+        $('input[name=AreaID]').val(val.AreaID);
+
+    });
+}
+
+function VeniteArea(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyA(response);
+        }
+    });
+}
+
+
+function EliminarArea(action) {
+    var id = $('input[name=AreaID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Areas";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+

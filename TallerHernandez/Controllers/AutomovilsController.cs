@@ -83,8 +83,8 @@ namespace TallerHernandez.Controllers
         {
            
 
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
-            
+            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID");
+            ViewData["id"] = "falso";
             return View();
         }
 
@@ -95,6 +95,8 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("automovilID,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
         {
+            ViewData["id"] = "falso";
+            if (!(AutomovilExists(automovil.automovilID))) { 
             bool imagenNula = false;
 
             try
@@ -104,7 +106,7 @@ namespace TallerHernandez.Controllers
                     imagenNula = true;
                 }
             }
-            catch (Exception e) { Console.WriteLine(e);  } //Verifica si ha subido o no una imagen a la hora de crear
+            catch (Exception e) { Console.WriteLine(e); } //Verifica si ha subido o no una imagen a la hora de crear
 
 
             if (ModelState.IsValid && imagenNula)
@@ -133,7 +135,12 @@ namespace TallerHernandez.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
+        }
+            else
+            {
+                ViewData["id"] = "verdad";
+            }
+
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", automovil.clienteID);
             return View(automovil);
         }

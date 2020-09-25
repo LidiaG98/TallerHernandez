@@ -86,6 +86,7 @@ namespace TallerHernandez.Controllers
             // GET: Clientes/Create
             public IActionResult Create()
         {
+            ViewData["id"] = "falso";
             return View();
         }
 
@@ -96,43 +97,54 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("clienteID,nombre,apellido,correo,telefono,imagen,puntos")] Cliente cliente)
         {
-            bool imagenNula = false;
-
-            try
+            ViewData["id"] = "falso";
+            if (!(ClienteExists(cliente.clienteID)))
             {
-                if (cliente.imagen == null)
+                
+
+
+                bool imagenNula = false;
+
+                try
                 {
-                    imagenNula = true;
+                    if (cliente.imagen == null)
+                    {
+                        imagenNula = true;
+                    }
+                }
+                catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
+
+
+                if (ModelState.IsValid && imagenNula)
+                {
+                    cliente.imagenN = "logoTaller.png";
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else if (ModelState.IsValid && cliente.imagen != null) //Modelo valido y si subio una imagen
+                {
+                    Imagen i = cliente.imagen;
+                    string rootPath = hostEnvironment.WebRootPath;
+                    string fileName = cliente.nombre;
+                    fileName = fileName.Replace(" ", "");
+                    string extension = Path.GetExtension(i.imageFile.FileName);
+                    i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(rootPath + "/uploads/", fileName);
+                    //cliente.imagen.imagePath = path;
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await i.imageFile.CopyToAsync(fileStream);
+                    }
+                    cliente.imagenN = fileName;
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
             }
-            catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
-
-
-            if (ModelState.IsValid && imagenNula)
+            else
             {
-                cliente.imagenN = "/images/logoTaller.png";
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else if (ModelState.IsValid && cliente.imagen != null) //Modelo valido y si subio una imagen
-            {  
-                Imagen i = cliente.imagen;
-                string rootPath = hostEnvironment.WebRootPath;
-                string fileName = cliente.nombre;
-                fileName = fileName.Replace(" ","");
-                string extension = Path.GetExtension(i.imageFile.FileName);
-                i.nombreImagen= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(rootPath + "/uploads/", fileName);
-                //cliente.imagen.imagePath = path;
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await i.imageFile.CopyToAsync(fileStream);                    
-                }
-                cliente.imagenN = fileName;
-                   _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["id"] = "verdad";
             }
                 return View(cliente);
         }
