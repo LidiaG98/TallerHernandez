@@ -61,9 +61,15 @@ namespace TallerHernandez.Controllers
                     {
                         var m = new UsuarioTrabajadorViewModel
                         {
-                            user = users[i],
-                            empleado = empleados[i]
+                            user = users[i]
                         };
+                        for (int j = 0; j < empleados.Length; j++)
+                        {
+                            if (users[i].Email.Equals(empleados[j].correo))
+                            {
+                                m.empleado = empleados[j];
+                            }
+                        }
                         model.Add(m);
                     }
                 }
@@ -74,9 +80,15 @@ namespace TallerHernandez.Controllers
                 {
                     var m = new UsuarioTrabajadorViewModel
                     {
-                        user = users[i],
-                        empleado = empleados[i]
+                        user = users[i]
                     };
+                    for (int j = 0; j < empleados.Length; j++)
+                    {
+                        if (users[i].Email.Equals(empleados[j].correo))
+                        {
+                            m.empleado = empleados[j];
+                        }
+                    }
                     model.Add(m);
                 }
             }

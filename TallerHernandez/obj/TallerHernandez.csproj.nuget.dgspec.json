@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj": {}
+    "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj": {
+    "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
+        "projectUniqueName": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
         "projectName": "TallerHernandez",
-        "projectPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
-        "packagesPath": "C:\\Users\\vancr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\obj\\",
+        "projectPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
+        "packagesPath": "C:\\Users\\Revenge\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vancr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Revenge\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,6 +71,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "bootstrap.chosen": {
+              "target": "Package",
+              "version": "[1.0.0, )"
             }
           },
           "imports": [

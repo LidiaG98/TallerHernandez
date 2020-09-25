@@ -15,10 +15,10 @@ namespace TallerHernandez.ViewModels
 
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El Nombre de usuario obligatorio")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El email es obligatorio")]
         [EmailAddress]
         public string Email { get; set; }
      
