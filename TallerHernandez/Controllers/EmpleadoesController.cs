@@ -71,6 +71,12 @@ namespace TallerHernandez.Controllers
                 .Include(e => e.modoPago)
                 .Include(e => e.rol)
                 .FirstOrDefaultAsync(m => m.empleadoID == id);
+           var lml = await _context.Area.FirstOrDefaultAsync(d => d.AreaID == empleado.areaID);
+            ViewData["area"] = lml.areaNom;
+            var xmx = await _context.ModoPago.FirstOrDefaultAsync(s => s.modopagoID == empleado.modopagoID);
+            ViewData["pago"] = xmx.tipo;
+            var sms = await _context.Rol.FirstOrDefaultAsync(l => l.rolID == empleado.rolID);
+            ViewData["rol"] = sms.rolNom;
             if (empleado == null)
             {
                 return NotFound();
@@ -267,6 +273,30 @@ namespace TallerHernandez.Controllers
         private bool EmpleadoExists(string id)
         {
             return _context.Empleado.Any(e => e.empleadoID == id);
+        }
+
+        public async Task<List<Empleado>> VeniteEmpleado(string id)
+        {
+            var bombolbi = from awa in _context.Empleado select awa;
+            bombolbi = bombolbi.Where(awa => awa.empleadoID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> EliminarEmpleado(string id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Empleado.FindAsync(id);
+                _context.Empleado.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
         }
     }
 }

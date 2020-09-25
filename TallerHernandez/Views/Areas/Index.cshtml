@@ -13,9 +13,7 @@
         <p>
             <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Agregar Area</a>
         </p>
-        <p>
-            <a data-toggle="modal" data-target="#modalAr" class="btn btn-info">Nueva Area</a>
-        </p>
+       
 
         <form class="form-inline" asp-action="Index" method="get">
             <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingrese el nombre del Area a busar" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
@@ -27,9 +25,7 @@
     </div>
 </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table table-striped table-responsive-sm">
     <thead class="thead-dark text-center">
         <tr>
@@ -42,8 +38,7 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["OrdenNom"]">@Html.DisplayNameFor(model => model.areaNom)</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+    
     </div>
 </div></th>
         </tr>

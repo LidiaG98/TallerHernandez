@@ -49,4 +49,155 @@ $(document).ready(function () {
     $('.chosen-s').chosen();
 });
 
+var items;
+function AhiTeVoy(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.automovilID);
+
+        $('input[name=automovilID]').val(val.automovilID);
+
+    });
+}
+
+function VeniteAuto(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoy(response);
+        }
+    });
+}
+
+
+function MuerteALasMaquinas(action) {
+    var id = $('input[name=automovilID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Automovils";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+function VeniteAuto(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoy(response);
+        }
+    });
+}
+
+
+function MuerteALasMaquinas(action) {
+    var id = $('input[name=automovilID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Automovils";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+function VeniteCliente(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyC(response);
+        }
+    });
+}
+
+
+function EliminarCliente(action) {
+    var id = $('input[name=clienteID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Clientes";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+function AhiTeVoyC(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.clienteID);
+
+        $('input[name=clienteID]').val(val.clienteID);
+
+    });
+}
+function AhiTeVoyE(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.empleadoID);
+
+        $('input[name=empleadoID]').val(val.empleadoID);
+
+    });
+}
+
+function VeniteEmpleado(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyE(response);
+        }
+    });
+}
+
+
+function EliminarEmpleado(action) {
+    var id = $('input[name=empleadoID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Empleadoes";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
 

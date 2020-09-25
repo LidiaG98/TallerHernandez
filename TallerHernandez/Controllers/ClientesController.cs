@@ -255,5 +255,28 @@ namespace TallerHernandez.Controllers
         {
             return _context.Cliente.Any(e => e.clienteID == id);
         }
+        public async Task<List<Cliente>> VeniteCliente(string id)
+        {
+            var bombolbi = from owo in _context.Cliente select owo;
+            bombolbi = bombolbi.Where(owo => owo.clienteID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> EliminarCliente(string id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Cliente.FindAsync(id);
+                _context.Cliente.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
+        }
     }
 }

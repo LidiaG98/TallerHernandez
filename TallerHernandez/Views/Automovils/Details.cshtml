@@ -5,59 +5,67 @@
 }
 
 <h1>Detalle</h1>
-
-<<div class="row">
-    <div class="col-md-8 border border-success">
-        <h4>Cliente</h4>
-        <hr />
-        <div class="">
-            <div class="text-center pt-4">
-                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
-            </div>
+<h4>Automovil</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4 border bg-white shadow">
+        <div class="text-center pt-4" style="margin-right:30%;">
+            <img class="rounded-circle align-self-center" src="/images/automobile1.jpg" alt="usuario" width="200" height="200" id="file-preview-zone" />
         </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="automovilID" class="control-label"></label>
+            <input asp-for="automovilID" class="form-control" disabled />
+            <span asp-validation-for="automovilID" class="text-danger"></span>
+        </div>
+
     </div>
-        <div class="col-md-4">
-            <dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.marca)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.marca)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.anio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.anio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.proceso)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.proceso)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.estado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.comentario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.comentario)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.cliente)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.cliente.clienteID)
-        </dd>
-    </dl>
-            </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label asp-for="marca" class="control-label"></label>
+            <input asp-for="marca" class="form-control" disabled />
+            <span asp-validation-for="marca" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="anio" class="control-label"></label>
+            <input asp-for="anio" class="form-control" disabled />
+            <span asp-validation-for="anio" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="proceso" class="control-label"></label>
+            <input asp-for="proceso" class="form-control" disabled />
+            <span asp-validation-for="proceso" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            @if (Model.estado)
+            {
+                <button class="btn btn-success" value="Terminado" disabled>Terminado</button>
+            }
+            else
+            {
+                <button class="btn btn-info" value="En proceso" disabled>En proceso</button>
+            }
+
+        </div>
+        <div class="form-group">
+            <label asp-for="comentario" class="control-label"></label>
+            <input asp-for="comentario" class="form-control" disabled />
+            <span asp-validation-for="comentario" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="clienteID" class="control-label"></label>
+            <input asp-for="clienteID" class="form-control " id="prueba" value="@ViewData["duenio"]" disabled>
+
+        </div>
+        <div class="form-group d-flex justify-content-end">
+            <input type="submit" value="Regresar" class="btn btn-info" asp-action="Index" />
+        </div>
+
+    </div>
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.automovilID">Edit</a> |
-    <a asp-action="Index">Regresar</a>
+    <a asp-action="Edit" asp-route-id="@Model.automovilID">Editar</a> |
+
 </div>

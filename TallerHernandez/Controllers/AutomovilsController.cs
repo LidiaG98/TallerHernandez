@@ -68,6 +68,8 @@ namespace TallerHernandez.Controllers
             var automovil = await _context.Automovil
                 .Include(a => a.cliente)
                 .FirstOrDefaultAsync(m => m.automovilID == id);
+            var du = await _context.Cliente.FirstOrDefaultAsync(x => x.clienteID == automovil.clienteID);
+            ViewData["duenio"] = du.nombre + " " + du.apellido;
             if (automovil == null)
             {
                 return NotFound();
@@ -256,11 +258,38 @@ namespace TallerHernandez.Controllers
             _context.Automovil.Remove(automovil);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+           
         }
 
         private bool AutomovilExists(string id)
         {
             return _context.Automovil.Any(e => e.automovilID == id);
         }
+        public async Task<List<Automovil>> VeniteAuto(string id)
+        {
+            var bombolbi = from owo in _context.Automovil select owo;
+            bombolbi = bombolbi.Where(owo => owo.automovilID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> MuerteALasMaquinas(string id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Automovil.FindAsync(id);
+                _context.Automovil.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
+        }
+
     }
+
+   
 }

@@ -6,80 +6,84 @@
 
 <h1>Detalles</h1>
 
-<div class="row">
-    <div class="col-md-8 border border-success">
+
         <h4>Cliente</h4>
         <hr />
-        <div class="">
-            <div class="text-center pt-4">
-                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+        <div class="row">
+            <div class="col-md-4  bg-white shadow">
+                <div class="text-center pt-4">
+                    <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+                </div>
+                
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
+
+                <div class="form-group">
+                    <label asp-for="empleadoID" class="control-label"></label>
+                    <input asp-for="empleadoID" class="form-control" disabled/>
+                    <span asp-validation-for="empleadoID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="nombre" class="control-label"></label>
+                    <input asp-for="nombre" class="form-control"  disabled />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="imagenN" class="control-label"></label>
+                    <input asp-for="imagenN" class="form-control" />
+                    <span asp-validation-for="imagenN" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="apellido" class="control-label"></label>
+                    <input asp-for="apellido" class="form-control"  disabled />
+                    <span asp-validation-for="apellido" class="text-danger"></span>
+                </div>
+
             </div>
+            <div class="col-md-8" style=" background-image: url('../images/fondo 1-02.png') !important;">
+                <div class="form-group">
+                    <label asp-for="correo" class="control-label"></label>
+                    <input asp-for="correo" class="form-control"   disabled/>
+                    <span asp-validation-for="correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="telefono" class="control-label"></label>
+                    <input asp-for="telefono" class="form-control"  disabled />
+                    <span asp-validation-for="telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="salario" class="control-label"></label>
+                    <input asp-for="salario" class="form-control"  disabled/>
+                    <span asp-validation-for="salario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="areaID" class="control-label"></label>
+                    <input asp-for="areaID" class="form-control" value="@ViewData["area"]" disabled>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="rolID" class="control-label"></label>
+                    <input asp-for="rolID" class="form-control"  value="@ViewData["rol"]" disabled>
+                    <p>@ViewData["rol"]</p>
+                </div>
+                <div class="form-group">
+                    <label asp-for="modopagoID" class="control-label"></label>
+                    <input asp-for="modopagoID" class="form-control"  value="@ViewData["pago"]" disabled>
+                    <p>@ViewData["pago"]</p>
+                </div>
+                <div class="form-group d-flex justify-content-end">
+                    <a class="btn btn-info "  asp-action="Index">Regresar</a>
+                </div>
+            </div>
+
+
         </div>
-    </div>
-    <div class="col-md-4">
-        <dl>
-
-
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.nombre)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.nombre)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.apellido)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.apellido)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.correo)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.correo)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.telefono)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.telefono)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.imagen)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.imagen)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.salario)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.salario)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.area)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.area.areaNom)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.rol)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.rol.rolNom)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.modoPago)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.modoPago.tipo)
-            </dd>
-        </dl>
-    </div>
-</div>
 
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.empleadoID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.empleadoID">Editar</a> 
+   
 </div>

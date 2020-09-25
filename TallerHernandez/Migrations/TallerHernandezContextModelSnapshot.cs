@@ -162,12 +162,10 @@ namespace TallerHernandez.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +202,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -253,6 +249,9 @@ namespace TallerHernandez.Migrations
                     b.Property<bool>("estado")
                         .HasColumnType("bit");
 
+                    b.Property<string>("imagenN")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("marca")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,7 +280,7 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("imagenN")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
@@ -316,7 +315,7 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("imagen")
+                    b.Property<string>("imagenN")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("modopagoID")
