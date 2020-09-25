@@ -11,7 +11,7 @@ namespace TallerHernandez.Models
         [Display(Name = "Código")]
         public int rolID { get; set; }
         [Display(Name = "Nombre")]
-        [Required]
+        [Required(ErrorMessage = "El nombre del rol es obligatorio")]
         public string rolNom { get; set; }
         public ICollection<Empleado> empleados { get; set; }
     }

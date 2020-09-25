@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,16 +13,20 @@ using TallerHernandez.Data;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
-{
+{    
     public class EmpleadoesController : Controller
     {
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly TallerHernandezContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public EmpleadoesController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment)
+        public EmpleadoesController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             this.hostEnvironment = hostEnvironment;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: Empleadoes
@@ -111,6 +117,13 @@ namespace TallerHernandez.Controllers
             {
                 empleado.imagenN = "/images/logoTaller.png";
                 _context.Add(empleado);
+                /*Pablo: Esto es para crear un usuario cada vez que se cree un empleado nuevo*/
+                var user = new IdentityUser { UserName = empleado.correo, Email = empleado.correo };
+                var pass = empleado.nombre + "@123";
+                var result = await _userManager.CreateAsync(user, pass);
+                var rolName = _context.Rol.FirstOrDefault(r => r.rolID == empleado.rolID);
+                await _userManager.AddToRoleAsync(user, rolName.rolNom);
+                /*Aquí termina*/
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -130,7 +143,14 @@ namespace TallerHernandez.Controllers
                 }
                 empleado.imagenN = fileName;
                     _context.Add(empleado);
-                    await _context.SaveChangesAsync();
+                /*Pablo: Esto es para crear un usuario cada vez que se cree un empleado nuevo*/
+                var user = new IdentityUser { UserName = empleado.correo, Email = empleado.correo };
+                var pass = empleado.nombre + "@123";
+                var result = await _userManager.CreateAsync(user, pass);
+                var rolName = _context.Rol.FirstOrDefault(r => r.rolID == empleado.rolID);
+                await _userManager.AddToRoleAsync(user, rolName.rolNom);
+                /*Aquí termina*/
+                await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 
 
@@ -166,8 +186,8 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado)
-        {
+        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado,string? emailantiguo)
+        {            
             bool imagenNula = false;
             try
             {
@@ -188,6 +208,15 @@ namespace TallerHernandez.Controllers
                 {
                     if (imagenNula)
                     {
+                        /*Pablo: Esto sirve para que se updatee el email del usuario correspondiente al empleado*/
+                        var user = await _userManager.FindByEmailAsync(emailantiguo); //encontrar usuario a partir de su correo anterior
+                        user.Email = empleado.correo;
+                        await _userManager.UpdateAsync(user);
+                        var rolesUsuario = await _userManager.GetRolesAsync(user);
+                        await _userManager.RemoveFromRolesAsync(user, rolesUsuario);
+                        var rolName = _context.Rol.FirstOrDefault(r => r.rolID == empleado.rolID);
+                        await _userManager.AddToRoleAsync(user, rolName.rolNom);
+                        /*Aquí termina*/
                         _context.Update(empleado);
                         await _context.SaveChangesAsync();
 
@@ -207,7 +236,15 @@ namespace TallerHernandez.Controllers
                             await i.imageFile.CopyToAsync(fileStream);
                         }
                         empleado.imagenN = fileName;
-
+                        /*Pablo: Esto sirve para que se updatee el email del usuario correspondiente al empleado*/
+                        var user = await _userManager.FindByEmailAsync(emailantiguo); //encontrar usuario a partir de su correo anterior
+                        user.Email = empleado.correo;
+                        await _userManager.UpdateAsync(user);
+                        var rolesUsuario = await _userManager.GetRolesAsync(user);
+                        await _userManager.RemoveFromRolesAsync(user, rolesUsuario);
+                        var rolName = _context.Rol.FirstOrDefault(r => r.rolID == empleado.rolID);
+                        await _userManager.AddToRoleAsync(user, rolName.rolNom);
+                        /*Aquí termina*/
                         _context.Update(empleado);
                         await _context.SaveChangesAsync();
 
@@ -259,6 +296,8 @@ namespace TallerHernandez.Controllers
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var empleado = await _context.Empleado.FindAsync(id);
+            var user = await _userManager.FindByEmailAsync(empleado.correo);
+            await _userManager.DeleteAsync(user);
             _context.Empleado.Remove(empleado);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

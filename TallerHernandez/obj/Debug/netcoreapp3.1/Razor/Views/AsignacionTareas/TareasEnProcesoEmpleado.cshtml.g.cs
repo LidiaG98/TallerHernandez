@@ -4,7 +4,7 @@
 [assembly: global::Microsoft.AspNetCore.Razor.Hosting.RazorCompiledItemAttribute(typeof(AspNetCore.Views_AsignacionTareas_TareasEnProcesoEmpleado), @"mvc.1.0.view", @"/Views/AsignacionTareas/TareasEnProcesoEmpleado.cshtml")]
 namespace AspNetCore
 {
-#line hidden
+    #line hidden
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -14,14 +14,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
 #line 1 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
-    using TallerHernandez;
+using TallerHernandez;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\_ViewImports.cshtml"
-    using TallerHernandez.Models;
+using TallerHernandez.Models;
 
 #line default
 #line hidden
@@ -37,14 +37,14 @@ namespace AspNetCore
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_4 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("text-danger"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("value", "false", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_6 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("value", "true", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-#line hidden
-#pragma warning disable 0649
+        #line hidden
+        #pragma warning disable 0649
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext __tagHelperExecutionContext;
-#pragma warning restore 0649
+        #pragma warning restore 0649
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner __tagHelperRunner = new global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner();
-#pragma warning disable 0169
+        #pragma warning disable 0169
         private string __tagHelperStringValueBuffer;
-#pragma warning restore 0169
+        #pragma warning restore 0169
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager __backed__tagHelperScopeManager = null;
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperScopeManager __tagHelperScopeManager
         {
@@ -62,32 +62,32 @@ namespace AspNetCore
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationSummaryTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper;
         private global::Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper __Microsoft_AspNetCore_Mvc_TagHelpers_OptionTagHelper;
-#pragma warning disable 1998
+        #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
             WriteLiteral("\r\n");
 #nullable restore
 #line 3 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-
-            ViewData["Title"] = "TareasEnProcesoEmpleado";
+  
+    ViewData["Title"] = "TareasEnProcesoEmpleado";
 
 #line default
 #line hidden
 #nullable disable
             WriteLiteral("<div class=\"row align\">\r\n    <div class=\"col-md-3 col-sm-12\">\r\n        <img src=\"/images/logoTaller.png\" style=\"max-height: 90%; max-width:100%;\">\r\n    </div>\r\n    <div class=\"col-md-9 col-sm-12 mb-5\">\r\n        <h1>Labores asignadas</h1>\r\n        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc6598", async () => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc6598", async() => {
                 WriteLiteral("\r\n            <div class=\"form-actions no-color\">\r\n                <p>\r\n                    Filtro: <input class=\"col-md-5\" type=\"text\" placeholder=\"Ingrese la placa del automóvil o nombre del encargado\" name=\"cadena\"");
                 BeginWriteAttribute("value", " value=\"", 623, "\"", 650, 1);
 #nullable restore
 #line 15 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                WriteAttributeValue("", 631, ViewData["Filtro"], 631, 19, false);
+WriteAttributeValue("", 631, ViewData["Filtro"], 631, 19, false);
 
 #line default
 #line hidden
 #nullable disable
                 EndWriteAttribute();
                 WriteLiteral(" />\r\n                    <input type=\"submit\" value=\"Buscar\" class=\"btn btn-secondary\" />\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc7631", async () => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc7631", async() => {
                     WriteLiteral("Todos los registros");
                 }
                 );
@@ -121,7 +121,7 @@ namespace AspNetCore
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n    </div>\r\n</div>\r\n<p>\r\n    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc10325", async () => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc10325", async() => {
                 WriteLiteral("Crear Nuevo");
             }
             );
@@ -166,62 +166,62 @@ namespace AspNetCore
 ");
 #nullable restore
 #line 51 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-            foreach (var item in Model)
-            {
+         foreach (var item in Model)
+        {
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("            <tr>\r\n                <td>\r\n                    ");
+            WriteLiteral("            <tr>\r\n                <td>\r\n                    ");
 #nullable restore
 #line 55 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                Write(Html.DisplayFor(modelItem => item.recepcion.automovilID));
+               Write(Html.DisplayFor(modelItem => item.recepcion.automovilID));
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
+            WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
 #nullable restore
 #line 58 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                Write(Html.DisplayFor(modelItem => item.recepcion.mantenimiento.nombre));
+               Write(Html.DisplayFor(modelItem => item.recepcion.mantenimiento.nombre));
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
+            WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
 #nullable restore
 #line 61 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                Write(Html.DisplayFor(modelItem => item.recepcion.procedimiento.procedimiento));
+               Write(Html.DisplayFor(modelItem => item.recepcion.procedimiento.procedimiento));
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
+            WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
 #nullable restore
 #line 64 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                Write(Html.DisplayFor(modelItem => item.empleado.nombre));
+               Write(Html.DisplayFor(modelItem => item.empleado.nombre));
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
+            WriteLiteral("\r\n                </td>\r\n                <td>\r\n                    ");
 #nullable restore
 #line 67 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                Write(Html.DisplayFor(modelItem => item.recepcion.fechaSalida));
+               Write(Html.DisplayFor(modelItem => item.recepcion.fechaSalida));
 
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n                </td>\r\n");
+            WriteLiteral("\r\n                </td>\r\n");
 #nullable restore
 #line 69 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                if (item.estadoTarea.Equals(false))
+                 if (item.estadoTarea.Equals(false))
                 {
 
 #line default
 #line hidden
 #nullable disable
-                    WriteLiteral("                    <td>\r\n                        No finalizada\r\n                    </td>\r\n");
+            WriteLiteral("                    <td>\r\n                        No finalizada\r\n                    </td>\r\n");
 #nullable restore
 #line 74 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
                 }
@@ -231,7 +231,7 @@ namespace AspNetCore
 #line default
 #line hidden
 #nullable disable
-                    WriteLiteral("                    <td>\r\n                        Finalizada\r\n                    </td>\r\n");
+            WriteLiteral("                    <td>\r\n                        Finalizada\r\n                    </td>\r\n");
 #nullable restore
 #line 80 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
                 }
@@ -239,40 +239,41 @@ namespace AspNetCore
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("                <td>\r\n                    <a class=\"btn btn-sm btn-light btn-block\" data-toggle=\"modal\" data-target=\"#modalEditarAsignacion\"");
-                BeginWriteAttribute("onclick", " onclick=\"", 2738, "\"", 2814, 3);
-                WriteAttributeValue("", 2748, "GetAsignacionTarea(\'", 2748, 20, true);
+            WriteLiteral("                <td>\r\n                    <a class=\"btn btn-sm btn-light btn-block\" data-toggle=\"modal\" data-target=\"#modalEditarAsignacion\"");
+            BeginWriteAttribute("onclick", " onclick=\"", 2738, "\"", 2814, 3);
+            WriteAttributeValue("", 2748, "GetAsignacionTarea(\'", 2748, 20, true);
 #nullable restore
 #line 82 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                WriteAttributeValue("", 2768, item.asignacionTareaID, 2768, 23, false);
+WriteAttributeValue("", 2768, item.asignacionTareaID, 2768, 23, false);
 
 #line default
 #line hidden
 #nullable disable
-                WriteAttributeValue("", 2791, "\',\'GetAsignacionTarea\')", 2791, 23, true);
-                EndWriteAttribute();
-                WriteLiteral(">Editar</a>\r\n                    <a class=\"btn btn-sm btn-info btn-block\" data-toggle=\"modal\" data-target=\"#modalDetalleAsignacion\"");
-                BeginWriteAttribute("onclick", " onclick=\"", 2946, "\"", 3022, 3);
-                WriteAttributeValue("", 2956, "GetAsignacionTarea(\'", 2956, 20, true);
+            WriteAttributeValue("", 2791, "\',\'GetAsignacionTarea\')", 2791, 23, true);
+            EndWriteAttribute();
+            WriteLiteral(">Editar</a>\r\n                    <a class=\"btn btn-sm btn-info btn-block\" data-toggle=\"modal\" data-target=\"#modalDetalleAsignacion\"");
+            BeginWriteAttribute("onclick", " onclick=\"", 2946, "\"", 3022, 3);
+            WriteAttributeValue("", 2956, "GetAsignacionTarea(\'", 2956, 20, true);
 #nullable restore
 #line 83 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                WriteAttributeValue("", 2976, item.asignacionTareaID, 2976, 23, false);
+WriteAttributeValue("", 2976, item.asignacionTareaID, 2976, 23, false);
 
 #line default
 #line hidden
 #nullable disable
-                WriteAttributeValue("", 2999, "\',\'GetAsignacionTarea\')", 2999, 23, true);
-                EndWriteAttribute();
-                WriteLiteral(">Detalles</a>\r\n                </td>\r\n            </tr>\r\n");
+            WriteAttributeValue("", 2999, "\',\'GetAsignacionTarea\')", 2999, 23, true);
+            EndWriteAttribute();
+            WriteLiteral(">Detalles</a>\r\n                </td>\r\n            </tr>\r\n");
 #nullable restore
 #line 86 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-            }
+        }
 
 #line default
 #line hidden
 #nullable disable
             WriteLiteral(@"    </tbody>
 </table>
+
 <!----Modal Detalle-->
 <div class=""modal fade"" id=""modalDetalleAsignacion"" tabindex=""-1"" role=""dialog"" aria-labelledby=""myModalLabel"">
     <div class=""modal-dialog"" role=""document"">
@@ -321,6 +322,7 @@ namespace AspNetCore
     </div>
 </di");
             WriteLiteral(@"v>
+
 <!-- Modal Editar -->
 <div class=""modal fade"" id=""modalEditarAsignacion"" tabindex=""-1"" role=""dialog"" aria-labelledby=""myModalLabel"">
     <div class=""modal-dialog modal-dialog-scrollable"" role=""document"">
@@ -331,16 +333,16 @@ namespace AspNetCore
             </div>
             <div class=""modal-body"">
                 ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc20529", async () => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc20529", async() => {
                 WriteLiteral("\r\n                    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc20808", async () => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("div", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc20808", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationSummaryTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper);
 #nullable restore
 #line 144 "C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml"
-                __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSummary = global::Microsoft.AspNetCore.Mvc.Rendering.ValidationSummary.ModelOnly;
+__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSummary = global::Microsoft.AspNetCore.Mvc.Rendering.ValidationSummary.ModelOnly;
 
 #line default
 #line hidden
@@ -381,7 +383,7 @@ namespace AspNetCore
                         <label for=""eEstadoTarea"" class=""control-label""><strong>Estado</strong></label>
                         <select name=""eEstadoTarea"" id=""eEstadoTarea"" class=""form-control"">
                             ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc24398", async () => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc24398", async() => {
                     WriteLiteral("No Finalizada");
                 }
                 );
@@ -397,7 +399,7 @@ namespace AspNetCore
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                            ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc25657", async () => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1c411cf001431ce2129808d0b30cb3d76e56c3bc25657", async() => {
                     WriteLiteral("Finalizada");
                 }
                 );
@@ -437,7 +439,7 @@ namespace AspNetCore
 </div>
 ");
         }
-#pragma warning restore 1998
+        #pragma warning restore 1998
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
         public global::Microsoft.AspNetCore.Mvc.ViewFeatures.IModelExpressionProvider ModelExpressionProvider { get; private set; }
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
