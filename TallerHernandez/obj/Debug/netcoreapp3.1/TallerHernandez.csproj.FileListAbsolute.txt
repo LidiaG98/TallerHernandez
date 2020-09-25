@@ -925,7 +925,9 @@ C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Details.cshtml.g.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Edit.cshtml.g.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\Index.cshtml.g.cs
-C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\ListadoRecepciones.cshtml.g.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasEnProcesoEmpleado.cshtml.g.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasFinalizadas.cshtml.g.cs
 C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\TareasFinalizadasEmpleado.cshtml.g.cs
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\TallerHernandez.csprojAssemblyReference.cache
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\CrearAsignacion.cshtml.g.cs
+C:\Users\Revenge\Source\Repos\LidiaG98\TallerHernandez\TallerHernandez\obj\Debug\netcoreapp3.1\Razor\Views\AsignacionTareas\EmpleadoAsig.cshtml.g.cs
