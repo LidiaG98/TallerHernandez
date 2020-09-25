@@ -11,57 +11,85 @@
 </div>
     <div class="pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:25px;">
         <form asp-action="Edit">
+            <small class="text-danger">Los campos marcados con (*) son obligatorios</small>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="recepcionID" />
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label asp-for="automovilID" class="control-label"></label>
+                    <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>
                     <select asp-for="automovilID" class="form-control" asp-items="ViewBag.automovilID"></select>
                     <span asp-validation-for="automovilID" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label asp-for="clienteID" class="control-label"></label>
+                    <label asp-for="clienteID" class="control-label"></label><small class="text-muted ml-3">Este campo se elije automaticamente</small>
                     <select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>
                     <span asp-validation-for="clienteID" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label asp-for="fechaEntrada" class="control-label"></label>
+                    <label asp-for="fechaEntrada" class="control-label"></label><span class="text-danger">*</span>
                     <input asp-for="fechaEntrada" class="form-control" />
                     <span asp-validation-for="fechaEntrada" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label asp-for="fechaEntrada" class="control-label"></label>
-                    <input asp-for="fechaEntrada" class="form-control" />
-                    <span asp-validation-for="fechaEntrada" class="text-danger"></span>
+                    <label asp-for="fechaSalida" class="control-label"></label><span class="text-danger">*</span>
+                    <input asp-for="fechaSalida" class="form-control" />
+                    <span asp-validation-for="fechaSalida" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="diagnostico" class="control-label"></label>
+                <label asp-for="diagnostico" class="control-label"></label><span class="text-danger">*</span>
                 <textarea asp-for="diagnostico" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="diagnostico" class="text-danger"></span>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label asp-for="procedimientoID" class="control-label"></label>
-                    <select asp-for="procedimientoID" class="form-control" asp-items="ViewBag.procedimientoID"></select>
+                <div class="form-group col-md-5">
+                    <label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>
+                    @*<select asp-for="procedimientoID" class="form-control" asp-items="ViewBag.procedimientoID"></select>*@
+                    <div class="input-group">
+                        @if (Model.procedimientoID == null)
+                        {
+                            @Html.DropDownList("procedimientoID", @ViewBag.procedimientoID, "Seleccione una opción", new { @class = "custom-select search", id = "selectProc" })
+                        }
+                        else
+                        { <select id="selectProc" asp-for="procedimientoID" class="custom-select search" asp-items="ViewBag.procedimientoID"></select>
+                          <div class="ml-1">
+                              <button id="btnModalProc" type="button" class=" btn btn-primary btn-cir">
+                                  <i class="fas fa-pen"></i>
+                              </button>
+                          </div>}                        
+                    </div>
                     <span asp-validation-for="procedimientoID" class="text-danger"></span>
                 </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="mantenimientoID" class="control-label"></label>
-                    <select asp-for="mantenimientoID" class="form-control" asp-items="ViewBag.mantenimientoID"></select>
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-5">
+                    <label asp-for="mantenimientoID" class="control-label"></label><span class="text-danger">*</span>
+                    @*<select asp-for="procedimientoID" class="form-control" asp-items="ViewBag.procedimientoID"></select>*@
+                    <div class="input-group">
+                        @if (Model.mantenimientoID == null)
+                        {
+                            @Html.DropDownList("mantenimientoID", @ViewBag.mantenimientoID, "Seleccione una opción", new { @class = "custom-select search" })
+                        }
+                        else
+                        { <select id="selectMan" asp-for="mantenimientoID" class="custom-select search" asp-items="ViewBag.mantenimientoID"></select>
+                          <div class="ml-1">
+                              <button id="btnModalMan" type="button" class=" btn btn-primary btn-cir">
+                                  <i class="fas fa-pen"></i>
+                              </button>
+                          </div>}                        
+                    </div>
                     <span asp-validation-for="mantenimientoID" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label asp-for="empleadoID" class="control-label"></label>
+                    <label asp-for="empleadoID" class="control-label"></label><span class="text-danger">*</span>
                     <select asp-for="empleadoID" class="form-control" asp-items="ViewBag.empleadoID"></select>
                     <span asp-validation-for="empleadoID" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-2">
-                    <label asp-for="estado" class="control-label"></label>
+                    <label asp-for="estado" class="control-label"></label><span class="text-danger">*</span>
                     <select asp-for="estado" class="form-control">
                         <option value="1">En proceso</option>
                         <option value="0">Finalizado</option>
@@ -74,6 +102,54 @@
         </form>
     </div>
 
+    <div id="ModalProcYMan" class="modal hide fade in" tabindex="-1" role="dialog" data-url= '@Url.Action("Edit", "Procedimientoes")'>
+        <div id="ProcYManContainer" class="modal-dialog modal-dialog-centered" role="document" data-url= '@Url.Action("Edit", "Mantenimiento")'>
+
+        </div>
+    </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<script type="text/javascript">
+        $(document).ready(function () {
+        $('.search').select2();
+    });
+</script>
+<script type="text/javascript">
+       $(document).ready(function () {
+           $('#btnModalProc').click(function () {
+               var e = document.getElementById("selectProc");
+               var id = e.options[e.selectedIndex].value;
+               var url = $('#ModalProcYMan').data('url');              
+               url = url + "/" + id;               
+
+               $.get(url, function (data) {
+                   
+                    $('#ProcYManContainer').html(data);
+
+                    $('#ModalProcYMan').modal('show');
+                });
+        });
+       });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnModalMan').click(function () {
+            var e = document.getElementById("selectMan");
+            var id = e.options[e.selectedIndex].value;
+            var url = $('#ProcYManContainer').data('url');
+            url = url + "/" + id;
+
+            $.get(url, function (data) {
+
+                $('#ProcYManContainer').html(data);
+
+                $('#ModalProcYMan').modal('show');
+            });
+        });
+    });
+</script>
 }

@@ -4,29 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
-    public class MantenimientoController : Controller
+    public class ProcedimientoesController : Controller
     {
         private readonly TallerHernandezContext _context;
 
-        public MantenimientoController(TallerHernandezContext context)
+        public ProcedimientoesController(TallerHernandezContext context)
         {
             _context = context;
         }
 
-        // GET: Mantenimiento
+        // GET: Procedimientoes
         public async Task<IActionResult> Index()
         {
-            var tallerHernandezContext = _context.Mantenimiento.Include(m => m.area);
+            var tallerHernandezContext = _context.Procedimiento.Include(p => p.area);
             return View(await tallerHernandezContext.ToListAsync());
         }
 
-        // GET: Mantenimiento/Details/5
+        // GET: Procedimientoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +35,42 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var mantenimiento = await _context.Mantenimiento
-                .Include(m => m.area)
-                .FirstOrDefaultAsync(m => m.mantenimientoID == id);
-            if (mantenimiento == null)
+            var procedimiento = await _context.Procedimiento
+                .Include(p => p.area)
+                .FirstOrDefaultAsync(m => m.procedimientoID == id);
+            if (procedimiento == null)
             {
                 return NotFound();
             }
 
-            return View(mantenimiento);
+            return View(procedimiento);
         }
 
-        // GET: Mantenimiento/Create
+        // GET: Procedimientoes/Create
         public IActionResult Create()
         {
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom");
             return View();
         }
 
-        // POST: Mantenimiento/Create
+        // POST: Procedimientoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("mantenimientoID,nombre,precio,areaID")] Mantenimiento mantenimiento)
+        public async Task<IActionResult> Create([Bind("procedimientoID,procedimiento,precio,areaID")] Procedimiento proc)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mantenimiento);
+                _context.Add(proc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return View(mantenimiento);
+            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", proc.areaID);
+            return View(proc);
         }
 
-        // GET: Mantenimiento/Edit/5
+        // GET: Procedimientoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,37 +78,38 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var mantenimiento = await _context.Mantenimiento.FindAsync(id);
-            if (mantenimiento == null)
+            var procedimiento = await _context.Procedimiento.FindAsync(id);
+            if (procedimiento == null)
             {
                 return NotFound();
             }
-            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return PartialView(mantenimiento);
+            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", procedimiento.areaID);
+            return PartialView(procedimiento);
         }
 
-        // POST: Mantenimiento/Edit/5
+        // POST: Procedimientoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("mantenimientoID,nombre,precio,areaID")] Mantenimiento mantenimiento)
+        public async Task<IActionResult> Edit(int id, [Bind("procedimientoID,procedimiento,precio,areaID")] Procedimiento proc)
         {
-            if (id != mantenimiento.mantenimientoID)
+            if (id != proc.procedimientoID)
             {
                 return NotFound();
+                
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(mantenimiento);
+                    _context.Update(proc);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MantenimientoExists(mantenimiento.mantenimientoID))
+                    if (!ProcedimientoExists(proc.procedimientoID))
                     {
                         return NotFound();
                     }
@@ -116,13 +118,13 @@ namespace TallerHernandez.Controllers
                         throw;
                     }
                 }
-                return Json(new { SAVE = "Y" });
+                return Json(new { SAVE = "Y"});
             }
-            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return PartialView("Edit", mantenimiento);
+            ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", proc.areaID);
+            return PartialView("Edit",proc);
         }
 
-        // GET: Mantenimiento/Delete/5
+        // GET: Procedimientoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +132,31 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var mantenimiento = await _context.Mantenimiento
-                .Include(m => m.area)
-                .FirstOrDefaultAsync(m => m.mantenimientoID == id);
-            if (mantenimiento == null)
+            var procedimiento = await _context.Procedimiento
+                .Include(p => p.area)
+                .FirstOrDefaultAsync(m => m.procedimientoID == id);
+            if (procedimiento == null)
             {
                 return NotFound();
             }
 
-            return View(mantenimiento);
+            return View(procedimiento);
         }
 
-        // POST: Mantenimiento/Delete/5
+        // POST: Procedimientoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var mantenimiento = await _context.Mantenimiento.FindAsync(id);
-            _context.Mantenimiento.Remove(mantenimiento);
+            var procedimiento = await _context.Procedimiento.FindAsync(id);
+            _context.Procedimiento.Remove(procedimiento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MantenimientoExists(int id)
+        private bool ProcedimientoExists(int id)
         {
-            return _context.Mantenimiento.Any(e => e.mantenimientoID == id);
+            return _context.Procedimiento.Any(e => e.procedimientoID == id);
         }
     }
 }

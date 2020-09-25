@@ -35,43 +35,43 @@
             </div>
             @if (item.estado.Equals(1))
             {
-                <div class="card-footer  border-success text-right">
-                    En proceso
-                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-sm"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.recepcionID" class="btn btn-info btn-sm"><i class="far fa-eye" style="color:black"></i></a>
-                    <a data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID"id="@item.recepcionID" class="btn btn-danger btn-sm"><i class="far fa-trash-alt" style="color:black"></i></a>
-                </div>
+        <div class="card-footer  border-success text-right">
+            En proceso
+            <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+            <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+            <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
+        </div>
             }
             else
             {
                 <div class="card-footer border-danger text-right">
                     Finalizado
-                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-sm"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.recepcionID" class="btn btn-info btn-sm"><i class="far fa-eye" style="color:black"></i></a>
-                    <a data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="@item.recepcionID" class="btn btn-danger btn-sm"><i class="far fa-trash-alt" style="color:black"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                    <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+                    <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
                 </div>
             }
 
         </div>
     }
 </div>
-<div id="gameModal" class="modal hide fade in" tabindex="-1" role="dialog" >
+<div id="gameModal" class="modal hide fade in" tabindex="-1" role="dialog">
     <div id="gameContainer" class="modal-dialog modal-dialog-centered" role="document">
-        
+
     </div>
 </div>
 
 
 
-@section Scripts {
-@foreach (var item in Model)
-{
-<script type="text/javascript">
+@section Scripts {    
+    @*@foreach (var item in Model)
+    {        
+        <script type="text/javascript">
     $(document).ready(function () {
         $('#@item.recepcionID').click(function () {
             var id = $('#@item.recepcionID').data('id');
             var url = $('#@item.recepcionID').data('url');
-            url = url + "/" + id;            
+            url = url + "/" + id;
 
             $.get(url, function (data) {
                 $('#gameContainer').html(data);
@@ -80,8 +80,27 @@
             });
         });
     });
+        </script>
+    }*@
+<script type="text/javascript">
+    $(document).ready(function () {        
+        $(document).ready(function () {
+            $("i").click(function (event) {
+                //alert("You've clicked: " + event.target.nodeName + ", id: " + event.target.id);
+                var id = document.getElementById(event.target.id);
+                var recepId = id.getAttribute('data-id');
+                var url = id.getAttribute('data-url');
+                url = url + "/" + recepId;
+
+                $.get(url, function (data) {
+                    $('#gameContainer').html(data);
+
+                    $('#gameModal').modal('show');
+                });
+            });
+        });
+    });
 </script>
-}   
 
 }
 

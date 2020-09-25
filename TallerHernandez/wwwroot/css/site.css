@@ -186,3 +186,23 @@ input {
         background-color: #4CAF50;
     }
 
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 5px;
+    text-align: center;
+    
+    line-height: 1.42857;
+}
+.btn-cir {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+

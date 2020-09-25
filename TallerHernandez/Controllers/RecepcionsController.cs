@@ -20,12 +20,16 @@ namespace TallerHernandez.Controllers
         private readonly TallerHernandezContext _context;
         private MantenimientoModels mantenimientoModels;
         private ProcedimientoModels procedimientoModels;
+        private ProcedimientoesController procedimientoesController;
+        private MantenimientoController mantenimientoController;
 
         public RecepcionsController(TallerHernandezContext context)
         {
             _context = context;
             mantenimientoModels = new MantenimientoModels(context);
             procedimientoModels = new ProcedimientoModels(context);
+            procedimientoesController = new ProcedimientoesController(context);
+            mantenimientoController = new MantenimientoController(context);
         }
 
         // GET: Recepcions
@@ -62,7 +66,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            return View(recepcion);
+            return PartialView(recepcion);
         }
 
         [HttpPost]
@@ -75,6 +79,30 @@ namespace TallerHernandez.Controllers
         public List<IdentityError> agregarProcedimiento(string procedimiento, string precio, string areaID)
         {
             return procedimientoModels.agregarProcedimiento(procedimiento, precio, areaID);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editarProce (int id,string precio, string desc, int idArea)
+        {
+            Procedimiento p = new Procedimiento();
+            p.procedimientoID = id;            
+            p.precio = float.Parse(precio, System.Globalization.CultureInfo.InvariantCulture);
+            p.procedimiento = desc;
+            p.areaID = idArea;
+
+            return await procedimientoesController.Edit(id, p);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editarMan(int id, string precio, string desc, int idArea)
+        {
+            Mantenimiento m = new Mantenimiento();
+            m.mantenimientoID = id;
+            m.precio = float.Parse(precio, System.Globalization.CultureInfo.InvariantCulture);
+            m.nombre = desc;
+            m.areaID = idArea;
+
+            return await mantenimientoController.Edit(id, m);
         }
 
         public IActionResult obtenerDuenio(string? id) {
