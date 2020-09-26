@@ -93,17 +93,18 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
                     salario = 0,
                     areaID = _context.Area.FirstOrDefault(r => r.areaNom == "Administración").AreaID,
                     rolID = _context.Rol.FirstOrDefault(r => r.rolNom == "Superusuario").rolID,
-                    modopagoID = _context.ModoPago.FirstOrDefault(r => r.tipo == "Efectivo").modopagoID
+                    modopagoID = _context.ModoPago.FirstOrDefault(r => r.tipo == "Efectivo").modopagoID,
+                    
                 };
                 _context.Empleado.Add(empleado);
                 var usuario = new IdentityUser
                 {
-                    UserName = empleado.nombre,
+                    UserName = empleado.correo, 
                     Email = empleado.correo
                 };
                 string pass = "Admin@123";
                 result = await _userManager.CreateAsync(usuario, pass);
-                usuario = await _userManager.FindByNameAsync(empleado.nombre);
+                usuario = await _userManager.FindByNameAsync(empleado.correo);
                 await _userManager.AddToRoleAsync(usuario, "Superusuario");
             }
             if (!string.IsNullOrEmpty(ErrorMessage))
