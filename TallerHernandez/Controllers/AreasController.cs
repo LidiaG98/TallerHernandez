@@ -181,5 +181,32 @@ namespace TallerHernandez.Controllers
         {
             return _context.Area.Any(e => e.AreaID == id);
         }
+        public async Task<List<Area>> VeniteArea(int id)
+        {
+            var bombolbi = from owo in _context.Area select owo;
+            bombolbi = bombolbi.Where(owo => owo.AreaID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> EliminarArea(int id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Area.FindAsync(id);
+                _context.Area.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
+        }
     }
+    
+
 }
+
+
