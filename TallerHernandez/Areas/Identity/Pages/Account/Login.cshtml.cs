@@ -98,12 +98,12 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
                 _context.Empleado.Add(empleado);
                 var usuario = new IdentityUser
                 {
-                    UserName = empleado.nombre,
+                    UserName = empleado.correo,
                     Email = empleado.correo
                 };
                 string pass = "Admin@123";
                 result = await _userManager.CreateAsync(usuario, pass);
-                usuario = await _userManager.FindByNameAsync(empleado.nombre);
+                usuario = await _userManager.FindByNameAsync(empleado.correo);
                 await _userManager.AddToRoleAsync(usuario, "Superusuario");
             }
             if (!string.IsNullOrEmpty(ErrorMessage))

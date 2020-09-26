@@ -26,8 +26,15 @@ using TallerHernandez.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\vancr\Escritorio\tallerHernan\TallerHernandez\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"12a7e7108c3175ba7f4e6cb7fddd342f014006d1", @"/Views/AsignacionTareas/CrearAsignacion.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1b7e356a25368190d6b799e21830ceead35565db", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"176c35ade9900f22f7b99ac0791f0d088daa36f6", @"/Views/_ViewImports.cshtml")]
     public class Views_AsignacionTareas_CrearAsignacion : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<IEnumerable<TallerHernandez.Models.Recepcion>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("asp-action", "CrearAsignacion", global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -73,7 +80,7 @@ using TallerHernandez.Models;
 #line hidden
 #nullable disable
             WriteLiteral("<div class=\"row align\">\r\n    <div class=\"col-md-3 col-sm-12\">\r\n        <img src=\"/images/logoTaller.png\" style=\"max-height: 90%; max-width:100%;\">\r\n    </div>\r\n    <div class=\"col-md-9 col-sm-12 mb-5\">\r\n        <h1>Asignar nueva recepción</h1>\r\n        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d16324", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d16523", async() => {
                 WriteLiteral("\r\n            <input class=\"col-md-7 col-sm-12 mr-sm-2 mb-2\" type=\"text\" placeholder=\"ingresa una placa o nombre del recepcionista\" data-val=\"true\" data-val-required=\"The nombre field is required.\" id=\"cadena\" name=\"cadena\"");
                 BeginWriteAttribute("value", " value=\"", 651, "\"", 678, 1);
 #nullable restore
@@ -85,7 +92,7 @@ WriteAttributeValue("", 659, ViewData["Filtro"], 659, 19, false);
 #nullable disable
                 EndWriteAttribute();
                 WriteLiteral(">\r\n            <input type=\"submit\" class=\"col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2\" value=\"Buscar\">\r\n            <input name=\"__RequestVerificationToken\" type=\"hidden\">\r\n            ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d17439", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d17638", async() => {
                     WriteLiteral("Todos los registros");
                 }
                 );
@@ -159,7 +166,7 @@ WriteAttributeValue("", 659, ViewData["Filtro"], 659, 19, false);
                     </button>
           ");
             WriteLiteral("          <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d111311", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d111510", async() => {
                 WriteLiteral("      ");
 #nullable restore
 #line 56 "C:\Users\vancr\Escritorio\tallerHernan\TallerHernandez\Views\AsignacionTareas\CrearAsignacion.cshtml"
@@ -198,7 +205,7 @@ WriteAttributeValue("", 659, ViewData["Filtro"], 659, 19, false);
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
             WriteLiteral("\r\n                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d114042", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d114241", async() => {
                 WriteLiteral("     ");
 #nullable restore
 #line 57 "C:\Users\vancr\Escritorio\tallerHernan\TallerHernandez\Views\AsignacionTareas\CrearAsignacion.cshtml"
@@ -337,7 +344,7 @@ WriteAttributeValue("", 659, ViewData["Filtro"], 659, 19, false);
 #line hidden
 #nullable disable
             WriteLiteral("            <td>\r\n                ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d120866", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "12a7e7108c3175ba7f4e6cb7fddd342f014006d121065", async() => {
                 WriteLiteral("Elegir");
             }
             );
