@@ -2,8 +2,7 @@
 
 @{
     ViewData["Title"] = "EmpleadoAsig";
-    var recepcionID = ViewBag.recepcionID;
-    List<Empleado> lsEmpleado = (List < Empleado >) ViewBag.encargados;
+    int recepcionID = ViewBag.recepcionID;
 }
 
 <div class="row align">
@@ -14,14 +13,13 @@
         <h1 class="mb-3">Empleados</h1>
 
         <form class="form-inline" asp-action="EmpleadoAsig" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingrese el nombre o DUi " data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingrese el nombre o apellido " data-val="true" data-val-required="The nombre field is required." id="cadena" name="cadena" value="@ViewData["Filtro"]">
             <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
             <input name="__RequestVerificationToken" type="hidden" />
-
+            <a asp-action="EmpleadoAsig">Todos los registros</a>
         </form>
 
     </div>
-    <a asp-action="Index">Todos los registros</a>
 </div>
 
 
@@ -29,16 +27,16 @@
     <thead class="thead-dark text-center">
         <tr>
             <th>
-                <a asp-action="index">@Html.DisplayNameFor(model => model.nombre)</a>
+                Nombre
             </th>
             <th>
-                <a asp-acion="index">    @Html.DisplayNameFor(model => model.apellido)</a>
+                Apellido
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.correo)
+                Correo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.area)
+                Área
             </th>
             <th>
                 <div class="dropdown">
@@ -46,8 +44,8 @@
                         Ordenar Por:
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-action="EmpleadoAsig" asp-route-OrdenA="@ViewData["OrdenNom"]">    @Html.DisplayNameFor(model => model.nombre)</a>
-                        <a class="dropdown-item" asp-action="EmpleadoAsig" asp-route-OrdenA="@ViewData["OrdenAp"]">  @Html.DisplayNameFor(model => model.apellido)</a>
+                        <a class="dropdown-item" asp-action="EmpleadoAsig" asp-route-OrdenAsig="@ViewData["OrdenNom"]">    @Html.DisplayNameFor(model => model.nombre)</a>
+                        <a class="dropdown-item" asp-action="EmpleadoAsig" asp-route-OrdenAsig="@ViewData["OrdenAp"]">  @Html.DisplayNameFor(model => model.apellido)</a>
 
                     </div>
                 </div>
@@ -55,13 +53,12 @@
         </tr>
     </thead>
     <tbody class="thead-dark text-center">
-        @foreach (var item in lsEmpleado)
+        @foreach (var item in Model)
         {
-               var parms = new Dictionary<string, string>{
-               { "recepcionID", recepcionID },
-               { "empleadoID", item.empleadoID }
-            };
-           
+            Dictionary<string, string> parms = new Dictionary<string, string>();
+            parms.Add("empleadoID", item.empleadoID);
+            parms.Add("recepcionID", Convert.ToString(recepcionID));
+
             <tr>
                 <td data-toggle="tooltip" data-placement="top" title="<img src='/uploads/@(item.imagenN)'  width='200' height='100'>">
                     @Html.DisplayFor(modelItem => item.nombre)
@@ -76,9 +73,11 @@
                     @Html.DisplayFor(modelItem => item.area.areaNom)
                 </td>
                 <td>
-                    <a class="btn btn-warning" asp-action="Create" asp-controller="AsignacionTareas" asp-all-route-data="parms">Elegir</a>
+                    <a class="btn btn-warning" asp-action="CreateAsig" asp-controller="AsignacionTareas" asp-all-route-data="parms">Elegir</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+

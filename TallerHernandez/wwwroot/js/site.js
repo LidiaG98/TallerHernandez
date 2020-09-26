@@ -16,7 +16,8 @@ $('#modalProc').on('shown.bs.modal', function () {
     document.getElementById('mensajeProc').innerHTML = "";
 });
 $('#modalEditarAsignacion').on('shown.bs.modal', function () {
-    $('#myInput').focus()
+    $('#myInput').focus();
+    document.getElementById('mensaje').innerHTML = "";
 })
 
 
@@ -167,26 +168,31 @@ function EditarAsignacionTarea(action) {
     var estado;
     //Se obtiene el estado seleccionado de la asignacion
     id = $('input[name=Id]')[0].value;
-    estado = $('select[name=eEstadoTarea]')[0].value;
+    var x = document.getElementById('eEstadoTarea');
+    estado = x.options[x.selectedIndex].value;
 
     $.each(items, function (index, val) {
         recepcion = val.recepcionID;
         encargado = val.empleadoID;
     });
 
-    $.ajax({
-        type: "POST",
-        url: action,
-        data: { id, recepcion, encargado, estado },
-        success: function (response) {
-            if (response == "Save") {
-                window.location.href = "AsignacionTareas";
+    if (!(estado == "true" || estado== "false")) {
+        document.getElementById("mensaje").innerHTML = "**Seleccione un estado";
+    } else {
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: { id, recepcion, encargado, estado },
+            success: function (response) {
+                if (response == "Save") {
+                    window.location.href = "AsignacionTareas";
+                }
+                else {
+                    alert("No se pueden editar el estado de la tarea")
+                }
             }
-            else {
-                alert("No se pueden editar el estado de la tarea")
-            }
-        }
-    })
+        });
+    }   
 }
 
 function EliminarAsignacionTarea(action) {

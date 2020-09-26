@@ -9,14 +9,11 @@
     </div>
     <div class="col-md-9 col-sm-12 mb-5">
         <h1>Listado de tareas finalizadas</h1>
-        <form asp-action="TareasFinalizadas" method="get">
-            <div class="form-actions no-color">
-                <p>
-                    Filtro: <input class="col-md-5" type="text" placeholder="Ingrese la placa del automóvil o nombre del encargado" name="cadena" value="@ViewData["Filtro"]" />
-                    <input type="submit" value="Buscar" class="btn btn-secondary" />
-                    <a asp-action="TareasFinalizadas">Todos los registros</a>
-                </p>
-            </div>
+        <form class="form-inline" asp-action="TareasFinalizadas" method="get">
+            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingresa una placa o nombre del encargado" data-val="true" data-val-required="The nombre field is required." id="cadena" name="cadena" value="@ViewData["Filtro"]">
+            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+            <input name="__RequestVerificationToken" type="hidden">
+            <a asp-action="TareasFinalizadas">Todos los registros</a>
         </form>
     </div>
 </div>
