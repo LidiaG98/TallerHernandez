@@ -9,9 +9,11 @@ $('#modalC').on('shown.bs.modal', function () {
 
 $('#exampleModalCenter').on('shown.bs.modal', function () {
     $('#nombre').focus();
+    document.getElementById('mensaje').innerHTML = "";
 });
 $('#modalProc').on('shown.bs.modal', function () {
     $('#procedimiento').focus();
+    document.getElementById('mensajeProc').innerHTML = "";
 });
 $('#modalEditarAsignacion').on('shown.bs.modal', function () {
     $('#myInput').focus()

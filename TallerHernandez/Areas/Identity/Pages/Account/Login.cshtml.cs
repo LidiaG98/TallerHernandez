@@ -99,7 +99,7 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
                 _context.Empleado.Add(empleado);
                 var usuario = new IdentityUser
                 {
-                    UserName = empleado.correo, 
+                    UserName = empleado.correo,
                     Email = empleado.correo
                 };
                 string pass = "Admin@123";

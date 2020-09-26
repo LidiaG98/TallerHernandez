@@ -5,30 +5,10 @@ namespace TallerHernandez.Migrations
     public partial class LidiaActualizar : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "imagen",
-                table: "Empleado");
-
-            migrationBuilder.DropColumn(
-                name: "imagen",
-                table: "Cliente");
-
-            migrationBuilder.AddColumn<string>(
-                name: "imagenN",
-                table: "Empleado",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "imagenN",
-                table: "Cliente",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "imagenN",
-                table: "Automovil",
-                nullable: true);
-
+        {            
+            
+               
+            
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "AspNetUserTokens",
