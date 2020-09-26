@@ -162,12 +162,10 @@ namespace TallerHernandez.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -204,12 +202,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -233,6 +229,32 @@ namespace TallerHernandez.Migrations
                     b.HasKey("AreaID");
 
                     b.ToTable("Area");
+                });
+
+            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
+                {
+                    b.Property<int>("asignacionTareaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("empleadoID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("estadoTarea")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("recepcionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("asignacionTareaID");
+
+                    b.HasIndex("empleadoID");
+
+                    b.HasIndex("recepcionID");
+
+                    b.ToTable("AsignacionTarea");
                 });
 
             modelBuilder.Entity("TallerHernandez.Models.Automovil", b =>
@@ -435,6 +457,9 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("estado")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("fechaEntrada")
                         .HasColumnType("datetime2");
 
@@ -460,6 +485,40 @@ namespace TallerHernandez.Migrations
                     b.HasIndex("procedimientoID");
 
                     b.ToTable("Recepcion");
+                });
+
+            modelBuilder.Entity("TallerHernandez.Models.Repuesto", b =>
+                {
+                    b.Property<int>("repuestoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("anio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("categoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("repuestoID");
+
+                    b.ToTable("Repuesto");
                 });
 
             modelBuilder.Entity("TallerHernandez.Models.Rol", b =>
@@ -525,6 +584,21 @@ namespace TallerHernandez.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
+                {
+                    b.HasOne("TallerHernandez.Models.Empleado", "empleado")
+                        .WithMany("asignacionTarea")
+                        .HasForeignKey("empleadoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
+                        .WithMany("asignacionTarea")
+                        .HasForeignKey("recepcionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
