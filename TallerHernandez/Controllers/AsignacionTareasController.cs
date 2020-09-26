@@ -141,20 +141,7 @@ namespace TallerHernandez.Controllers
             }
             else if (!recepcion.mantenimientoID.Equals(null) && !recepcion.procedimientoID.Equals(null))
             {
-                var user = _userManager.Users;
-                string idE = "";
-                
-                foreach (var i in user)
-                {
-                    if (await _userManager.IsInRoleAsync(i, "Mecánico"))
-                    {
-                        idE = i.Id;
-                        var enc = encargado.Where(a => a.correo == idE);
-                        empleado.Add((Empleado)enc);
-                    }
-                }
-
-                ViewBag.encargados = empleado.ToList();
+                encargado = encargado.Where(a => a.area.areaNom.Equals("Mecánica"));
             }
             if (!String.IsNullOrEmpty(cadena))
             {
@@ -183,12 +170,17 @@ namespace TallerHernandez.Controllers
         // POST: AsignacionTareas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("asignacionTareaID,estadoTarea,recepcionID,empleadoID")] AsignacionTarea asignacionTarea)
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Route("{empleadoID:string}/{recepcionID:int}")]
+        //[HttpPatch]
+        public async Task<IActionResult> CreateAsig(string empleadoID, string recepcionID)
         {
-            if (ModelState.IsValid)
-            {
+            int IDrecepcion = Convert.ToInt16(recepcionID);
+            AsignacionTarea asignacionTarea = new AsignacionTarea();
+            asignacionTarea.recepcionID = IDrecepcion;
+            asignacionTarea.empleadoID = empleadoID;
+            
                 _context.Add(asignacionTarea);
                 await _context.SaveChangesAsync();
                 if (asignacionTarea.estadoTarea == false)
@@ -200,8 +192,6 @@ namespace TallerHernandez.Controllers
                 }
 
                 return RedirectToAction(nameof(Index));
-            }
-            return View(asignacionTarea);
         }
         
         // GET: AsignacionTareas/Edit/5
@@ -406,21 +396,6 @@ namespace TallerHernandez.Controllers
                 //Actualizando los datos
                 _context.Update(asignacionTarea);
                 await _context.SaveChangesAsync();
-
-                if (asignacionTarea.estadoTarea == true)
-                {
-                    Recepcion recepcion1 = _context.Recepcion.Find(asignacionTarea.recepcionID);
-                    recepcion1.estado = 0; //Actualizando el estado de recepcion a "Asignado"
-                    _context.Update(recepcion1);
-                    await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    Recepcion recepcion1 = _context.Recepcion.Find(asignacionTarea.recepcionID);
-                    recepcion1.estado = 1; //Actualizando el estado de recepcion a "No asignado"
-                    _context.Update(recepcion1);
-                    await _context.SaveChangesAsync();
-                }
 
                 respuesta = "Save";
             }

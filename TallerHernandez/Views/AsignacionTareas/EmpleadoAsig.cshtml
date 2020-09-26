@@ -2,8 +2,7 @@
 
 @{
     ViewData["Title"] = "EmpleadoAsig";
-    var recepcionID = ViewBag.recepcionID;
-    List<Empleado> lsEmpleado = (List < Empleado >) ViewBag.encargados;
+    int recepcionID = ViewBag.recepcionID;
 }
 
 <div class="row align">
@@ -54,13 +53,12 @@
         </tr>
     </thead>
     <tbody class="thead-dark text-center">
-        @foreach (var item in lsEmpleado)
+        @foreach (var item in Model)
         {
-               var parms = new Dictionary<string, string>{
-               { "recepcionID", recepcionID },
-               { "empleadoID", item.empleadoID }
-            };
-           
+            Dictionary<string, string> parms = new Dictionary<string, string>();
+            parms.Add("empleadoID", item.empleadoID);
+            parms.Add("recepcionID", Convert.ToString(recepcionID));
+
             <tr>
                 <td data-toggle="tooltip" data-placement="top" title="<img src='/uploads/@(item.imagenN)'  width='200' height='100'>">
                     @Html.DisplayFor(modelItem => item.nombre)
@@ -75,9 +73,11 @@
                     @Html.DisplayFor(modelItem => item.area.areaNom)
                 </td>
                 <td>
-                    <a class="btn btn-warning" asp-action="Create" asp-controller="AsignacionTareas" asp-all-route-data="parms">Elegir</a>
+                    <a class="btn btn-warning" asp-action="CreateAsig" asp-controller="AsignacionTareas" asp-all-route-data="parms">Elegir</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+

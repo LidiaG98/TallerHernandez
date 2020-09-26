@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 <div class="row align">
     <div class="col-md-3 col-sm-12">
@@ -87,11 +88,11 @@
                         Finalizada
                     </td>
                 }
-            <td>
-                <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-edit"></i></a>
-                <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
-                <a class="p-2" style="color:#ff0000;" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-trash-alt"></i></a>
-            </td>
+                <td>
+                    <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-edit"></i></a>
+                    <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
+                    <a class="p-2" style="color:#ff0000;" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-trash-alt"></i></a>
+                </td>
             </tr>
         }
     </tbody>
@@ -185,6 +186,11 @@
         </div>
     </div>
 </div>
+@{SelectList u = new SelectList(new List<SelectListItem>
+{
+    new SelectListItem { Selected = false, Text = "No Finalizada", Value = "false"},
+    new SelectListItem { Selected = false, Text = "Finalizada", Value = "true"},
+    }, "Value", "Text"); }
 
 <!-- Modal Editar -->
 <div class="modal fade" id="modalEditarAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -219,14 +225,10 @@
                         <input readonly name="eFechaSalida" id="eFechaSalida" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label id="mensaje" class="col-md-1 control-label" ></label>
                         <label for="eEstadoTarea" class="control-label"><strong>Estado</strong></label>
-                        <select name="eEstadoTarea" id="eEstadoTarea" class="form-control">
-                            <option value="0">Seleccione un estado</option>
-                            <option value="false">No Finalizada</option>
-                            <option value="true">Finalizada</option>
-                        </select>
+                        @Html.DropDownList("estadoTarea", (SelectList)u, "Seleccione una opción", new { @class = "form-control", id = "eEstadoTarea", @Name = "eEstadoTarea" })
                     </div>
+                    <span id="mensaje" class="text-danger"></span>
                 </form>
             </div>
             <div class="modal-footer">
@@ -236,3 +238,4 @@
         </div>
     </div>
 </div>
+

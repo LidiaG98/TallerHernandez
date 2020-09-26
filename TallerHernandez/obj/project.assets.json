@@ -9328,19 +9328,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Revenge\\.nuget\\packages\\": {}
+    "C:\\Users\\vancr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
+      "projectUniqueName": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
       "projectName": "TallerHernandez",
-      "projectPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
-      "packagesPath": "C:\\Users\\Revenge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\",
+      "projectPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\TallerHernandez.csproj",
+      "packagesPath": "C:\\Users\\vancr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vancr\\Escritorio\\tallerHernan\\TallerHernandez\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Revenge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vancr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9424,13 +9424,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

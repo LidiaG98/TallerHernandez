@@ -8,7 +8,8 @@ $('#modalC').on('shown.bs.modal', function () {
 });
 
 $('#modalEditarAsignacion').on('shown.bs.modal', function () {
-    $('#myInput').focus()
+    $('#myInput').focus();
+    document.getElementById('mensaje').innerHTML = "";
 })
 
 
@@ -118,14 +119,15 @@ function EditarAsignacionTarea(action) {
     var estado;
     //Se obtiene el estado seleccionado de la asignacion
     id = $('input[name=Id]')[0].value;
-    estado = $('select[name=eEstadoTarea]')[0].value;
+    var x = document.getElementById('eEstadoTarea');
+    estado = x.options[x.selectedIndex].value;
 
     $.each(items, function (index, val) {
         recepcion = val.recepcionID;
         encargado = val.empleadoID;
     });
 
-    if (estado == "0") {
+    if (!(estado == "true" || estado== "false")) {
         document.getElementById("mensaje").innerHTML = "**Seleccione un estado";
     } else {
         $.ajax({
