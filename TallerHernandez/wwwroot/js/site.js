@@ -7,6 +7,12 @@ $('#modalC').on('shown.bs.modal', function () {
     $('#clienteID').focus();
 });
 
+$('#exampleModalCenter').on('shown.bs.modal', function () {
+    $('#nombre').focus();
+});
+$('#modalProc').on('shown.bs.modal', function () {
+    $('#procedimiento').focus();
+});
 $('#modalEditarAsignacion').on('shown.bs.modal', function () {
     $('#myInput').focus();
     document.getElementById('mensaje').innerHTML = "";
@@ -28,6 +34,47 @@ var nuevoCliente = () => {
     var accion = "Clientes/nuevoCliente";
     var cliente = new Cliente(clienteID, nombre, apellido, correo, telefono,puntos, accion);
     cliente.nuevoCliente();
+}
+
+//Funciones para roles
+//Funciones para roles
+
+var rolNomCrear;
+
+$('#modalCrearRol').on('shown.bs.modal', function () {
+    $('#rolNomCrear').focus();
+});
+
+function crearRol(action) {
+    //obteniendo datos de los inputs
+    rolNomCrear = $('input[name=rolNomCrear]')[0].value;
+
+    //verificando que no esten vacíos
+    if (rolNomCrear == "") {
+        $('#rolNomCrear').focus();
+        alert("Ingrese el nombre del rol");
+    }
+    else {
+        console.log(rolNomCrear);
+        $.ajax({
+            type: "POST",
+            url: action,
+            data: {
+                rolNomCrear
+            },
+            success: function (response) {
+                if (response === "Save") {
+                    console.log("Si");
+                    window.location.href = "Rols";
+                }
+                else {
+                    console.log("nel");
+                    $('mensajecrear').html("Ha ocurrido algún error, no se puede insertar el rol");
+                }
+            }
+        });
+    }
+
 }
 
 /**
@@ -302,5 +349,198 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.chosen-s').chosen();
 });
+
+var items;
+function AhiTeVoy(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.automovilID);
+
+        $('input[name=automovilID]').val(val.automovilID);
+
+    });
+}
+
+function VeniteAuto(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoy(response);
+        }
+    });
+}
+
+
+function MuerteALasMaquinas(action) {
+    var id = $('input[name=automovilID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Automovils";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+function VeniteAuto(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoy(response);
+        }
+    });
+}
+
+
+function MuerteALasMaquinas(action) {
+    var id = $('input[name=automovilID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Automovils";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+function VeniteCliente(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyC(response);
+        }
+    });
+}
+
+
+function EliminarCliente(action) {
+    var id = $('input[name=clienteID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Clientes";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+function AhiTeVoyC(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.clienteID);
+
+        $('input[name=clienteID]').val(val.clienteID);
+
+    });
+}
+function AhiTeVoyE(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.empleadoID);
+
+        $('input[name=empleadoID]').val(val.empleadoID);
+
+    });
+}
+
+function VeniteEmpleado(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyE(response);
+        }
+    });
+}
+
+
+function EliminarEmpleado(action) {
+    var id = $('input[name=empleadoID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Empleadoes";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
+
+
+function AhiTeVoyA(response) {
+    items = response;
+
+    $.each(items, function (index, val) {
+        //Mostrar los datos de la asignacion que deseo eliminar
+        $("#ahMeVengo").text(val.AreaID);
+
+        $('input[name=AreaID]').val(val.AreaID);
+
+    });
+}
+
+function VeniteArea(id, action) {
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            AhiTeVoyA(response);
+        }
+    });
+}
+
+
+function EliminarArea(action) {
+    var id = $('input[name=AreaID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Areas";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
 
 

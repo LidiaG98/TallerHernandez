@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using TallerHernandez.Data;
+using TallerHernandez.Models;
 
 namespace TallerHernandez.Areas.Identity.Pages.Account
 {
@@ -20,14 +22,18 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly TallerHernandezContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, TallerHernandezContext context, RoleManager<IdentityRole> rolemanager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
+            _roleManager = rolemanager;
         }
 
         [BindProperty]
@@ -56,6 +62,50 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if(_context.Empleado.Any())
+            {
+
+            }
+            else
+            {
+                IdentityRole role = new IdentityRole()
+                {
+                    Name = "Superusuario",
+                    NormalizedName = "Superusuario"
+                };
+                var result = await _roleManager.CreateAsync(role);
+                var rol = new Rol[]
+                {
+                    new Rol{rolNom="Superusuario"},
+                };
+                foreach (Rol r in rol)
+                {
+                    _context.Add(r);
+                }
+                _context.SaveChanges();
+                var empleado = new Empleado
+                {
+                    empleadoID = "000000000-0",
+                    nombre = "Admin",
+                    apellido = "Admin",
+                    correo = "admin@mail.com",
+                    telefono = "78945612",
+                    salario = 0,
+                    areaID = _context.Area.FirstOrDefault(r => r.areaNom == "Administración").AreaID,
+                    rolID = _context.Rol.FirstOrDefault(r => r.rolNom == "Superusuario").rolID,
+                    modopagoID = _context.ModoPago.FirstOrDefault(r => r.tipo == "Efectivo").modopagoID
+                };
+                _context.Empleado.Add(empleado);
+                var usuario = new IdentityUser
+                {
+                    UserName = empleado.nombre,
+                    Email = empleado.correo
+                };
+                string pass = "Admin@123";
+                result = await _userManager.CreateAsync(usuario, pass);
+                usuario = await _userManager.FindByNameAsync(empleado.nombre);
+                await _userManager.AddToRoleAsync(usuario, "Superusuario");
+            }
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);

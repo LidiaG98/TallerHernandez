@@ -1,0 +1,81 @@
+﻿@model TallerHernandez.Models.Procedimiento
+
+@{
+    ViewData["Title"] = "Edit";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="col-11 modal-title text-center">Editar Procedimiento</h5>        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <small class="text-danger">Después de dar en Guardar los cambios no son cancelables</small>
+        <div><small class="text-danger">Los campos marcados con (*) son obligatorios</small></div>        
+        <form id="FormProc">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="procedimientoID" id="idProc" />
+            <div class="form-group">
+                <label asp-for="procedimiento" class="control-label"></label><span class="text-danger">*</span>
+                <input asp-for="procedimiento" class="form-control" id="desc" />
+                <span asp-validation-for="procedimiento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="precio" class="control-label"></label><span class="text-danger">*</span>
+                <input asp-for="precio" class="form-control" id="precio" />
+                <span asp-validation-for="precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="areaID" class="control-label">Area</label><span class="text-danger">*</span>
+                <select asp-for="areaID" class="form-control" asp-items="ViewBag.areaID" id="area"></select>
+                <span asp-validation-for="areaID" class="text-danger"></span>
+            </div>
+            <span class="text-danger" id="error"></span>
+        </form>
+        <div class="modal-footer">
+            <div class="form-group">
+                <input type="button" value="Guardar" class="btn btn-primary" id="btnForm" />
+                <button id="btnCancelar" data-dismiss="modal" class="btn btn-secondary" data-url='@Url.Action("editarProce", "Recepcions")'>Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">IDBCursor
+    $(document).ready(function () {            
+        $('#btnForm').on("click", function () {
+            var id = document.getElementById("idProc").value;
+            var precio = document.getElementById("precio").value;
+            var areaIDs = document.getElementById('area');
+            var idArea = areaIDs.options[areaIDs.selectedIndex].value;
+            var desc = document.getElementById("desc").value;
+            var action = document.getElementById("btnCancelar").getAttribute("data-url");
+            var mensaje = "";
+            if (precio == "") {
+                document.getElementById("precio").focus();
+                document.getElementById("error").innerHTML = "Especifique un precio";
+            } else {
+                if (desc == "") {
+                    document.getElementById("desc").focus();
+                    document.getElementById("error").innerHTML = "Especifique una descripcion de procedimiento";
+                }
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: action,
+                        data: { id, precio, desc, idArea },                        
+                        success: function (response) {
+                            $('#btnCancelar').click();
+                        }
+                    });
+                }
+            }            
+        });
+
+    });
+</script>
+
+

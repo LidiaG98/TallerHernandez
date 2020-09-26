@@ -6,59 +6,63 @@
 
 <h1>Detalle</h1>
 
-<div class="row">
-    <div class="col-md-8 border border-success">
+
         <h4>Cliente</h4>
         <hr />
-        <div class="">
-            <div class="text-center pt-4">
-                <img class="rounded-circle" width="200" height="200" src="/images/automobile1.jpg" alt="usuario" id="file-preview-zone" />
+        <div class="row">
+            <div class="col-md-4  bg-white shadow" style="z-index:4;">
+
+                <div class="text-center pt-4">
+                    <img class="rounded-circle" src="/uploads/@(Model.imagenN)" alt="usuario" width="200" height="200" id="file-preview-zone" />
+                </div>
+                
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="clienteID" class="control-label"></label>
+                    <input asp-for="clienteID" class="form-control"disabled />
+                    <span asp-validation-for="clienteID" class="text-danger"></span>
+                </div>
+
             </div>
+            <div class="col-md-8 bg-white">
+                <div class="form-group">
+                    <label asp-for="nombre" class="control-label"></label>
+                    <input asp-for="nombre" class="form-control"disabled />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group" hidden>
+                    <label asp-for="imagenN" class="control-label"></label>
+                    <input asp-for="imagenN " class="form-control" disabled/>
+                    <span asp-validation-for="imagenN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="apellido" class="control-label"></label>
+                    <input asp-for="apellido" class="form-control" disabled/>
+                    <span asp-validation-for="apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="correo" class="control-label"></label>
+                    <input asp-for="correo" class="form-control"disabled />
+                    <span asp-validation-for="correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="telefono" class="control-label"></label>
+                    <input asp-for="telefono" class="form-control"  disabled/>
+                    <span asp-validation-for="telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="puntos" class="control-label"></label>
+                    <input asp-for="puntos" min="0" class="form-control" disabled/>
+                    <span asp-validation-for="puntos" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-end">
+                    <input type="submit" value="Regresar" asp-action="Index" class="btn btn-primary" />
+                </div>
+            </div>
+
         </div>
-    </div>
-        <div class="col-md-4">
-           
-            <dl>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.nombre)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.nombre)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.apellido)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.apellido)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.correo)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.correo)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.telefono)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.telefono)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.imagen)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.imagen)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.puntos)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.puntos)
-                </dd>
-            </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.clienteID">Editar</a>
+            
         </div>
-    </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.clienteID">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>

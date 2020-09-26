@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
+    [Authorize]
     public class MantenimientoController : Controller
     {
         private readonly TallerHernandezContext _context;
@@ -83,7 +85,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return View(mantenimiento);
+            return PartialView(mantenimiento);
         }
 
         // POST: Mantenimiento/Edit/5
@@ -116,10 +118,10 @@ namespace TallerHernandez.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Json(new { SAVE = "Y" });
             }
             ViewData["areaID"] = new SelectList(_context.Area, "AreaID", "areaNom", mantenimiento.areaID);
-            return View(mantenimiento);
+            return PartialView("Edit", mantenimiento);
         }
 
         // GET: Mantenimiento/Delete/5

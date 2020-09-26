@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
+    [Authorize]
     public class AutomovilsController : Controller
     {
         private readonly TallerHernandezContext _context;
@@ -68,6 +70,8 @@ namespace TallerHernandez.Controllers
             var automovil = await _context.Automovil
                 .Include(a => a.cliente)
                 .FirstOrDefaultAsync(m => m.automovilID == id);
+            var du = await _context.Cliente.FirstOrDefaultAsync(x => x.clienteID == automovil.clienteID);
+            ViewData["duenio"] = du.nombre + " " + du.apellido;
             if (automovil == null)
             {
                 return NotFound();
@@ -81,8 +85,8 @@ namespace TallerHernandez.Controllers
         {
            
 
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
-            
+            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID");
+            ViewData["id"] = "falso";
             return View();
         }
 
@@ -93,6 +97,8 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("automovilID,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
         {
+            ViewData["id"] = "falso";
+            if (!(AutomovilExists(automovil.automovilID))) { 
             bool imagenNula = false;
 
             try
@@ -102,7 +108,7 @@ namespace TallerHernandez.Controllers
                     imagenNula = true;
                 }
             }
-            catch (Exception e) { Console.WriteLine(e);  } //Verifica si ha subido o no una imagen a la hora de crear
+            catch (Exception e) { Console.WriteLine(e); } //Verifica si ha subido o no una imagen a la hora de crear
 
 
             if (ModelState.IsValid && imagenNula)
@@ -131,7 +137,12 @@ namespace TallerHernandez.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
+        }
+            else
+            {
+                ViewData["id"] = "verdad";
+            }
+
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", automovil.clienteID);
             return View(automovil);
         }
@@ -256,11 +267,38 @@ namespace TallerHernandez.Controllers
             _context.Automovil.Remove(automovil);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+           
         }
 
         private bool AutomovilExists(string id)
         {
             return _context.Automovil.Any(e => e.automovilID == id);
         }
+        public async Task<List<Automovil>> VeniteAuto(string id)
+        {
+            var bombolbi = from owo in _context.Automovil select owo;
+            bombolbi = bombolbi.Where(owo => owo.automovilID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> MuerteALasMaquinas(string id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Automovil.FindAsync(id);
+                _context.Automovil.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
+        }
+
     }
+
+   
 }

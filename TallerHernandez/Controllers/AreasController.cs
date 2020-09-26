@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
+    [Authorize(Roles = "Superusuario, Administrador")]
     public class AreasController : Controller
     {
         private readonly TallerHernandezContext _context;
@@ -181,5 +183,32 @@ namespace TallerHernandez.Controllers
         {
             return _context.Area.Any(e => e.AreaID == id);
         }
+        public async Task<List<Area>> VeniteArea(int id)
+        {
+            var bombolbi = from owo in _context.Area select owo;
+            bombolbi = bombolbi.Where(owo => owo.AreaID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> EliminarArea(int id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Area.FindAsync(id);
+                _context.Area.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
+        }
     }
+    
+
 }
+
+

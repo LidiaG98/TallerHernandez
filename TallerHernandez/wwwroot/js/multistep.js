@@ -42,6 +42,12 @@ function nextPrev(n) {
     // Otherwise, display the correct tab:
     showTab(currentTab);
 }
+sv = document.getElementById('proc-invalid');
+
+function ocultar() {
+    sv.className = "text-danger d-none";
+    document.getElementById("sproc").className.replace(" invalid", "");
+}
 
 function validateForm() {
     // This function deals with validation of the form fields
@@ -49,6 +55,8 @@ function validateForm() {
     x = document.getElementsByClassName("tab");
     y = x[currentTab].getElementsByTagName("input");
     z = x[currentTab].getElementsByTagName("textarea");
+    s = x[currentTab].getElementsByClassName("search form-control activo");
+    
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
         // If a field is empty...
@@ -61,10 +69,21 @@ function validateForm() {
     }
 
     for (i = 0; i < z.length; i++) {
-        // If a field is empty...
-        if (z[i].value == "") {
+        // If a textarea is empty...
+        if (z[i].value == "") {            
             // add an "invalid" class to the field:
             z[i].className += " invalid";
+            // and set the current valid status to false:
+            valid = false;
+        }
+    }
+
+    for (i = 0; i < s.length; i++) {
+        // If a select is empty...        
+        if (s[i].value == "") {
+            // add an "invalid" class to the field:
+            s[i].className += " invalid";
+            sv.className = "text-danger d-block";
             // and set the current valid status to false:
             valid = false;
         }
@@ -85,4 +104,26 @@ function fixStepIndicator(n) {
     }
     //... and adds the "active" class to the current step:
     x[n].className += " active";
+}
+
+
+//************************************************* Crear mantenimientos y procedimientos********************************************
+var agregarMantenimiento = () => {
+    var nombre = document.getElementById("nombre").value;
+    var precio = document.getElementById("precio").value;
+    var areaIDs = document.getElementById('areaID');
+    var areaID = areaIDs.options[areaIDs.selectedIndex].value;
+    var action = "agregarMantenimiento";
+    var mantenimiento = new Mantenimiento(nombre, precio, areaID, action);
+    mantenimiento.agregarMantenimiento();
+}
+
+var agregarProcedimiento = () => {
+    var nombre = document.getElementById("procedimiento").value;
+    var precio = document.getElementById("precioProc").value;
+    var areaIDs = document.getElementById('areaIDProc');
+    var areaID = areaIDs.options[areaIDs.selectedIndex].value;
+    var action = "agregarProcedimiento";
+    var procedi = new Procedimiento(nombre, precio, areaID, action);
+    procedi.agregarProcedimiento();
 }

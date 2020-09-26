@@ -14,12 +14,16 @@ namespace TallerHernandez.Models
         [Required]
         [Display(Name ="Procedimiento")]
         public string procedimiento { get; set; }
+        
+        [Display(Name ="Precio")]
+        public float precio { get; set; }
 
         public ICollection<Recepcion> recepcion { get; set; }
 
         [Required]
         public int areaID { get; set; }
         public Area area { get; set; }
+
 
     }
 }

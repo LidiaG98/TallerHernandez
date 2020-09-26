@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,8 @@ using TallerHernandez.Data;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
-{
+{    
+    [Authorize]
     public class AsignacionTareasController : Controller
     {
         private readonly TallerHernandezContext _context;
@@ -25,7 +27,7 @@ namespace TallerHernandez.Controllers
             _userManager = userManager;
         }
 
-        // GET: AsignacionTareas
+        // GET: AsignacionTareas        
         public async Task<IActionResult> Index(string OrdenAsig, string cadena)
         {
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
@@ -63,7 +65,7 @@ namespace TallerHernandez.Controllers
         }
 
 
-        // GET: AsignacionTareas/Details/5
+        // GET: AsignacionTareas/Details/5        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
