@@ -12,8 +12,8 @@ using TallerHernandez.Data;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
-{
-    [Authorize(Roles = "Superusuario, Administrador")]
+{    
+    [Authorize]
     public class AsignacionTareasController : Controller
     {
         private readonly TallerHernandezContext _context;
@@ -27,7 +27,7 @@ namespace TallerHernandez.Controllers
             _userManager = userManager;
         }
 
-        // GET: AsignacionTareas
+        // GET: AsignacionTareas        
         public async Task<IActionResult> Index(string OrdenAsig, string cadena)
         {
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
@@ -65,7 +65,7 @@ namespace TallerHernandez.Controllers
         }
 
 
-        // GET: AsignacionTareas/Details/5
+        // GET: AsignacionTareas/Details/5        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

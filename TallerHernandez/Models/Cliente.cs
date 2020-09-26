@@ -7,15 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using TallerHernandez.Controllers;
 
-
 namespace TallerHernandez.Models
 {
     public class Cliente
     {
         [Display(Name ="DUI")]
         [RegularExpression(@"^[0-9]{8}-[0-9]{1}$", ErrorMessage = "El formato de DUI no es correcto, ¿Está colocando el guión?")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        [Index(IsUnique = true)]
+        [Required(ErrorMessage = "Este campo es obligatorio")]        
         public string clienteID { get; set; }
         [Display(Name = "Nombre")]
         [Required(ErrorMessage ="Este campo es obligatorio")]

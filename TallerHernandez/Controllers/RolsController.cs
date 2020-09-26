@@ -14,7 +14,7 @@ using TallerHernandez.ViewModels;
 
 namespace TallerHernandez.Controllers
 {
-    [Authorize(Roles = "Superusuario, Administrador")]
+    [Authorize(Roles = "Superusuario")]
     public class RolsController : Controller
     {
         private readonly TallerHernandezContext _context;

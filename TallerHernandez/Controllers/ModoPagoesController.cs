@@ -11,7 +11,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
-    [Authorize(Roles = "Superusuario, Administrador")]
+    [Authorize(Roles = "Superusuario")]
     public class ModoPagoesController : Controller
     {
         private readonly TallerHernandezContext _context;
