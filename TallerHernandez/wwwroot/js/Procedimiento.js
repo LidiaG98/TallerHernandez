@@ -5,7 +5,7 @@
         this.areaID = areaID;
         this.action = action;
     }
-    agregarProcedimiento() {
+    agregarProcedimiento() {        
         if (this.procedimiento == "") {
             document.getElementById("procedimiento").focus();
             document.getElementById("mensajeProc").innerHTML = "Describa el nuevo procedimiento";
@@ -15,7 +15,8 @@
                 document.getElementById("precioProc").focus();
                 document.getElementById("mensajeProc").innerHTML = "Ingrese el precio de mano de obra";
             }
-            else {                
+            else {
+                document.getElementById("mensajeProc").innerHTML = "";
                 var procedimiento = this.procedimiento;
                 var precio = this.precio;
                 var areaID = this.areaID;
@@ -26,7 +27,7 @@
                     url: action,
                     data: { procedimiento, precio, areaID },
                     success: (response) => {
-                        console.log(response);
+                        console.log(response);                        
                         $.each(response, (index, val) => {
                             mensaje = val.code;
                         });

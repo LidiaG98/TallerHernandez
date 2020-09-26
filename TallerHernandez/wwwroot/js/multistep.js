@@ -119,6 +119,7 @@ var agregarMantenimiento = () => {
 }
 
 var agregarProcedimiento = () => {
+    document.getElementById("mensajeProc").innerHTML = "";
     var nombre = document.getElementById("procedimiento").value;
     var precio = document.getElementById("precioProc").value;
     var areaIDs = document.getElementById('areaIDProc');
