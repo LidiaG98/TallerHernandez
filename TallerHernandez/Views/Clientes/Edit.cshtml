@@ -10,7 +10,7 @@
 <hr />
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="row">
-        <div class="col-md-4 border border-success ">
+        <div class="col-md-4 bg-white shadow" style="z-index:4;">
 
             <div class="text-center pt-4">
                 <img class="rounded-circle" src="/uploads/@(Model.imagenN)" alt="usuario" width="200" height="200" id="file-preview-zone" />
@@ -28,7 +28,7 @@
             </div>
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 bg-white">
             <div class="form-group">
                 <label asp-for="nombre" class="control-label"></label>
                 <input asp-for="nombre" class="form-control" />

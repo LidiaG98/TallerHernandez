@@ -2,58 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
-using TallerHernandez.ModelModal;
 using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
-    [Authorize(Roles = "Superusuario, Administrador")]
-    public class AreasController : Controller
+    public class RepuestoesController : Controller
     {
         private readonly TallerHernandezContext _context;
-        public AreaModal areaModal;
 
-        public AreasController(TallerHernandezContext context)
+        public RepuestoesController(TallerHernandezContext context)
         {
             _context = context;
-            areaModal = new AreaModal(context);
         }
 
-        // GET: Areas
-        public async Task<IActionResult> Index(string OrdenA,string Buscar)
+        // GET: Repuestoes
+        public async Task<IActionResult> Index(string OrdenA, string Buscar)
         {
-
             ViewData["OrdenNom"] = String.IsNullOrEmpty(OrdenA) ? "nom_desc" : "";
-           
+            ViewData["OrdenAp"] = OrdenA == "ap_asc" ? "ap_desc" : "ap_asc";
+            ViewData["Ordentipo"] = OrdenA == "tipo_asc" ? "tipo_desc" : "tipo_asc";
             ViewData["Filtro"] = Buscar;
-            var area = from s in _context.Area select s;
+            var repuesto = from s in _context.Repuesto select s;
             if (!String.IsNullOrEmpty(Buscar))
             {
-                area = area.Where(s =>s.areaNom.Contains(Buscar) );
+                repuesto = repuesto.Where(s => s.nombre.Contains(Buscar) || s.categoria.Contains(Buscar) || s.tipo.Contains(Buscar));
             }
             switch (OrdenA)
             {
                 case "nom_desc":
-                    area = area.OrderByDescending(s => s.areaNom);
+                    repuesto = repuesto.OrderByDescending(s => s.nombre);
                     break;
-                
-                  
+                case "ap_asc":
+                    repuesto = repuesto.OrderBy(s => s.categoria);
+                    break;
+                case "ap_desc":
+                    repuesto = repuesto.OrderByDescending(s => s.categoria);
+                    break;
+
+                case "tipo_asc":
+                    repuesto = repuesto.OrderBy(s => s.tipo);
+                    break;
+                case "tipo_desc":
+                    repuesto = repuesto.OrderByDescending(s => s.tipo);
+                    break;
+
                 default:
-                    area = area.OrderBy(s => s.areaNom);
+                    repuesto = repuesto.OrderBy(s => s.nombre);
                     break;
             }
-
-            return View(await area.AsNoTracking().ToListAsync());
-
+            return View(await repuesto.AsNoTracking().ToListAsync());
         }
 
-        // GET: Areas/Details/5
+        // GET: Repuestoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -61,45 +65,39 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var area = await _context.Area
-                .FirstOrDefaultAsync(m => m.AreaID == id);
-            if (area == null)
+            var repuesto = await _context.Repuesto
+                .FirstOrDefaultAsync(m => m.repuestoID == id);
+            if (repuesto == null)
             {
                 return NotFound();
             }
 
-            return View(area);
+            return View(repuesto);
         }
 
-        // GET: Areas/Create
-       
-        public List<IdentityError> nuevoArea(string areaNom)
-        {
-           
-            return areaModal.nuevoArea(areaNom);
-        }
+        // GET: Repuestoes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Areas/Create
+        // POST: Repuestoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AreaID,areaNom")] Area area)
+        public async Task<IActionResult> Create([Bind("repuestoID,nombre,categoria,anio,cantidad,tipo,estadorespuesto")] Repuesto repuesto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(area);
+                _context.Add(repuesto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(area);
+            return View(repuesto);
         }
 
-        // GET: Areas/Edit/5
+        // GET: Repuestoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,22 +105,22 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var area = await _context.Area.FindAsync(id);
-            if (area == null)
+            var repuesto = await _context.Repuesto.FindAsync(id);
+            if (repuesto == null)
             {
                 return NotFound();
             }
-            return View(area);
+            return View(repuesto);
         }
 
-        // POST: Areas/Edit/5
+        // POST: Repuestoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AreaID,areaNom")] Area area)
+        public async Task<IActionResult> Edit(int id, [Bind("repuestoID,nombre,categoria,anio,cantidad,tipo,estadorespuesto")] Repuesto repuesto)
         {
-            if (id != area.AreaID)
+            if (id != repuesto.repuestoID)
             {
                 return NotFound();
             }
@@ -131,12 +129,12 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
-                    _context.Update(area);
+                    _context.Update(repuesto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AreaExists(area.AreaID))
+                    if (!RepuestoExists(repuesto.repuestoID))
                     {
                         return NotFound();
                     }
@@ -147,10 +145,10 @@ namespace TallerHernandez.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(area);
+            return View(repuesto);
         }
 
-        // GET: Areas/Delete/5
+        // GET: Repuestoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -158,57 +156,30 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var area = await _context.Area
-                .FirstOrDefaultAsync(m => m.AreaID == id);
-            if (area == null)
+            var repuesto = await _context.Repuesto
+                .FirstOrDefaultAsync(m => m.repuestoID == id);
+            if (repuesto == null)
             {
                 return NotFound();
             }
 
-            return View(area);
+            return View(repuesto);
         }
 
-        // POST: Areas/Delete/5
+        // POST: Repuestoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var area = await _context.Area.FindAsync(id);
-            _context.Area.Remove(area);
+            var repuesto = await _context.Repuesto.FindAsync(id);
+            _context.Repuesto.Remove(repuesto);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AreaExists(int id)
+        private bool RepuestoExists(int id)
         {
-            return _context.Area.Any(e => e.AreaID == id);
-        }
-        public async Task<List<Area>> VeniteArea(int id)
-        {
-            var bombolbi = from owo in _context.Area select owo;
-            bombolbi = bombolbi.Where(owo => owo.AreaID == id);
-            return await bombolbi.ToListAsync();
-        }
-        public async Task<String> EliminarArea(int id)
-        {
-
-            var respuesta = "";
-            try
-            {
-                var bombolbi = await _context.Area.FindAsync(id);
-                _context.Area.Remove(bombolbi);
-                await _context.SaveChangesAsync();
-                respuesta = "Delete";
-            }
-            catch
-            {
-                respuesta = "NoDelete";
-            }
-            return respuesta;
+            return _context.Repuesto.Any(e => e.repuestoID == id);
         }
     }
-    
-
 }
-
-
