@@ -4,69 +4,77 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Recepcion</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.diagnostico)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.diagnostico)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.fechaEntrada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.fechaEntrada)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.fechaSalida)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.fechaSalida)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.cliente)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.cliente.clienteID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.empleado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.empleado.empleadoID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Automovil)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Automovil.automovilID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.estado)
-        </dt>
-        @if (@Model.estado.Equals(1))
-        {
-            <dd class="col-sm-10">
-                En proceso
-            </dd>
-}
-        else
-        {
-            <dd class="col-sm-10">
-                Finalizado
-            </dd>
-}
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="recepcionID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+<div class="modal-content">
+    <div class="modal-header">
+        <h5  class="col-11 modal-title text-center">¿Seguro que quiere eliminar esta ficha?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">        
+        <div>
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.diagnostico)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.diagnostico)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.fechaEntrada)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.fechaEntrada)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.fechaSalida)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.fechaSalida)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.cliente)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.cliente.nombre)
+                    @Html.DisplayFor(model => model.cliente.apellido)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.empleado)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.empleado.nombre)
+                    @Html.DisplayFor(model => model.empleado.apellido)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Automovil)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Automovil.automovilID)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.estado)
+                </dt>
+                @if (@Model.estado.Equals(1))
+                {
+                    <dd class="col-sm-8">
+                        En proceso
+                    </dd>
+                }
+                else
+                {
+                    <dd class="col-sm-8">
+                        Finalizado
+                    </dd>
+                }
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="recepcionID" />
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+                <button data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    </div>

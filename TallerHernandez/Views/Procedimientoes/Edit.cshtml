@@ -1,26 +1,27 @@
-﻿@model TallerHernandez.Models.Mantenimiento
+﻿@model TallerHernandez.Models.Procedimiento
 
 @{
     ViewData["Title"] = "Edit";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="col-11 modal-title text-center">Editar Mantenimiento</h5>
+        <h5 class="col-11 modal-title text-center">Editar Procedimiento</h5>        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <small class="text-danger">Después de dar en Guardar los cambios no son cancelables</small>
-        <div><small class="text-danger">Los campos marcados con (*) son obligatorios</small></div>
+        <div><small class="text-danger">Los campos marcados con (*) son obligatorios</small></div>        
         <form id="FormProc">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="mantenimientoID" id="idMan" />
+            <input type="hidden" asp-for="procedimientoID" id="idProc" />
             <div class="form-group">
-                <label asp-for="nombre" class="control-label"></label><span class="text-danger">*</span>
-                <input asp-for="nombre" class="form-control" id="desc" />
-                <span asp-validation-for="nombre" class="text-danger"></span>
+                <label asp-for="procedimiento" class="control-label"></label><span class="text-danger">*</span>
+                <input asp-for="procedimiento" class="form-control" id="desc" />
+                <span asp-validation-for="procedimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="precio" class="control-label"></label><span class="text-danger">*</span>
@@ -37,17 +38,16 @@
         <div class="modal-footer">
             <div class="form-group">
                 <input type="button" value="Guardar" class="btn btn-primary" id="btnForm" />
-                <button id="btnCancelar" data-dismiss="modal" class="btn btn-secondary" data-url='@Url.Action("editarMan", "Recepcions")'>Cancelar</button>
+                <button id="btnCancelar" data-dismiss="modal" class="btn btn-secondary" data-url='@Url.Action("editarProce", "Recepcions")'>Cancelar</button>
             </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript">
-IDBCursor
-    $(document).ready(function () {
+<script type="text/javascript">IDBCursor
+    $(document).ready(function () {            
         $('#btnForm').on("click", function () {
-            var id = document.getElementById("idMan").value;
+            var id = document.getElementById("idProc").value;
             var precio = document.getElementById("precio").value;
             var areaIDs = document.getElementById('area');
             var idArea = areaIDs.options[areaIDs.selectedIndex].value;
@@ -60,20 +60,22 @@ IDBCursor
             } else {
                 if (desc == "") {
                     document.getElementById("desc").focus();
-                    document.getElementById("error").innerHTML = "Especifique una descripcion del mantenimiento";
+                    document.getElementById("error").innerHTML = "Especifique una descripcion de procedimiento";
                 }
                 else {
                     $.ajax({
                         type: "POST",
                         url: action,
-                        data: { id, precio, desc, idArea },
+                        data: { id, precio, desc, idArea },                        
                         success: function (response) {
                             $('#btnCancelar').click();
                         }
                     });
                 }
-            }
+            }            
         });
 
     });
 </script>
+
+
