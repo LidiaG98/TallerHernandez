@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {   private readonly IWebHostEnvironment hostEnvironment;
         private readonly TallerHernandezContext _context;
@@ -86,6 +88,7 @@ namespace TallerHernandez.Controllers
             // GET: Clientes/Create
             public IActionResult Create()
         {
+            ViewData["id"] = "falso";
             return View();
         }
 
@@ -96,43 +99,54 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("clienteID,nombre,apellido,correo,telefono,imagen,puntos")] Cliente cliente)
         {
-            bool imagenNula = false;
-
-            try
+            ViewData["id"] = "falso";
+            if (!(ClienteExists(cliente.clienteID)))
             {
-                if (cliente.imagen == null)
+                
+
+
+                bool imagenNula = false;
+
+                try
                 {
-                    imagenNula = true;
+                    if (cliente.imagen == null)
+                    {
+                        imagenNula = true;
+                    }
+                }
+                catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
+
+
+                if (ModelState.IsValid && imagenNula)
+                {
+                    cliente.imagenN = "logoTaller.png";
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else if (ModelState.IsValid && cliente.imagen != null) //Modelo valido y si subio una imagen
+                {
+                    Imagen i = cliente.imagen;
+                    string rootPath = hostEnvironment.WebRootPath;
+                    string fileName = cliente.nombre;
+                    fileName = fileName.Replace(" ", "");
+                    string extension = Path.GetExtension(i.imageFile.FileName);
+                    i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(rootPath + "/uploads/", fileName);
+                    //cliente.imagen.imagePath = path;
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await i.imageFile.CopyToAsync(fileStream);
+                    }
+                    cliente.imagenN = fileName;
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
             }
-            catch (Exception e) { Console.WriteLine(e); }  //Verifica si ha subido o no una imagen a la hora de crear
-
-
-            if (ModelState.IsValid && imagenNula)
+            else
             {
-                cliente.imagenN = "/images/logoTaller.png";
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else if (ModelState.IsValid && cliente.imagen != null) //Modelo valido y si subio una imagen
-            {  
-                Imagen i = cliente.imagen;
-                string rootPath = hostEnvironment.WebRootPath;
-                string fileName = cliente.nombre;
-                fileName = fileName.Replace(" ","");
-                string extension = Path.GetExtension(i.imageFile.FileName);
-                i.nombreImagen= fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                string path = Path.Combine(rootPath + "/uploads/", fileName);
-                //cliente.imagen.imagePath = path;
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await i.imageFile.CopyToAsync(fileStream);                    
-                }
-                cliente.imagenN = fileName;
-                   _context.Add(cliente);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["id"] = "verdad";
             }
                 return View(cliente);
         }
@@ -254,6 +268,29 @@ namespace TallerHernandez.Controllers
         private bool ClienteExists(string id)
         {
             return _context.Cliente.Any(e => e.clienteID == id);
+        }
+        public async Task<List<Cliente>> VeniteCliente(string id)
+        {
+            var bombolbi = from owo in _context.Cliente select owo;
+            bombolbi = bombolbi.Where(owo => owo.clienteID == id);
+            return await bombolbi.ToListAsync();
+        }
+        public async Task<String> EliminarCliente(string id)
+        {
+
+            var respuesta = "";
+            try
+            {
+                var bombolbi = await _context.Cliente.FindAsync(id);
+                _context.Cliente.Remove(bombolbi);
+                await _context.SaveChangesAsync();
+                respuesta = "Delete";
+            }
+            catch
+            {
+                respuesta = "NoDelete";
+            }
+            return respuesta;
         }
     }
 }

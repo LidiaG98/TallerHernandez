@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20200924042952_dsasds")]
+    partial class dsasds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,32 +233,6 @@ namespace TallerHernandez.Migrations
                     b.ToTable("Area");
                 });
 
-            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
-                {
-                    b.Property<int>("asignacionTareaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("empleadoID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("estadoTarea")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("recepcionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("asignacionTareaID");
-
-                    b.HasIndex("empleadoID");
-
-                    b.HasIndex("recepcionID");
-
-                    b.ToTable("AsignacionTarea");
-                });
-
             modelBuilder.Entity("TallerHernandez.Models.Automovil", b =>
                 {
                     b.Property<string>("automovilID")
@@ -422,9 +398,6 @@ namespace TallerHernandez.Migrations
                     b.Property<int>("areaID")
                         .HasColumnType("int");
 
-                    b.Property<float>("precio")
-                        .HasColumnType("real");
-
                     b.Property<string>("procedimiento")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -469,10 +442,10 @@ namespace TallerHernandez.Migrations
                     b.Property<DateTime>("fechaSalida")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("mantenimientoID")
+                    b.Property<int>("mantenimientoID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("procedimientoID")
+                    b.Property<int>("procedimientoID")
                         .HasColumnType("int");
 
                     b.HasKey("recepcionID");
@@ -488,40 +461,6 @@ namespace TallerHernandez.Migrations
                     b.HasIndex("procedimientoID");
 
                     b.ToTable("Recepcion");
-                });
-
-            modelBuilder.Entity("TallerHernandez.Models.Repuesto", b =>
-                {
-                    b.Property<int>("repuestoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("anio")
-                        .HasColumnType("int");
-
-                    b.Property<int>("cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<string>("categoria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("tipo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("repuestoID");
-
-                    b.ToTable("Repuesto");
                 });
 
             modelBuilder.Entity("TallerHernandez.Models.Rol", b =>
@@ -587,21 +526,6 @@ namespace TallerHernandez.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
-                {
-                    b.HasOne("TallerHernandez.Models.Empleado", "empleado")
-                        .WithMany("asignacionTarea")
-                        .HasForeignKey("empleadoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
-                        .WithMany("asignacionTarea")
-                        .HasForeignKey("recepcionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -676,11 +600,15 @@ namespace TallerHernandez.Migrations
 
                     b.HasOne("TallerHernandez.Models.Mantenimiento", "mantenimiento")
                         .WithMany("recepcion")
-                        .HasForeignKey("mantenimientoID");
+                        .HasForeignKey("mantenimientoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TallerHernandez.Models.Procedimiento", "procedimiento")
                         .WithMany("recepcion")
-                        .HasForeignKey("procedimientoID");
+                        .HasForeignKey("procedimientoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

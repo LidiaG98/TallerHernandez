@@ -4,4 +4,16 @@
     ViewData["Title"] = "Access denied";
 }
 
-    <div>eeee</div>
+    <div id="app">
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <div>ACCESSO DENEGADO</div>
+        <div class="text-center">
+            No cuenta con los permisos suficientes para esta acción<span class="blink">_</span>
+        </div>
+        <br />
+        <div class="row">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-success btn-block">Inicio</a>            
+        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+    </div>
+<link href="~/css/AccessDenied.css" rel="stylesheet" />

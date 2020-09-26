@@ -12,6 +12,7 @@ namespace TallerHernandez.Models
     {
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [Display(Name="Placa")]
+        [Key]
         public string automovilID { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [Display(Name ="Marca")]
