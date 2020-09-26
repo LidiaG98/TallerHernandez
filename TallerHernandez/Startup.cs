@@ -40,6 +40,13 @@ namespace TallerHernandez
                     options.UseSqlServer(Configuration.GetConnectionString("TallerHernandezContext")));
             services.AddControllers().AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+
+            });
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Account/Login");
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +69,9 @@ namespace TallerHernandez
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
 
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

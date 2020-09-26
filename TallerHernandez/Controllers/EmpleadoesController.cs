@@ -14,6 +14,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {    
+    [Authorize(Roles = "Superusuario")]
     public class EmpleadoesController : Controller
     {
         private readonly IWebHostEnvironment hostEnvironment;

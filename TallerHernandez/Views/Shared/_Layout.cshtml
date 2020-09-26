@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> signInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TallerHernandez</title>
-    
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -16,41 +17,43 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TallerHernandez</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button>               
                 <div class="navbar-collapse d-sm-inline-flex flex-sm-row-reverse collapse show" style=" ">
-
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Recepcions" asp-action="">Recepciones</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Asignación de Tareas</a>
-                            <div class="dropdown-menu">
-                                <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="">Trabajos en proceso</a>
-                                <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadas">Trabajos finalizados</a>
-                                <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasEnProcesoEmpleado">Labores asignadas</a>
-                                <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadasEmpleado">Labores finalizadas</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Configuración</a>
-                            <div class="dropdown-menu">
-                                <a class="nav-link " asp-area="" asp-controller="ModoPagoes" asp-action="">Pagos</a>
-                                <a class="nav-link " asp-area="" asp-controller="Rols" asp-action="">Puestos</a>
-                                <a class="nav-link " asp-area="" asp-controller="Areas" asp-action="">Areas</a>
-                                <a class="nav-link " asp-area="" asp-controller="Mantenimiento" asp-action="">Mantenimientos</a>
-                                <a class="nav-link " asp-area="" asp-controller="Usuarios" asp-action="">Usuarios</a>
-                            </div>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="" asp-controller="Recepcions" asp-action="">Recepciones</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Asignación de Tareas</a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="">Trabajos en proceso</a>
+                                    <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadas">Trabajos finalizados</a>
+                                    <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasEnProcesoEmpleado">Labores asignadas</a>
+                                    <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadasEmpleado">Labores finalizadas</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Configuración</a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link " asp-area="" asp-controller="ModoPagoes" asp-action="">Pagos</a>
+                                    <a class="nav-link " asp-area="" asp-controller="Rols" asp-action="">Puestos</a>
+                                    <a class="nav-link " asp-area="" asp-controller="Areas" asp-action="">Areas</a>
+                                    <a class="nav-link " asp-area="" asp-controller="Mantenimiento" asp-action="">Mantenimientos</a>
+                                    <a class="nav-link " asp-area="" asp-controller="Usuarios" asp-action="">Usuarios</a>
+                                </div>
+                            </li>
+                        }
                         <li class="nav-item">
                             <partial name="_LoginPartial" />
                         </li>
