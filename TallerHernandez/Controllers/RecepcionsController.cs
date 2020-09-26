@@ -170,11 +170,11 @@ namespace TallerHernandez.Controllers
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
             
-            var l = _context.Mantenimiento.ToList();
-            var lp = _context.Procedimiento.ToList();
-            var last = l.Last();            
-            recepcion.mantenimientoID = last.mantenimientoID;
-            recepcion.procedimientoID = lp.Last().procedimientoID;
+            //var l = _context.Mantenimiento.ToList();
+            //var lp = _context.Procedimiento.ToList();
+            //var last = l.Last();            
+            //recepcion.mantenimientoID = last.mantenimientoID;
+            //recepcion.procedimientoID = lp.Last().procedimientoID;
 
             ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento", recepcion.procedimientoID);
             ViewData["ListaM"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre",recepcion.mantenimientoID);

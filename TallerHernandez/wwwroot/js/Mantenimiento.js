@@ -47,6 +47,7 @@
         document.getElementById("nombre").value = "";
         document.getElementById("precio").value = "";
         document.getElementById("areaID").selectedIndex = 0;
+        document.getElementById("mensajeProc").innerHTML = "";
         $('#exampleModalCenter').modal('hide');
     }
     recargar() {
