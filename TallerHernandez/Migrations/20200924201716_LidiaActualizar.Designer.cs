@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20200924201716_LidiaActualizar")]
+    partial class LidiaActualizar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,6 +233,32 @@ namespace TallerHernandez.Migrations
                     b.ToTable("Area");
                 });
 
+            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
+                {
+                    b.Property<int>("asignacionTareaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("empleadoID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("estadoTarea")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("recepcionID")
+                        .HasColumnType("int");
+
+                    b.HasKey("asignacionTareaID");
+
+                    b.HasIndex("empleadoID");
+
+                    b.HasIndex("recepcionID");
+
+                    b.ToTable("AsignacionTarea");
+                });
+
             modelBuilder.Entity("TallerHernandez.Models.Automovil", b =>
                 {
                     b.Property<string>("automovilID")
@@ -434,6 +462,9 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("estado")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("fechaEntrada")
                         .HasColumnType("datetime2");
 
@@ -524,6 +555,21 @@ namespace TallerHernandez.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TallerHernandez.Models.AsignacionTarea", b =>
+                {
+                    b.HasOne("TallerHernandez.Models.Empleado", "empleado")
+                        .WithMany("asignacionTarea")
+                        .HasForeignKey("empleadoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
+                        .WithMany("asignacionTarea")
+                        .HasForeignKey("recepcionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
