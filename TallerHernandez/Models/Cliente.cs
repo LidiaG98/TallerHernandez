@@ -15,14 +15,14 @@ namespace TallerHernandez.Models
         [Display(Name ="DUI")]
         [RegularExpression(@"^[0-9]{8}-[0-9]{1}$", ErrorMessage = "El formato de DUI no es correcto, ¿Está colocando el guión?")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [Index(IsUnique = true)]
+       
         public string clienteID { get; set; }
         [Display(Name = "Nombre")]
         [Required(ErrorMessage ="Este campo es obligatorio")]
-        [RegularExpression(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$",ErrorMessage ="Ingrese un nombre valido")]
+        [RegularExpression(@"[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙÑñ.-]+", ErrorMessage ="Ingrese un nombre valido")]
         public string nombre { get; set; }
         [Display(Name = "Apellido")]
-        [RegularExpression(@"^([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\']+[\s])+([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])+[\s]?([A-Za-zÁÉÍÓÚñáéíóúÑ]{0}?[A-Za-zÁÉÍÓÚñáéíóúÑ\'])?$", ErrorMessage = "Ingrese un apellido valido")]
+        [RegularExpression(@"[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙÑñ.-]+", ErrorMessage = "Ingrese un apellido valido")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string apellido { get; set; }
         [Display(Name = "Correo")]
@@ -45,7 +45,7 @@ namespace TallerHernandez.Models
 
         public  Imagen imagen { get; set; }
         public string imagenN { get; set; }
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Ingrese un punto correcto")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Ingrese una cantidad correcta")]
         public int puntos { get; set; }
 
 
