@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TallerHernandez.Models;
 
 namespace TallerHernandez.Controllers
 {
+    [Authorize(Roles = "Superusuario")]
     public class ModoPagoesController : Controller
     {
         private readonly TallerHernandezContext _context;

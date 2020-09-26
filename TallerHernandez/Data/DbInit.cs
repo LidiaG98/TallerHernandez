@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using TallerHernandez.Models;
 namespace TallerHernandez.Data
 {
     public class DbInit
-    { 
+    {       
         public static void Iniz(TallerHernandezContext context)
         {
             context.Database.EnsureCreated();
@@ -37,28 +38,13 @@ namespace TallerHernandez.Data
             {
                 return;
             }
-            if (context.Empleado.Any())
-            {
-                return;
-            }
             if (context.Rol.Any())
             {
                 return;
             }
             else
-            {
-                var rol = new Rol[]
-                {
-                    new Rol{rolNom="Mecánico"},
-                    new Rol{rolNom="Gerente"},
-                    new Rol{rolNom="recepcionista"}
-                };
-                foreach(Rol r in rol)
-                {
-                    context.Add(r);
-                }
-                context.SaveChanges();
-            }
+            {             
+            }            
             if (context.ModoPago.Any())
             {
                 return;
@@ -76,7 +62,7 @@ namespace TallerHernandez.Data
                     context.Add(Mp);
                    
                 }
-                context.SaveChanges();
+                context.SaveChanges();                
             }
             if (context.Mantenimiento.Any())
             {
@@ -111,6 +97,13 @@ namespace TallerHernandez.Data
                     context.Add(p);
                 }
                 context.SaveChanges();
+            }
+            if (context.Empleado.Any())
+            {
+                return;
+            }
+            else
+            {               
             }
         }
     }
