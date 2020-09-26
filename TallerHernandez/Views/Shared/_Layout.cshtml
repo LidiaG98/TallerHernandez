@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark b border-bottom box-shadow mb-3" style="background-color: #2e2d2d !important;">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Taller Hernandez</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TallerHernandez</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>               
@@ -43,15 +43,20 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">Asignación de Tareas</a>
                                 <div class="dropdown-menu">
-                                    @if (User.IsInRole("Superusuario") || User.IsInRole("Administrador"))
+                                    @if (User.IsInRole("Administrador"))
                                     {
                                         <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="">Trabajos en proceso</a>
                                         <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadas">Trabajos finalizados</a>
                                     }
                                     else
+                                    {                                        
+                                            <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasEnProcesoEmpleado">Labores asignadas</a>
+                                            <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadasEmpleado">Labores finalizadas</a>                                        
+                                    }
+                                    @if (User.IsInRole("Superusuario"))
                                     {
-                                        <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasEnProcesoEmpleado">Labores asignadas</a>
-                                        <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadasEmpleado">Labores finalizadas</a>
+                                        <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="">Trabajos en proceso</a>
+                                        <a class="nav-link " asp-area="" asp-controller="AsignacionTareas" asp-action="TareasFinalizadas">Trabajos finalizados</a>                                       
                                     }
                                 </div>
                             </li>
