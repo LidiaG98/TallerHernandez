@@ -497,10 +497,6 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("anio")
                         .HasColumnType("int");
 
@@ -508,6 +504,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("categoria")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("estadorespuesto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

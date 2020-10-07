@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <input asp-for="modopagoID" class="form-control" type="hidden"/>
                 <label asp-for="tipo" class="control-label"></label>
                 <input asp-for="tipo" class="form-control" />
                 <span asp-validation-for="tipo" class="text-danger"></span>

@@ -135,11 +135,13 @@ namespace TallerHernandez.Controllers
 
             if (!recepcion.mantenimientoID.Equals(null) && recepcion.procedimientoID.Equals(null))
             {
-                encargado = encargado.Where(a => a.areaID == recepcion.mantenimiento.areaID);
+                Mantenimiento mantenimiento = _context.Mantenimiento.First(i => i.mantenimientoID == recepcion.mantenimientoID);
+                encargado = encargado.Where(a => a.areaID == mantenimiento.areaID);
             }
             else if (recepcion.mantenimientoID.Equals(null) && !recepcion.procedimientoID.Equals(null))
             {
-                encargado = encargado.Where(a => a.areaID == recepcion.procedimiento.areaID);
+                Procedimiento procedimiento = _context.Procedimiento.First(i => i.procedimientoID == recepcion.procedimientoID);
+                encargado = encargado.Where(a => a.areaID == procedimiento.areaID);
             }
             else if (!recepcion.mantenimientoID.Equals(null) && !recepcion.procedimientoID.Equals(null))
             {
@@ -420,13 +422,13 @@ namespace TallerHernandez.Controllers
             ViewData["Filtro"] = cadena;
 
             ClaimsPrincipal currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserID = currentUser.Identity.Name;
             var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimiento).Include(a => a.recepcion.mantenimiento)
                                    select s;
 
             if (!String.IsNullOrEmpty(currentUserID))
             {
-                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == false) && (s.empleadoID == currentUserID));
+                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == false) && (s.empleado.correo == currentUserID));
             }
 
             if (!String.IsNullOrEmpty(cadena))
@@ -454,13 +456,13 @@ namespace TallerHernandez.Controllers
             ViewData["Filtro"] = cadena;
 
             ClaimsPrincipal currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserID = currentUser.Identity.Name;
             var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimiento).Include(a => a.recepcion.mantenimiento)
                                    select s;
 
             if (!String.IsNullOrEmpty(currentUserID))
             {
-                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == true) && (s.empleadoID == currentUserID));
+                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == true) && (s.empleado.correo == currentUserID));
             }
 
             if (!String.IsNullOrEmpty(cadena))

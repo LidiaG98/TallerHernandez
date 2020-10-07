@@ -116,47 +116,128 @@ function mostrarAsignacionTarea(response) {
 
     $.each(items, function (index, val) {
         //Mostrar los datos de la asignacion que deseo eliminar
-        $("#automovilID").text(val.recepcion.automovilID);
-        $("#mantenimiento").text(val.recepcion.mantenimiento.nombre);
-        $("#procedimiento").text(val.recepcion.procedimiento.procedimiento);
-        $("#empleadoID").text(val.empleado.nombre);
-        $("#fechaSalida").text(val.recepcion.fechaSalida);
-        if (val.estadoTarea == true) {
-            $("#estadoTarea").text("Finalizada");
+        if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID == null) {
+            $("#automovilID").text(val.recepcion.automovilID);
+            $("#mantenimiento").text(val.recepcion.mantenimiento.nombre);
+            $("#empleadoID").text(val.empleado.nombre);
+            $("#fechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#estadoTarea").text("Finalizada");
+            }
+            else {
+                $("#estadoTarea").text("No Finalizada");
+            }
+            $('input[name=asignacionTareaID]').val(val.asignacionTareaID);
+        } else if (val.recepcion.mantenimientoID == null && val.recepcion.procedimientoID != null) {
+            $("#automovilID").text(val.recepcion.automovilID);
+            $("#procedimiento").text(val.recepcion.procedimiento.procedimiento);
+            $("#empleadoID").text(val.empleado.nombre);
+            $("#fechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#estadoTarea").text("Finalizada");
+            }
+            else {
+                $("#estadoTarea").text("No Finalizada");
+            }
+            $('input[name=asignacionTareaID]').val(val.asignacionTareaID);
+        } else if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID != null) {
+            $("#automovilID").text(val.recepcion.automovilID);
+            $("#mantenimiento").text(val.recepcion.mantenimiento.nombre);
+            $("#procedimiento").text(val.recepcion.procedimiento.procedimiento);
+            $("#empleadoID").text(val.empleado.nombre);
+            $("#fechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#estadoTarea").text("Finalizada");
+            }
+            else {
+                $("#estadoTarea").text("No Finalizada");
+            }
+            $('input[name=asignacionTareaID]').val(val.asignacionTareaID);
         }
-        else {
-            $("#estadoTarea").text("No Finalizada");
-        }
-        $('input[name=asignacionTareaID]').val(val.asignacionTareaID);
 
         //Mostrar los datos de la asignacion de tarea que se está consultando
-        $("#dAutomovilID").text(val.recepcion.automovilID);
-        $("#dMantenimiento").text(val.recepcion.mantenimiento.nombre);
-        $("#dProcedimiento").text(val.recepcion.procedimiento.procedimiento);
-        $("#dEmpleadoID").text(val.empleado.nombre);
-        $("#dFechaSalida").text(val.recepcion.fechaSalida);
-        if (val.estadoTarea == true) {
-            $("#dEstadoTarea").text("Finalizada");
+        if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID == null) {
+            $("#dAutomovilID").text(val.recepcion.automovilID);
+            $("#dMantenimiento").text(val.recepcion.mantenimiento.nombre);
+            $("#dEmpleadoID").text(val.empleado.nombre);
+            $("#dFechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#dEstadoTarea").text("Finalizada");
+            }
+            else {
+                $("#dEstadoTarea").text("No Finalizada");
+            }
         }
-        else {
-            $("#dEstadoTarea").text("No Finalizada");
+        else if (val.recepcion.mantenimientoID == null && val.recepcion.procedimientoID != null) {
+            $("#dAutomovilID").text(val.recepcion.automovilID);
+            $("#dProcedimiento").text(val.recepcion.procedimiento.procedimiento);
+            $("#dEmpleadoID").text(val.empleado.nombre);
+            $("#dFechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#dEstadoTarea").text("Finalizada");
+            }
+            else {
+                $("#dEstadoTarea").text("No Finalizada");
+            }
+        } else if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID != null) {
+            $("#dAutomovilID").text(val.recepcion.automovilID);
+            $("#dMantenimiento").text(val.recepcion.mantenimiento.nombre);
+            $("#dProcedimiento").text(val.recepcion.procedimiento.procedimiento);
+            $("#dEmpleadoID").text(val.empleado.nombre);
+            $("#dFechaSalida").text(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $("#dEstadoTarea").text("Finalizada");
+            }
+            else {
+                $("#dEstadoTarea").text("No Finalizada");
+            }
         }
 
         //Mostrar los datos de la asignacion de tarea que quiero editar
-        $('input[name=Id]').val(val.asignacionTareaID);
-        $('input[name=eAutomovil]').val(val.recepcion.automovilID);
-        $('input[name=eMantenimiento]').val(val.recepcion.mantenimiento.nombre);
-        $('input[name=eProcedimiento]').val(val.recepcion.procedimiento.procedimiento);
-        $('input[name=eEmpleado]').val(val.empleado.nombre);
-        $('input[name=eFechaSalida]').val(val.recepcion.fechaSalida);
-        if (val.estadoTarea == true) {
-            $('select[name=eEstadoTarea]').val(val.estadoTarea);
-        }
-        else {
-            $('select[name=eEstadoTarea]').val(val.estadoTarea);
-        }
+        if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID == null) {
+            $('input[name=Id]').val(val.asignacionTareaID);
+            $('input[name=eAutomovil]').val(val.recepcion.automovilID);
+            $('input[name=eMantenimiento]').val(val.recepcion.mantenimiento.nombre);
+            $('input[name=eEmpleado]').val(val.empleado.nombre);
+            $('input[name=eFechaSalida]').val(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
+            else {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
 
-        $('input[name=nombreEmpleado]').val(val.recepcionID);
+            $('input[name=nombreEmpleado]').val(val.recepcionID);
+        } else if (val.recepcion.mantenimientoID == null && val.recepcion.procedimientoID != null) {
+            $('input[name=Id]').val(val.asignacionTareaID);
+            $('input[name=eAutomovil]').val(val.recepcion.automovilID);
+            $('input[name=eProcedimiento]').val(val.recepcion.procedimiento.procedimiento);
+            $('input[name=eEmpleado]').val(val.empleado.nombre);
+            $('input[name=eFechaSalida]').val(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
+            else {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
+
+            $('input[name=nombreEmpleado]').val(val.recepcionID);
+        } else if (val.recepcion.mantenimientoID != null && val.recepcion.procedimientoID != null) {
+            $('input[name=Id]').val(val.asignacionTareaID);
+            $('input[name=eAutomovil]').val(val.recepcion.automovilID);
+            $('input[name=eMantenimiento]').val(val.recepcion.mantenimiento.nombre);
+            $('input[name=eProcedimiento]').val(val.recepcion.procedimiento.procedimiento);
+            $('input[name=eEmpleado]').val(val.empleado.nombre);
+            $('input[name=eFechaSalida]').val(val.recepcion.fechaSalida);
+            if (val.estadoTarea == true) {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
+            else {
+                $('select[name=eEstadoTarea]').val(val.estadoTarea);
+            }
+
+            $('input[name=nombreEmpleado]').val(val.recepcionID);
+        }
     });
 }
 
@@ -456,7 +537,7 @@ function AhiTeVoyC(response) {
 
     $.each(items, function (index, val) {
         //Mostrar los datos de la asignacion que deseo eliminar
-        $("#ahMeVengo").text(val.clienteID);
+        $("#ahMeVengo").text(val.nombre);
 
         $('input[name=clienteID]').val(val.clienteID);
 
@@ -509,9 +590,9 @@ function AhiTeVoyA(response) {
 
     $.each(items, function (index, val) {
         //Mostrar los datos de la asignacion que deseo eliminar
-        $("#ahMeVengo").text(val.AreaID);
+        $("#ahMeVengo").text(val.areaNom);
 
-        $('input[name=AreaID]').val(val.AreaID);
+        $('input[name=AreaID]').val(val.areaID);
 
     });
 }
@@ -523,13 +604,15 @@ function VeniteArea(id, action) {
         data: { id },
         success: function (response) {
             AhiTeVoyA(response);
+            console.log(response);
         }
     });
 }
 
 
 function EliminarArea(action) {
-    var id = $('input[name=AreaID]')[0].value;
+    var id = document.getElementsByName("AreaID")[0].value;
+    alert(id);
     $.ajax({
         type: "POST",
         url: action,

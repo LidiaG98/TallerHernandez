@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TallerHernandez.Models.Area>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";    
 }
 
 <div class="row align">
@@ -54,7 +54,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.AreaID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
             
-                    <a  data-target="#EliminarA" data-toggle="modal" onclick="VeniteArea(@item.AreaID,'Areas/VeniteArea')" class="p-2" style="color:#ff0000;" ><i class="fas fa-trash-alt"></i></a>
+                    <a  data-target="#EliminarA" data-toggle="modal" onclick="VeniteArea('@item.AreaID','/Areas/VeniteArea')" class="p-2" style="color:#ff0000;" ><i class="fas fa-trash-alt"></i></a>                    
                 </td>
             </tr>
 
@@ -73,7 +73,7 @@
             <div class="modal-body">
                 <p>¿Desea Eliminar esta Area ?</p>
                 <p id="ahMeVengo"></p>
-                <input type="hidden" name="AreaID" id="AreaID">
+                <input type="hidden" name="AreaID" id="AreaID" >                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="EliminarArea('Areas/EliminarArea')">Eliminar</button>
