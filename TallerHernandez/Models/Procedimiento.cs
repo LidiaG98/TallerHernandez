@@ -18,7 +18,8 @@ namespace TallerHernandez.Models
         [Display(Name ="Precio")]
         public float precio { get; set; }
 
-        public ICollection<Recepcion> recepcion { get; set; }
+        public int recepcionID { get; set; }
+        public Recepcion recepcion { get; set; }
 
         [Required]
         public int areaID { get; set; }

@@ -41,13 +41,7 @@ namespace TallerHernandez.Models
         public string automovilID { get; set; }
         public Automovil Automovil { get; set; }
 
-        [Display(Name = "Mantenimiento")]
-        public int? mantenimientoID { get; set; }
-        public Mantenimiento mantenimiento { get; set; }
-
-        [Display(Name = "Procedimiento")]
-        public int? procedimientoID { get; set; }
-        public Procedimiento procedimiento { get; set; }
+        public ICollection<Procedimiento> procedimientos { get; set; }
 
         [Required]
         [Display(Name = "Estado")]

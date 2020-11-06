@@ -58,10 +58,7 @@
                     @Html.DisplayFor(modelItem => item.recepcion.automovilID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.mantenimiento.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.procedimiento.procedimiento)
+                    @Html.DisplayFor(modelItem => item.recepcion.procedimientos@*.procedimiento*@)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.empleado.nombre)

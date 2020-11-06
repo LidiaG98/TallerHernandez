@@ -50,44 +50,14 @@
             <span asp-validation-for="diagnostico" class="text-danger"></span>
         </div>
         <p>¿Qué servicio se le dará al cliente?</p>
-        <div class="mb-4">
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" name="tab" value="procedimiento" onclick="show1();" checked />
-                    Reparación
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" name="tab" value="mantenimiento" onclick="show2();" />
-                    Mantenimiento
-                </label>
-            </div>
-            <div class="form-check-inline">
-                <label class="form-check-label">
-                    <input type="radio" name="tab" value="ambos" onclick="show3();" />
-                    Mantenimiento y Reparación
-                </label>
-            </div>
-        </div>
-        <div id="div-mantenimiento" class="d-none">
-            <div class="form-group">
-                <label asp-for="mantenimientoID" class="control-label"></label><span class="text-danger">*</span>
-                @*<select asp-for="mantenimientoID" class="search form-control" asp-items="ViewBag.mantenimientoID"></select>*@
-                @Html.DropDownList("mantenimientoID", (SelectList)ViewBag.ListaM, "Seleccione una opción", new { @class = "search form-control", @id = "sman", @onchange = "ocultar()" })
-                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
-                    <i class="material-icons" style="font-size:13px">add</i>Añadir
-                </button>
-            </div>
-        </div>
         <div id="div-procedimiento" class="d-block">
             <div class="form-group">
-                <label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>
+                <!--<label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>-->
                 @*<select asp-for="procedimientoID" class="search form-control" asp-items="ViewBag.procedimientoID"></select>*@
-                @Html.DropDownList("procedimientoID", (SelectList)ViewBag.ListaP, "Seleccione una opción", new { @class = "search form-control activo", @id = "sproc", @onchange = "ocultar()" })
+                <!--@Html.DropDownList("procedimientoID", (SelectList)ViewBag.ListaP, "Seleccione una opción", new { @class = "search form-control activo", @id = "sproc", @onchange = "ocultar()" })
                 <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#modalProc">
                     <i class="material-icons" style="font-size:13px">add</i>Añadir
-                </button>
+                </button>-->
             </div>
         </div>
         <span id="proc-invalid" class="text-danger d-none">Debe seleccionar una opción</span>
