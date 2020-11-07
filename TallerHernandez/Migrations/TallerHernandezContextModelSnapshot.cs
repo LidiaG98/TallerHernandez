@@ -240,7 +240,10 @@ namespace TallerHernandez.Migrations
 
                     b.Property<string>("empleadoID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("empleadoID1")
+                        .HasColumnType("int");
 
                     b.Property<bool>("estadoTarea")
                         .HasColumnType("bit");
@@ -250,7 +253,7 @@ namespace TallerHernandez.Migrations
 
                     b.HasKey("asignacionTareaID");
 
-                    b.HasIndex("empleadoID");
+                    b.HasIndex("empleadoID1");
 
                     b.HasIndex("recepcionID");
 
@@ -259,8 +262,10 @@ namespace TallerHernandez.Migrations
 
             modelBuilder.Entity("TallerHernandez.Models.Automovil", b =>
                 {
-                    b.Property<string>("automovilID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("automovilID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("anio")
                         .HasColumnType("int");
@@ -279,6 +284,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("marca")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("placa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -327,8 +336,10 @@ namespace TallerHernandez.Migrations
 
             modelBuilder.Entity("TallerHernandez.Models.Empleado", b =>
                 {
-                    b.Property<string>("empleadoID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("empleadoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("apellido")
                         .IsRequired()
@@ -338,6 +349,10 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("correo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("emploDUI")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -443,9 +458,8 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("automovilID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("automovilID")
+                        .HasColumnType("int");
 
                     b.Property<string>("clienteID")
                         .IsRequired()
@@ -458,7 +472,10 @@ namespace TallerHernandez.Migrations
 
                     b.Property<string>("empleadoID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("empleadoID1")
+                        .HasColumnType("int");
 
                     b.Property<int>("estado")
                         .HasColumnType("int");
@@ -481,7 +498,7 @@ namespace TallerHernandez.Migrations
 
                     b.HasIndex("clienteID");
 
-                    b.HasIndex("empleadoID");
+                    b.HasIndex("empleadoID1");
 
                     b.HasIndex("mantenimientoID");
 
@@ -595,9 +612,7 @@ namespace TallerHernandez.Migrations
                 {
                     b.HasOne("TallerHernandez.Models.Empleado", "empleado")
                         .WithMany("asignacionTarea")
-                        .HasForeignKey("empleadoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("empleadoID1");
 
                     b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
                         .WithMany("asignacionTarea")
@@ -670,9 +685,7 @@ namespace TallerHernandez.Migrations
 
                     b.HasOne("TallerHernandez.Models.Empleado", "empleado")
                         .WithMany("recepcion")
-                        .HasForeignKey("empleadoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("empleadoID1");
 
                     b.HasOne("TallerHernandez.Models.Mantenimiento", "mantenimiento")
                         .WithMany("recepcion")

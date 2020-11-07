@@ -9328,19 +9328,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Revenge\\.nuget\\packages\\": {}
+    "C:\\Users\\Fernando\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
+      "projectUniqueName": "C:\\Users\\Fernando\\Desktop\\ayuda\\TallerHernandez\\TallerHernandez.csproj",
       "projectName": "TallerHernandez",
-      "projectPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\TallerHernandez.csproj",
-      "packagesPath": "C:\\Users\\Revenge\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Revenge\\Source\\Repos\\LidiaG98\\TallerHernandez\\TallerHernandez\\obj\\",
+      "projectPath": "C:\\Users\\Fernando\\Desktop\\ayuda\\TallerHernandez\\TallerHernandez.csproj",
+      "packagesPath": "C:\\Users\\Fernando\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Fernando\\Desktop\\ayuda\\TallerHernandez\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Revenge\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Fernando\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9421,7 +9421,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

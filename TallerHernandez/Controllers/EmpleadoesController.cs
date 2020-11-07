@@ -42,7 +42,7 @@ namespace TallerHernandez.Controllers
             var empleado = from s in _context.Empleado.Include(e => e.area).Include(e => e.modoPago).Include(e => e.rol) select s;
             if (!String.IsNullOrEmpty(Buscar))
             {
-                empleado = empleado.Where(s => s.empleadoID.Contains(Buscar) || s.nombre.Contains(Buscar) || s.apellido.Contains(Buscar));
+                empleado = empleado.Where(s => s.emploDUI.Contains(Buscar) || s.nombre.Contains(Buscar) || s.apellido.Contains(Buscar));
             }
             switch (OrdenA)
             {
@@ -66,7 +66,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Empleadoes/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -107,10 +107,10 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("empleadoID,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
+        public async Task<IActionResult> Create([Bind("emploDUI,nombre,apellido,correo,telefono,imagen,salario,areaID,rolID,modopagoID")] Empleado empleado)
         {
             ViewData["id"] = "falso";
-            if (!(EmpleadoExists(empleado.empleadoID)))
+            if (!(EmpleadoExistsDUI(empleado.emploDUI)))
             {
                 bool imagenNula = false;
 
@@ -179,7 +179,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Empleadoes/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -202,7 +202,7 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("empleadoID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado,string? emailantiguo)
+        public async Task<IActionResult> Edit(int id, [Bind("empleadoID,emploID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado,string? emailantiguo)
         {            
             bool imagenNula = false;
             try
@@ -241,7 +241,7 @@ namespace TallerHernandez.Controllers
                     {
                         Imagen i = empleado.imagen;
                         string rootPath = hostEnvironment.WebRootPath;
-                        string fileName = empleado.empleadoID;
+                        string fileName = empleado.emploDUI;
                         fileName = fileName.Replace(" ", "");
                         string extension = Path.GetExtension(i.imageFile.FileName);
                         i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
@@ -286,7 +286,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Empleadoes/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -319,12 +319,16 @@ namespace TallerHernandez.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmpleadoExists(string id)
+        private bool EmpleadoExists(int id)
         {
             return _context.Empleado.Any(e => e.empleadoID == id);
         }
+        private bool EmpleadoExistsDUI(string id)
+        {
+            return _context.Empleado.Any(e => e.emploDUI.Equals(id));
+        }
 
-        public async Task<List<Empleado>> VeniteEmpleado(string id)
+        public async Task<List<Empleado>> VeniteEmpleado(int id)
         {
             var bombolbi = from awa in _context.Empleado select awa;
             bombolbi = bombolbi.Where(awa => awa.empleadoID == id);

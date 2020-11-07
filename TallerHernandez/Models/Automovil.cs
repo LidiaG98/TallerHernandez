@@ -10,13 +10,19 @@ namespace TallerHernandez.Models
 {
     public class Automovil
     {
-        [Required(ErrorMessage = "Este campo es obligatorio")]
-        [Display(Name="Placa")]
+       
         [Key]
-        public string automovilID { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [Display(Name ="Marca")]
-        
+        [Display(Name = "dato")]
+        public int automovilID { get; set; }
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [Display(Name = "placa")]
+        public string placa { get; set; }
+
+
+
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [Display(Name = "Marca")]
         public string marca { get; set; }
         [Display(Name = "Año")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -36,7 +42,7 @@ namespace TallerHernandez.Models
         public string clienteID { get; set; }
 
         public Cliente cliente { get; set; }
-       
+
         public string imagenN { get; set; }
 
         public ICollection<Recepcion> recepcion { get; set; }
@@ -44,3 +50,4 @@ namespace TallerHernandez.Models
 
     }
 }
+

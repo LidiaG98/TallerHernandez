@@ -20,6 +20,12 @@
     <Compile Remove="Migrations\20200924054611_[MigracionProyecto3].Designer.cs" />
     <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].cs" />
     <Compile Remove="Migrations\20200924055330_[MigracionProyecto4].Designer.cs" />
+    <Compile Remove="Migrations\20201106201234_vamosdenuevo1.cs" />
+    <Compile Remove="Migrations\20201106201234_vamosdenuevo1.Designer.cs" />
+    <Compile Remove="Migrations\20201106214844_cambioIDEmpleado1.cs" />
+    <Compile Remove="Migrations\20201106214844_cambioIDEmpleado1.Designer.cs" />
+    <Compile Remove="Migrations\20201106221242_cambioIDEmpleado3.cs" />
+    <Compile Remove="Migrations\20201106221242_cambioIDEmpleado3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -55,8 +55,8 @@
     <tbody class="thead-dark text-center">
         @foreach (var item in Model)
         {
-            Dictionary<string, string> parms = new Dictionary<string, string>();
-            parms.Add("empleadoID", item.empleadoID);
+            Dictionary<string,string> parms = new Dictionary<string,string>();
+            parms.Add("empleadoID", Convert.ToString(item.correo));
             parms.Add("recepcionID", Convert.ToString(recepcionID));
 
             <tr>

@@ -36,7 +36,7 @@ namespace TallerHernandez.Controllers
          
             if (!String.IsNullOrEmpty(Buscar))
             {
-                auto = auto.Where(s => s.automovilID.Contains(Buscar) || s.marca.Contains(Buscar) || s.anio.Equals(Buscar) || s.clienteID.Contains(Buscar));
+                auto = auto.Where(s => s.placa.Contains(Buscar) || s.marca.Contains(Buscar) || s.anio.Equals(Buscar) || s.clienteID.Contains(Buscar));
             }
             switch (OrdenA)
             {
@@ -60,7 +60,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Automovils/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -95,10 +95,28 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("automovilID,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
+        public async Task<IActionResult> Create([Bind("placa,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
         {
-            ViewData["id"] = "falso";
-            if (!(AutomovilExists(automovil.automovilID))) { 
+           /* var ULtR = -1;
+            var auto = from s in _context.Automovil.Include(a => a.cliente) select s;
+            ULtR = auto.OrderByDescending(x => x.automovilID).First().automovilID;
+            if (ULtR == -1)
+            {
+                automovil.automovilID = 0;
+            }
+            else
+            {
+                automovil.automovilID = ULtR +  1;
+            }*/
+
+                ViewData["id"] = "falso";
+            var autol = await _context.Automovil
+               .Include(a => a.cliente)
+               .FirstOrDefaultAsync(m => m.placa == automovil.placa);
+          
+           // if (!(AutomovilExists(automovil.automovilID)))
+           if(autol == null)
+            { 
             bool imagenNula = false;
 
             try
@@ -112,17 +130,29 @@ namespace TallerHernandez.Controllers
 
 
             if (ModelState.IsValid && imagenNula)
+
             {
-                automovil.imagenN = "logoTaller.png";
-                _context.Add(automovil);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    //  iduwu = automovil.las
+                   
+                        automovil.imagenN = "logoTaller.png";
+                        _context.Add(automovil);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                   
+
+
+
+                   
+                       
+                       
+                    
+                   
             }
             else if (ModelState.IsValid && automovil.imagen != null) //Modelo valido y si subio una imagen
             {
                 Imagen i = automovil.imagen;
                 string rootPath = hostEnvironment.WebRootPath;
-                string fileName = automovil.automovilID;
+                string fileName = automovil.automovilID.ToString();
                 fileName = fileName.Replace(" ", "");
                 string extension = Path.GetExtension(i.imageFile.FileName);
                 i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
@@ -148,7 +178,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Automovils/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             
             if (id == null)
@@ -170,7 +200,7 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("automovilID,marca,anio,proceso,imagen,imagenN,estado,comentario,clienteID")] Automovil automovil)
+        public async Task<IActionResult> Edit(int id, [Bind("automovilID,marca,anio,proceso,imagen,imagenN,estado,comentario,clienteID")] Automovil automovil)
         {
            
             bool imagenNula = false;
@@ -203,7 +233,7 @@ namespace TallerHernandez.Controllers
                     {
                         Imagen i = automovil.imagen;
                         string rootPath = hostEnvironment.WebRootPath;
-                        string fileName = automovil.automovilID;
+                        string fileName = automovil.placa;
                         fileName = fileName.Replace(" ", "");
                         string extension = Path.GetExtension(i.imageFile.FileName);
                         i.nombreImagen = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
@@ -240,7 +270,7 @@ namespace TallerHernandez.Controllers
         }
 
         // GET: Automovils/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -270,11 +300,11 @@ namespace TallerHernandez.Controllers
            
         }
 
-        private bool AutomovilExists(string id)
+        private bool AutomovilExists(int id)
         {
             return _context.Automovil.Any(e => e.automovilID == id);
         }
-        public async Task<List<Automovil>> VeniteAuto(string id)
+        public async Task<List<Automovil>> VeniteAuto(int id)
         {
             var bombolbi = from owo in _context.Automovil select owo;
             bombolbi = bombolbi.Where(owo => owo.automovilID == id);

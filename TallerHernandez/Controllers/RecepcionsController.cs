@@ -43,7 +43,7 @@ namespace TallerHernandez.Controllers
             var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r => r.mantenimiento).Include(r =>r.procedimiento) select s;
             if (!String.IsNullOrEmpty(Buscar))
             {
-                recepciones = recepciones.Where(s => s.automovilID.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar));
+                recepciones = recepciones.Where(s => s.Automovil.placa.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar));
             }
             return View(await recepciones.AsNoTracking().ToListAsync());
         }
@@ -295,7 +295,7 @@ namespace TallerHernandez.Controllers
             return _context.Recepcion.Any(e => e.recepcionID == id);
         }
 
-        public async Task<IActionResult> AgregarVehiculo(string autoId)
+        public async Task<IActionResult> AgregarVehiculo(int autoId)
         {
             if (autoId == null)
             {

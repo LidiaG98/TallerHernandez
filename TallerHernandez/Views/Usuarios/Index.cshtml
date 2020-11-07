@@ -53,7 +53,7 @@
         </div>
         <div class="card-footer">
             <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-block btn-outline-primary">Editar Cuenta</a>
-            <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.empleadoID" class="btn btn-block btn-outline-warning">Editar Información</a>
+            <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.salario" class="btn btn-block btn-outline-warning">Editar Información</a>
             <form method="post" asp-action="Delete" asp-route-id="@m.user.Id">
                 <span id="confirmDeleteSpan_@m.user.Id" style="display:none">
                     <span>¿Estás seguro de eliminar este Usuario?</span>
