@@ -19,19 +19,15 @@ namespace TallerHernandez.Controllers
     [Authorize]
     public class RecepcionsController : Controller
     {
-        private readonly TallerHernandezContext _context;
-        private MantenimientoModels mantenimientoModels;
+        private readonly TallerHernandezContext _context;        
         private ProcedimientoModels procedimientoModels;
-        private ProcedimientoesController procedimientoesController;
-        private MantenimientoController mantenimientoController;
+        private ProcedimientoesController procedimientoesController;        
 
         public RecepcionsController(TallerHernandezContext context)
         {
-            _context = context;
-            mantenimientoModels = new MantenimientoModels(context);
+            _context = context;            
             procedimientoModels = new ProcedimientoModels(context);
-            procedimientoesController = new ProcedimientoesController(context);
-            mantenimientoController = new MantenimientoController(context);
+            procedimientoesController = new ProcedimientoesController(context);            
         }
 
         // GET: Recepcions
@@ -40,7 +36,7 @@ namespace TallerHernandez.Controllers
             ViewData["Filtro"] = Buscar;
             //var tallerHernandezContext = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
             //    Include(r => r.mantenimiento).Include(r =>r.procedimiento);
-            var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r => r.mantenimiento).Include(r =>r.procedimiento) select s;
+            var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r =>r.procedimientos) select s;
             if (!String.IsNullOrEmpty(Buscar))
             {
                 recepciones = recepciones.Where(s => s.Automovil.placa.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar));
@@ -59,9 +55,8 @@ namespace TallerHernandez.Controllers
             var recepcion = await _context.Recepcion
                 .Include(r => r.Automovil)
                 .Include(r => r.cliente)
-                .Include(r => r.empleado)
-                .Include(r => r.mantenimiento)
-                .Include(r => r.procedimiento)
+                .Include(r => r.empleado)                
+                .Include(r => r.procedimientos)
                 .FirstOrDefaultAsync(m => m.recepcionID == id);
             if (recepcion == null)
             {
@@ -69,12 +64,6 @@ namespace TallerHernandez.Controllers
             }
 
             return PartialView(recepcion);
-        }
-
-        [HttpPost]
-        public List<IdentityError> agregarMantenimiento(string nombre, string precio, string areaID)
-        {
-            return mantenimientoModels.agregarMantenimiento(nombre, precio, areaID);
         }
 
         [HttpPost]
@@ -93,18 +82,6 @@ namespace TallerHernandez.Controllers
             p.areaID = idArea;
 
             return await procedimientoesController.Edit(id, p);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> editarMan(int id, string precio, string desc, int idArea)
-        {
-            Mantenimiento m = new Mantenimiento();
-            m.mantenimientoID = id;
-            m.precio = float.Parse(precio, System.Globalization.CultureInfo.InvariantCulture);
-            m.nombre = desc;
-            m.areaID = idArea;
-
-            return await mantenimientoController.Edit(id, m);
         }
 
         public IActionResult obtenerDuenio(string? id) {
@@ -130,8 +107,7 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID");
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre");
-            ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");
-            ViewData["ListaM"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre");
+            ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");            
             List<Area> areas = new List<Area>();
             areas= _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
             List<SelectListItem> a = areas.ConvertAll(ac =>
@@ -146,9 +122,7 @@ namespace TallerHernandez.Controllers
             ViewBag.areas = a;
             Recepcion r = new Recepcion();
             string fa = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-            r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);
-            r.mantenimientoID = null;
-            
+            r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);            
             return View(r);
         }
 
@@ -176,8 +150,7 @@ namespace TallerHernandez.Controllers
             //recepcion.mantenimientoID = last.mantenimientoID;
             //recepcion.procedimientoID = lp.Last().procedimientoID;
 
-            ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento", recepcion.procedimientoID);
-            ViewData["ListaM"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre",recepcion.mantenimientoID);
+            //ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento", recepcion.procedimientoID);            
             List<Area> areas = new List<Area>();
             areas = _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
             List<SelectListItem> a = areas.ConvertAll(ac =>
@@ -210,8 +183,7 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");
-            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "nombre");
+            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");            
             return View(recepcion);
         }
 
@@ -251,8 +223,7 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");
-            ViewData["mantenimientoID"] = new SelectList(_context.Mantenimiento, "mantenimientoID", "mantenimientoID");            
+            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");                       
             return View(recepcion);
         }
 
@@ -268,8 +239,7 @@ namespace TallerHernandez.Controllers
                 .Include(r => r.Automovil)
                 .Include(r => r.cliente)
                 .Include(r => r.empleado)
-                .Include(r => r.mantenimiento)
-                .Include(r => r.procedimiento)
+                .Include(r => r.procedimientos)
                 .FirstOrDefaultAsync(m => m.recepcionID == id);
             if (recepcion == null)
             {

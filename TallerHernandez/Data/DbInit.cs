@@ -63,24 +63,7 @@ namespace TallerHernandez.Data
                    
                 }
                 context.SaveChanges();                
-            }
-            if (context.Mantenimiento.Any())
-            {
-                return;
-            }
-            else
-            {
-                var mantenimiento = new Mantenimiento[]
-                {
-                    new Mantenimiento{nombre="Mantenimiento 1",precio=50,areaID=1},
-                    new Mantenimiento{nombre="Mantenimiento 2",precio=100,areaID=2}
-                };
-                foreach (Mantenimiento m in mantenimiento)
-                {
-                    context.Add(m);
-                }
-                context.SaveChanges();
-            }
+            }           
             if (context.Procedimiento.Any())
             {
                 return;
