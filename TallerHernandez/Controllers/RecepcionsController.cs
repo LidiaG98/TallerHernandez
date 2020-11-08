@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
 using TallerHernandez.ModelModal;
 using TallerHernandez.Models;
-
+using TallerHernandez.ViewModels;
 
 namespace TallerHernandez.Controllers
 {
@@ -120,7 +120,7 @@ namespace TallerHernandez.Controllers
                 };
             });
             ViewBag.areas = a;
-            Recepcion r = new Recepcion();
+            RecepcionViewModel r = new RecepcionViewModel();
             string fa = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
             r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);            
             return View(r);
@@ -131,11 +131,30 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
+        //public async Task<IActionResult> Create([Bind("diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
+        //    "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
+        public async Task<IActionResult> Create(RecepcionViewModel recepcion)
         {
             if (ModelState.IsValid)
             {
+                Recepcion r = new Recepcion { 
+                    diagnostico = recepcion.diagnostico,
+                    fechaEntrada = recepcion.fechaEntrada,
+                    fechaSalida = recepcion.fechaSalida,
+                    clienteID = recepcion.clienteID,
+                    empleadoID = recepcion.empleadoID,
+                    automovilID = recepcion.automovilID,
+                    estado = recepcion.estado 
+                };
+                foreach (var procedimiento in recepcion.procedimientos)
+                {
+                    _context.Procedimiento.Add(new Procedimiento { 
+                        procedimiento = procedimiento.procedimiento,
+                        precio = procedimiento.precio,
+                        areaID = procedimiento.areaID,
+                        recepcionID = r.recepcionID
+                    });
+                }
                 _context.Add(recepcion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -143,13 +162,6 @@ namespace TallerHernandez.Controllers
             ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
-            
-            //var l = _context.Mantenimiento.ToList();
-            //var lp = _context.Procedimiento.ToList();
-            //var last = l.Last();            
-            //recepcion.mantenimientoID = last.mantenimientoID;
-            //recepcion.procedimientoID = lp.Last().procedimientoID;
-
             //ViewData["ListaP"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento", recepcion.procedimientoID);            
             List<Area> areas = new List<Area>();
             areas = _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();

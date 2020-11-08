@@ -1,7 +1,7 @@
-﻿@model TallerHernandez.Models.Recepcion
+﻿@model TallerHernandez.ViewModels.RecepcionViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
     var placas = ViewBag.automovilID as List<SelectListItem>;
     var duenio = ViewBag.clienteID as List<SelectListItem>;
 }
@@ -52,6 +52,13 @@
         <p>¿Qué servicio se le dará al cliente?</p>
         <div id="div-procedimiento" class="d-block">
             <div class="form-group">
+                <label asp-for="procedimientos" class="control-label"></label><span class="text-danger">*</span>
+                <div>
+                    <button type="button" class="btn btn-outline-success btn-sm control-label" data-toggle="modal" data-target="#modalProc">
+                        <i class="material-icons" style="font-size:13px">add</i>Añadir
+                    </button>
+                </div>
+
                 <!--<label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>-->
                 @*<select asp-for="procedimientoID" class="search form-control" asp-items="ViewBag.procedimientoID"></select>*@
                 <!--@Html.DropDownList("procedimientoID", (SelectList)ViewBag.ListaP, "Seleccione una opción", new { @class = "search form-control activo", @id = "sproc", @onchange = "ocultar()" })
@@ -59,14 +66,15 @@
                     <i class="material-icons" style="font-size:13px">add</i>Añadir
                 </button>-->
             </div>
+
         </div>
-        <span id="proc-invalid" class="text-danger d-none">Debe seleccionar una opción</span>
+        <span id="proc-invalid" class="text-danger d-none"></span>
 
     </div>
 
     <div class="tab">
-        <h4>Finalizar</h4>
-        
+        <h4></h4>
+
         <div class="form-group">
             <label asp-for="fechaSalida" class="control-label"></label><span class="text-danger">*</span>
             <input asp-for="fechaSalida" class="form-control" value="" />
@@ -75,7 +83,7 @@
         <div class="form-group">
             <label asp-for="clienteID" class="control-label"></label>
             @*<select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>*@
-            @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes",})            
+            @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes", })
         </div>
         <div class="form-group">
             @*<p>Repuestos</p>*@
@@ -97,41 +105,6 @@
     </div>
     <input type="submit" value="Create" class="btn btn-primary" hidden id="recargar" />
 </form>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Nuevo Mantenimiento</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="nombre" class="control-label">Mantenimiento</label>
-                        <input name="nombre" id="nombre" for="nombre" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="precio" class="control-label">Precio</label>
-                        <input name="precio" id="precio" for="precio" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="areaID" class="control-label">Área a la que pertenece</label>
-                        <select name="areaID" id="areaID" for="areaID" class="form-control" asp-items="ViewBag.areas"></select>
-                    </div>
-                    <label id="mensaje" class="text-danger"></label>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="agregarMantenimiento()" class="btn btn-primary">Crear</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modalProc" tabindex="-1" role="dialog" aria-labelledby="modalProcTitle" aria-hidden="true">
@@ -162,7 +135,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" onclick="agregarProcedimiento()" class="btn btn-primary">Crear</button>
+                <button type="button" @*onclick="agregarProcedimiento()"*@ id="btnSave" class="btn btn-primary">Crear</button>
             </div>
         </div>
     </div>
@@ -177,29 +150,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.search').select2();
-        });
 
-        function show1() {
-            //document.getElementById('div1').style.display = 'none';
-            document.getElementById('div-procedimiento').className = 'd-block';
-            document.getElementById('div-mantenimiento').className = 'd-none';
-            document.getElementById('sproc').className += ' activo';
-            document.getElementById('sman').className = 'search form-control select2-hidden-accessible';
-        };
-        function show2() {
-            document.getElementById('div-mantenimiento').className = 'd-block';
-            document.getElementById('div-procedimiento').className = 'd-none';
-            document.getElementById('sman').className += ' activo';
-            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible';
-        };
-        function show3() {
-            document.getElementById('div-mantenimiento').className = 'd-block';
-            document.getElementById('div-procedimiento').className = 'd-block';
-            document.getElementById('sman').className = 'search form-control select2-hidden-accessible activo';
-            document.getElementById('sproc').className = 'search form-control select2-hidden-accessible activo';
-        };
+        //Agregar nuevo procedimiento
+        $(document).ready(function () {
+            $('#btnSave').click(function () {
+                var value = $('input').val();
+                $('h1').html(value);
+                $('#myModal').modal('hide');
+            });
+        });
 
         //Obtener dueño del automovil
         $(document).on('change', '[data-cascade-combo]', function (event) {
@@ -214,18 +173,18 @@
             data[paramName] = id;
 
             $.ajax({
-                url: url,                
+                url: url,
                 data: {
                     id: $(this).val()
                 },
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                success: function (response) {                 
+                success: function (response) {
                     $(id).html('');
                     $.each(response, (index, type) => {
                         var content = '<option value="' + type.Value + '">' + type.Text + '</option>';
-                        $(id).append(content);                        
-                    });                        
+                        $(id).append(content);
+                    });
                 }
             });
         });
