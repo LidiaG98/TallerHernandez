@@ -35,7 +35,7 @@ namespace TallerHernandez.ViewModels
 
         [Required(ErrorMessage = "Seleccione un automóvil")]
         [Display(Name = "Automóvil")]
-        public string automovilID { get; set; }
+        public int automovilID { get; set; }
         [Display(Name = "Marca")]
         public string marca { get; set; }
         [Display(Name = "Año")]
