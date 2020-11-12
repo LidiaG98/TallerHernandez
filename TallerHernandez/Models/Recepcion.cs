@@ -38,7 +38,7 @@ namespace TallerHernandez.Models
 
         [Required(ErrorMessage ="Seleccione un automóvil")]
         [Display(Name = "Automóvil")]
-        public string automovilID { get; set; }
+        public int automovilID { get; set; }
         public Automovil Automovil { get; set; }
 
         public ICollection<Procedimiento> procedimientos { get; set; }

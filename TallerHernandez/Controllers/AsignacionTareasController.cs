@@ -39,7 +39,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.automovilID.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
@@ -97,7 +97,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                recepcions = recepcions.Where(r => r.automovilID.Contains(cadena) || r.empleado.nombre.Contains(cadena));
+                recepcions = recepcions.Where(r => r.Automovil.placa.Contains(cadena) || r.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
@@ -316,7 +316,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                tareas = tareas.Where(s => s.recepcion.automovilID.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+                tareas = tareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
@@ -431,7 +431,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.automovilID.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
@@ -465,7 +465,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.automovilID.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)

@@ -10,10 +10,20 @@ namespace TallerHernandez.Models
 {
     public class Empleado
     {
-        [RegularExpression(@"^[0-9]{8}-[0-9]{1}$", ErrorMessage = "El formato de DUI no es correcto, ¿Está colocando el guión?")]
+        /*[RegularExpression(@"^[0-9]{8}-[0-9]{1}$", ErrorMessage = "El formato de DUI no es correcto, ¿Está colocando el guión?")]
         [Display(Name = "DUI")]
         [Key]
-        public string empleadoID { get; set; }
+        public string empleadoID { get; set; }*/
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [Display(Name = "nano")]
+        [Key]
+        public int empleadoID { get; set; }
+        [Required(ErrorMessage = "Este campo es obligatorio")]
+        [Display(Name = "DUI")]
+
+        public string emploDUI { get; set; }
+        
+
         [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [RegularExpression(@"[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙÑñ.-]+", ErrorMessage = "Ingrese un nombre valido")]

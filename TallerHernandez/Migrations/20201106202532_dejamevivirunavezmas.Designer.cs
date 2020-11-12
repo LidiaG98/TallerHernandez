@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20201106202532_dejamevivirunavezmas")]
+    partial class dejamevivirunavezmas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,10 +242,7 @@ namespace TallerHernandez.Migrations
 
                     b.Property<string>("empleadoID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("empleadoID1")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("estadoTarea")
                         .HasColumnType("bit");
@@ -253,7 +252,7 @@ namespace TallerHernandez.Migrations
 
                     b.HasKey("asignacionTareaID");
 
-                    b.HasIndex("empleadoID1");
+                    b.HasIndex("empleadoID");
 
                     b.HasIndex("recepcionID");
 
@@ -336,10 +335,8 @@ namespace TallerHernandez.Migrations
 
             modelBuilder.Entity("TallerHernandez.Models.Empleado", b =>
                 {
-                    b.Property<int>("empleadoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("empleadoID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("apellido")
                         .IsRequired()
@@ -349,10 +346,6 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("correo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("emploDUI")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -385,6 +378,30 @@ namespace TallerHernandez.Migrations
                     b.HasIndex("rolID");
 
                     b.ToTable("Empleado");
+                });
+
+            modelBuilder.Entity("TallerHernandez.Models.Mantenimiento", b =>
+                {
+                    b.Property<int>("mantenimientoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("areaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("precio")
+                        .HasColumnType("real");
+
+                    b.HasKey("mantenimientoID");
+
+                    b.HasIndex("areaID");
+
+                    b.ToTable("Mantenimiento");
                 });
 
             modelBuilder.Entity("TallerHernandez.Models.ModoPago", b =>
@@ -420,14 +437,9 @@ namespace TallerHernandez.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("recepcionID")
-                        .HasColumnType("int");
-
                     b.HasKey("procedimientoID");
 
                     b.HasIndex("areaID");
-
-                    b.HasIndex("recepcionID");
 
                     b.ToTable("Procedimiento");
                 });
@@ -453,10 +465,7 @@ namespace TallerHernandez.Migrations
 
                     b.Property<string>("empleadoID")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("empleadoID1")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("estado")
                         .HasColumnType("int");
@@ -467,13 +476,23 @@ namespace TallerHernandez.Migrations
                     b.Property<DateTime>("fechaSalida")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("mantenimientoID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("procedimientoID")
+                        .HasColumnType("int");
+
                     b.HasKey("recepcionID");
 
                     b.HasIndex("automovilID");
 
                     b.HasIndex("clienteID");
 
-                    b.HasIndex("empleadoID1");
+                    b.HasIndex("empleadoID");
+
+                    b.HasIndex("mantenimientoID");
+
+                    b.HasIndex("procedimientoID");
 
                     b.ToTable("Recepcion");
                 });
@@ -583,7 +602,9 @@ namespace TallerHernandez.Migrations
                 {
                     b.HasOne("TallerHernandez.Models.Empleado", "empleado")
                         .WithMany("asignacionTarea")
-                        .HasForeignKey("empleadoID1");
+                        .HasForeignKey("empleadoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
                         .WithMany("asignacionTarea")
@@ -622,17 +643,20 @@ namespace TallerHernandez.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TallerHernandez.Models.Mantenimiento", b =>
+                {
+                    b.HasOne("TallerHernandez.Models.Area", "area")
+                        .WithMany("mantenimiento")
+                        .HasForeignKey("areaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TallerHernandez.Models.Procedimiento", b =>
                 {
                     b.HasOne("TallerHernandez.Models.Area", "area")
                         .WithMany("procedimiento")
                         .HasForeignKey("areaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
-                        .WithMany("procedimientos")
-                        .HasForeignKey("recepcionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -656,6 +680,14 @@ namespace TallerHernandez.Migrations
                         .HasForeignKey("empleadoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("TallerHernandez.Models.Mantenimiento", "mantenimiento")
+                        .WithMany("recepcion")
+                        .HasForeignKey("mantenimientoID");
+
+                    b.HasOne("TallerHernandez.Models.Procedimiento", "procedimiento")
+                        .WithMany("recepcion")
+                        .HasForeignKey("procedimientoID");
                 });
 #pragma warning restore 612, 618
         }

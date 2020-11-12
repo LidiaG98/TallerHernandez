@@ -85,7 +85,7 @@ namespace TallerHernandez.Areas.Identity.Pages.Account
                 _context.SaveChanges();
                 var empleado = new Empleado
                 {
-                    empleadoID = "000000000-0",
+                   
                     nombre = "Admin",
                     apellido = "Admin",
                     correo = "admin@mail.com",
