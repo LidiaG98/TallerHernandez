@@ -26,6 +26,10 @@
     <Compile Remove="Migrations\20201106214844_cambioIDEmpleado1.Designer.cs" />
     <Compile Remove="Migrations\20201106221242_cambioIDEmpleado3.cs" />
     <Compile Remove="Migrations\20201106221242_cambioIDEmpleado3.Designer.cs" />
+    <Compile Remove="Migrations\20201112060749_ColumnaPlaca.cs" />
+    <Compile Remove="Migrations\20201112060749_ColumnaPlaca.Designer.cs" />
+    <Compile Remove="Migrations\20201112061003_ColumnaPlaca.cs" />
+    <Compile Remove="Migrations\20201112061003_ColumnaPlaca.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

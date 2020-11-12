@@ -63,23 +63,6 @@ namespace TallerHernandez.Data
                    
                 }
                 context.SaveChanges();                
-            }           
-            if (context.Procedimiento.Any())
-            {
-                return;
-            }
-            else
-            {
-                var procedimiento = new Procedimiento[]
-                {
-                    new Procedimiento{procedimiento="Procedimiento 1",areaID=1},
-                    new Procedimiento{procedimiento="Procedimiento 2",areaID=2}
-                };
-                foreach (Procedimiento p in procedimiento)
-                {
-                    context.Add(p);
-                }
-                context.SaveChanges();
             }
             if (context.Empleado.Any())
             {

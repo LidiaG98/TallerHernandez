@@ -185,7 +185,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var recepcion = await _context.Recepcion.FindAsync(id);
+            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).Where(r => r.recepcionID == id).FirstOrDefaultAsync();            
             RecepcionViewModel r = new RecepcionViewModel { 
                 recepcionID = recepcion.recepcionID,
                 diagnostico = recepcion.diagnostico,
