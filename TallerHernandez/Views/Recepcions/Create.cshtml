@@ -51,25 +51,14 @@
         </div>
         <p>¿Qué servicio se le dará al cliente?</p>
         <div id="div-procedimiento" class="d-block">
-            <div class="form-group">
-                <label asp-for="procedimientos" class="control-label"></label><span class="text-danger">*</span>
-                <div>
-                    <button type="button" class="btn btn-outline-success btn-sm control-label" data-toggle="modal" data-target="#modalProc">
-                        <i class="material-icons" style="font-size:13px">add</i>Añadir
-                    </button>
-                </div>
-
-                <!--<label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>-->
-                @*<select asp-for="procedimientoID" class="search form-control" asp-items="ViewBag.procedimientoID"></select>*@
-                <!--@Html.DropDownList("procedimientoID", (SelectList)ViewBag.ListaP, "Seleccione una opción", new { @class = "search form-control activo", @id = "sproc", @onchange = "ocultar()" })
-                <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#modalProc">
-                    <i class="material-icons" style="font-size:13px">add</i>Añadir
-                </button>-->
-            </div>
-
+            <label asp-for="procedimientos" class="control-label"></label><span class="text-danger">*</span>         
         </div>
-        <span id="proc-invalid" class="text-danger d-none"></span>
-
+        <div class="form-row">
+            <span id="proc-invalid" class="error text-danger d-none">Debe añadir al menos un procedimiento</span>
+            <button type="button" class="btn btn-success btn-sm ml-1" data-toggle="modal" data-target="#modalProc">
+                <i class="material-icons" style="font-size:13px">add</i>Añadir procedimiento
+            </button>
+        </div>
     </div>
 
     <div class="tab">
@@ -135,7 +124,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" @*onclick="agregarProcedimiento()"*@ id="btnSave" class="btn btn-primary">Crear</button>
+                <button type="button" id="btnSave" class="btn btn-primary">Crear</button>
             </div>
         </div>
     </div>
@@ -144,7 +133,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/js/Procedimiento.js"></script>
-    <script src="~/js/Mantenimiento.js"></script>
     <script src="~/js/multistep.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -154,10 +142,49 @@
         //Agregar nuevo procedimiento
         $(document).ready(function () {
             $('#btnSave').click(function () {
-                var value = $('input').val();
-                $('h1').html(value);
-                $('#myModal').modal('hide');
+
+                var count = $("div[class*='nProc']").length;
+                var valProce = $('#procedimiento').val();
+                var valArea = $('#areaIDProc').val();
+                var nomArea = $('#areaIDProc option:selected').text();
+                var valPrecio = $('#precioProc').val();
+                var nuevaFila = "";
+                nuevaFila += '<div class="form-row nProc">';
+                nuevaFila += '<div class="input-group col-md-7 mb-3">';
+                nuevaFila += '<div class="input-group-prepend">';
+                nuevaFila += '<span class="input-group-text">Procedimiento ' + (count+1) + '</span>';
+                nuevaFila += '</div>';
+                nuevaFila += '<input type="hidden" name="procedimientos.Index" value="p'+count+'" />';
+                nuevaFila += '<textarea id="txtProce' + count + '" asp-for="procedimientos" name="procedimientos[p' + count +'].procedimiento" class="form-control">'+valProce+'</textarea>';
+                nuevaFila += '</div>';
+                nuevaFila += '<div class="col-md-5">';
+                nuevaFila += '<div class="input-group mb-3">';
+                nuevaFila += '<div class="input-group-prepend">';
+                nuevaFila += '<span class="input-group-text">Área</span>';
+                nuevaFila += '</div>';
+                nuevaFila += '<input value="' + nomArea + '" id="nomArea' + count + ' type="text" class="form-control">';
+                nuevaFila += '<div class="input-group-append">';
+                nuevaFila += '<button id="removeRow" class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>';
+                nuevaFila += '</div>';
+                nuevaFila += '</div>';
+                nuevaFila += '<input value="' + valArea + '" id="txtArea' + count + ' type="text" class="form-control" asp-for="procedimientos" name="procedimientos[p' + count +'].areaID" hidden>';
+                nuevaFila += '<input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p' + count +'].precio" id="txtPrecio'+count+'" hidden>';
+                nuevaFila += '</div>';
+                nuevaFila += '</div>';                
+                $('#modalProc').modal('hide');
+                $('#div-procedimiento').append(nuevaFila);
             });
+        });
+        $(document).ready(function () {
+            $(".modal").on("hidden.bs.modal", function () {
+                document.getElementById("procedimiento").value = "";
+                document.getElementById("precioProc").value = "";
+                document.getElementById("areaIDProc").selectedIndex = 0;
+            });
+        });
+        // remove row
+        $(document).on('click', '#removeRow', function () {
+            $(this).closest("div[class*='nProc']").remove();
         });
 
         //Obtener dueño del automovil

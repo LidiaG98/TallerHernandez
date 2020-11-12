@@ -44,6 +44,7 @@ function nextPrev(n) {
 }
 sv = document.getElementById('proc-invalid');
 
+
 function ocultar() {
     sv.className = "text-danger d-none";
     document.getElementById("sproc").className.replace(" invalid", "");
@@ -55,7 +56,10 @@ function validateForm() {
     x = document.getElementsByClassName("tab");
     y = x[currentTab].getElementsByTagName("input");
     z = x[currentTab].getElementsByTagName("textarea");
-    s = x[currentTab].getElementsByClassName("search form-control activo");
+    s = x[currentTab].getElementsByClassName("form-control search");
+    p = x[currentTab].getElementsByClassName("form-row nProc");
+    b = x[currentTab].getElementsByClassName("btn btn-success btn-sm ml-1");
+    
     
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
@@ -89,6 +93,16 @@ function validateForm() {
         }
     }
 
+    if (b.length != 0) {
+        if (p.length==0) {
+            valid = false;            
+            sv.className = "error text-danger d-block";
+        }
+        else {
+            sv.className = "error text-danger d-none";
+        }
+    }
+
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
@@ -108,15 +122,6 @@ function fixStepIndicator(n) {
 
 
 //************************************************* Crear mantenimientos y procedimientos********************************************
-var agregarMantenimiento = () => {
-    var nombre = document.getElementById("nombre").value;
-    var precio = document.getElementById("precio").value;
-    var areaIDs = document.getElementById('areaID');
-    var areaID = areaIDs.options[areaIDs.selectedIndex].value;
-    var action = "agregarMantenimiento";
-    var mantenimiento = new Mantenimiento(nombre, precio, areaID, action);
-    mantenimiento.agregarMantenimiento();
-}
 
 var agregarProcedimiento = () => {
     document.getElementById("mensajeProc").innerHTML = "";
