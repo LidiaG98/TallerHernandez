@@ -4,6 +4,7 @@
     ViewData["Title"] = "Editar";
     var placas = ViewBag.automovilID as List<SelectListItem>;
     var duenio = ViewBag.clienteID as List<SelectListItem>;
+    int count = 0;
 }
 
 <h1>Editar ficha de ingreso</h1>
@@ -11,7 +12,7 @@
 <div class="mb-2">
     <a class="btn btn-outline-primary font-weight-bold btn-sm" asp-action="Index">Regresar</a>
 </div>
-<div class="pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:25px;">
+<div class="pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:5px;">
     <form asp-action="Edit">
         <small class="text-danger">Los campos marcados con (*) son obligatorios</small>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -19,7 +20,9 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>
-                @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new{@class = "form-control search",
+                @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new
+                {
+                    @class = "form-control search",
                 data_cascade_combo = "#stypes",
                 data_cascade_combo_source = Url.Action("obtenerDuenio", "Recepcions"),
                 data_cascade_combo_param_name = "id"
@@ -46,29 +49,58 @@
         </div>
         <div class="form-group">
             <label asp-for="diagnostico" class="control-label"></label><span class="text-danger">*</span>
-            <textarea asp-for="diagnostico" class="form-control" rows="3"></textarea>
+            <textarea asp-for="diagnostico" class="form-control" rows="2"></textarea>
             <span asp-validation-for="diagnostico" class="text-danger"></span>
         </div>
-        <div class="form-row">
-            <!--<div class="form-group col-md-5">
-                <label asp-for="procedimientoID" class="control-label"></label><span class="text-danger">*</span>-->
-                @*<select asp-for="procedimientoID" class="form-control" asp-items="ViewBag.procedimientoID"></select>*@
-                <!--<div class="input-group">
-                    @if (Model.procedimientos == null)
+        <div class="form-row ml-1">
+
+            <label class="control-label">Procedimientos</label><span class="text-danger">*</span>
+            <table class="table table-sm table-striped table-responsive-sm" id="tblProc">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Precio ($)</th>
+                        <th>Área</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @foreach (var procedimiento in Model.procedimientos)
                     {
-                        @Html.DropDownList("procedimientoID", @ViewBag.procedimientoID, "Seleccione una opción", new { @class = "custom-select search", id = "selectProc" })
-                    }
-                    else
-                    { <select id="selectProc" asp-for="procedimientos" class="custom-select search" asp-items="ViewBag.procedimientoID"></select>
-                        <div class="ml-1">
-                            <button id="btnModalProc" type="button" class=" btn btn-primary btn-cir">
+                        <tr>
+                            <th scope="row">@(count = count +1)</th>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => procedimiento.procedimiento)*@
+                                <input type="hidden" name="procedimientos.Index" value="p(@count)" class="border-0" />
+                                <input asp-for="procedimientos" name="procedimientos[p(@count)].procedimiento" value="@procedimiento.procedimiento" class="border-0" />
+                            </td>
+                            <td>
+                                @*$@Html.DisplayFor(modelItem => procedimiento.precio)*@
+                                <input value="@procedimiento.precio" asp-for="procedimientos" name="procedimientos[p(@count)].precio" id="txtPrecio(@count)" class="border-0" />
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => procedimiento.area.areaNom)*@
+                                <select name="procedimientos[p(@count)].areaID" class="form-control" asp-items="@(new SelectList(ViewBag.areas,"AreaID","areaNom",procedimiento.areaID))"></select>
+                                <input value="@procedimiento.procedimientoID" id="txtpID(@count)" asp-for="procedimientos" name="procedimientos[p(@count)].procedimientoID" hidden />
+                                <input value="@procedimiento.recepcionID" id="txtRid(@count)" asp-for="procedimientos" name="procedimientos[p(@count)].recepcionID" hidden />
+                            </td>
+                            <td>
+                                @*<button onclick="mostrarProc(@procedimiento.procedimientoID)" type="button" class=" btn btn-primary btn-cir">
                                 <i class="fas fa-pen"></i>
-                            </button>
-                        </div>}
-                </div>
-                <span asp-validation-for="procedimientoID" class="text-danger"></span>
-            </div>-->
-            <div class="form-group col-md-1"></div>
+                            </button>*@
+                                <button type="button" class=" btn btn-danger btn-cir">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <span asp-validation-for="procedimientos" class="text-danger"></span>
+            <button type="button" class="btn btn-info btn-sm ml-1 mb-4" data-toggle="modal" data-target="#modalProc">
+                <i class="fas fa-plus fa-xs"></i>&#x0020;Añadir procedimiento
+            </button>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
@@ -91,10 +123,49 @@
 </div>
 
 <div id="ModalProcYMan" class="modal hide fade in" tabindex="-1" role="dialog" data-url='@Url.Action("Edit", "Procedimientoes")'>
-    <div id="ProcYManContainer" class="modal-dialog modal-dialog-centered" role="document" data-url='@Url.Action("Edit", "Mantenimiento")'>
+    <div id="ProcYManContainer" class="modal-dialog modal-dialog-centered" role="document">
 
     </div>
 </div>
+<!-- Modal para agregar nuevo procedimiento -->
+<div class="modal fade" id="modalProc" tabindex="-1" role="dialog" aria-labelledby="modalProcTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalProcLongTitle">Nuevo Procedimiento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="nombre" class="control-label">Procedimiento</label>
+                        <input name="procedimiento" id="procedimiento" for="procedimiento" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="precio" class="control-label">Precio</label>
+                        <input name="precioProc" id="precioProc" for="precioProc" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="areaID" class="control-label">Área a la que pertenece</label>
+                        <select name="areaIDProc" id="areaIDProc" for="areaIDProc" class="form-control" asp-items="ViewBag.area"></select>
+                    </div>
+                    <label id="mensajeProc" class="text-danger"></label>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnSave" class="btn btn-primary" data-url='@Url.Action("obtenerAreas", "Recepcions")'>Crear</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8fbfd;
+    }
+</style>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -136,36 +207,70 @@
         });
     </script>
     <script type="text/javascript">
+        function mostrarProc(id) {
+            var url = $('#ModalProcYMan').data('url');
+            url = url + "/" + id;
+
+            $.get(url, function (data) {
+
+                $('#ProcYManContainer').html(data);
+
+                $('#ModalProcYMan').modal('show');
+            });
+        }
         $(document).ready(function () {
-            $('#btnModalProc').click(function () {
-                var e = document.getElementById("selectProc");
-                var id = e.options[e.selectedIndex].value;
-                var url = $('#ModalProcYMan').data('url');
-                url = url + "/" + id;
-
-                $.get(url, function (data) {
-
-                    $('#ProcYManContainer').html(data);
-
-                    $('#ModalProcYMan').modal('show');
+            $('#btnSave').click(function () {
+                var count = $('#tblProc tr').length;
+                var valProce = $('#procedimiento').val();
+                var valArea = $('#areaIDProc').val();
+                var nomArea = $('#areaIDProc option:selected').text();
+                var valPrecio = $('#precioProc').val();
+                var url = $('#btnSave').data('url');
+                var id = "#sel" + count;
+                var info = "";
+                info += '<th scope="row">' + (count) + '</th>';
+                info += '<td><input type="hidden" name="procedimientos.Index" value="p(' + count + ')" />';
+                info += '<input asp-for="procedimientos" name="procedimientos[p(' + count + ')].procedimiento" value="' + valProce + '" class="border-0"/></td>';
+                info += '<td><input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p' + count + '].precio" id="txtPrecio' + count + '" class="border-0"/></td>';
+                info += '<td><select name="procedimientos[p(' + count + ')].areaID" class="form-control" id="sel' + count +'"></select></td>';
+                info += '<td><input value="' + @Model.recepcionID + '" id="txtArea' + count + '" asp-for="procedimientos" name="procedimientos[p' + count + '].recepcionID" hidden/>';
+                info += '<button type="button" class="btn btn-danger btn-cir"><i class="fas fa-trash-alt"></i></button></td>';
+                var newRow = document.getElementById('tblProc').insertRow();
+                newRow.innerHTML = info;
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: JSON,
+                    success: function (result) {
+                        console.log(result);
+                        var areas = "";
+                        $(result).each(function () {
+                            if (this.areaID == valArea) {
+                                areas = areas + '<option value="' + this.areaID + '" selected="selected">' + this.areaNom + '</option>';
+                            }
+                            else {
+                                areas = areas + '<option value="' + this.areaID + '">' + this.areaNom + '</option>';
+                            }
+                            
+                        });
+                        var lista = $(id);
+                        lista.empty();
+                        lista.append(areas);
+                    },
+                    error: function (data) {
+                        return "Error";
+                    }
                 });
+                $('#modalProc').modal('hide');                
+                
             });
         });
-    </script>
-    <script type="text/javascript">
         $(document).ready(function () {
-            $('#btnModalMan').click(function () {
-                var e = document.getElementById("selectMan");
-                var id = e.options[e.selectedIndex].value;
-                var url = $('#ProcYManContainer').data('url');
-                url = url + "/" + id;
-
-                $.get(url, function (data) {
-
-                    $('#ProcYManContainer').html(data);
-
-                    $('#ModalProcYMan').modal('show');
-                });
+            $(".modal").on("hidden.bs.modal", function () {
+                document.getElementById("procedimiento").value = "";
+                document.getElementById("precioProc").value = "";
+                document.getElementById("areaIDProc").selectedIndex = 0;
             });
         });
     </script>

@@ -92,7 +92,7 @@ namespace TallerHernandez.Controllers
             List<SelectListItem> resp = duenio.ConvertAll(d => {
                 return new SelectListItem()
                 {
-                    Text = d.nombre,
+                    Text = d.nombre+" "+d.apellido,
                     Value = d.clienteID,
                     Selected = true
                 };
@@ -101,11 +101,31 @@ namespace TallerHernandez.Controllers
             return Ok(json);
         }
 
+        public IActionResult obtenerAreas()
+        {
+            //List<Area> resp = _context.Area.ToList();
+            //string json = JsonSerializer.Serialize(resp);
+            //return Ok(json);
+            List<Area> resp = _context.Area.ToList();
+            //string json = JsonSerializer.Serialize(resp);
+            return Json(resp);
+        }
+
         // GET: Recepcions/Create
         public IActionResult Create()
         {
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID");
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre");
+            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa");
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
+            {
+                return new SelectListItem()
+                {
+                    Text = cc.nombre+" "+cc.apellido,
+                    Value = cc.clienteID,
+                    Selected = false
+                };
+            });
+            ViewData["clienteID"] = c;
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre");           
             List<Area> areas = new List<Area>();
             areas= _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
@@ -185,7 +205,7 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).Where(r => r.recepcionID == id).FirstOrDefaultAsync();            
+            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).ThenInclude(a => a.area).Where(r => r.recepcionID == id).FirstOrDefaultAsync();            
             RecepcionViewModel r = new RecepcionViewModel { 
                 recepcionID = recepcion.recepcionID,
                 diagnostico = recepcion.diagnostico,
@@ -201,10 +221,34 @@ namespace TallerHernandez.Controllers
             {
                 return NotFound();
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
+            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
             ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
+            {
+                if(cc.clienteID == recepcion.clienteID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = false
+                    };
+                }                
+            });
+            ViewData["clienteID"] = c;
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimiento");            
+            ViewBag.areas = _context.Area;
+            ViewBag.area = new SelectList(_context.Area,"AreaID","areaNom");
             return View(r);
         }
 
@@ -213,8 +257,7 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("recepcionID,diagnostico,fechaEntrada,fechaSalida,clienteID,empleadoID,automovilID," +
-            "procedimientoID,mantenimientoID,estado")] Recepcion recepcion)
+        public async Task<IActionResult> Edit(int id, RecepcionViewModel recepcion)
         {
             if (id != recepcion.recepcionID)
             {
@@ -225,7 +268,19 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
-                    _context.Update(recepcion);
+                    Recepcion r = new Recepcion
+                    {
+                        recepcionID = recepcion.recepcionID,
+                        diagnostico = recepcion.diagnostico,
+                        fechaEntrada = recepcion.fechaEntrada,
+                        fechaSalida = recepcion.fechaSalida,
+                        clienteID = recepcion.clienteID,
+                        empleadoID = recepcion.empleadoID,
+                        automovilID = recepcion.automovilID,
+                        estado = recepcion.estado,
+                        procedimientos = recepcion.procedimientos
+                    };
+                    _context.Update(r);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -241,8 +296,30 @@ namespace TallerHernandez.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "clienteID", recepcion.clienteID);
+            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
+            {
+                if (cc.clienteID == recepcion.clienteID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["clienteID"] = c;
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
             ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");                       
             return View(recepcion);

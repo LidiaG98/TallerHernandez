@@ -20,8 +20,7 @@
         <h4>Información</h4>
         <small class="text-danger">Los campos marcados con (*) son obligatorios</small>
         <div class="form-group">
-            <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>
-            @*<select asp-for="automovilID" class="form-control search" asp-items="ViewBag.automovilID" id="carro"></select>*@
+            <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>            
             @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new
             {
                 @class = "form-control search",
