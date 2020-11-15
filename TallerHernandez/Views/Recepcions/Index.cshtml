@@ -2,45 +2,90 @@
 
 @{
     ViewData["Title"] = "Recepciones";
+    var fInicio = ViewBag.start;
+    var fFinal = ViewBag.end;
+    if (fInicio != null) { fInicio = fInicio.ToString("yyyy-MM-dd"); } //Si quiero la hora "yyyy-MM-dd'T'HH:mm:ss.000"
+    if (fFinal != null) { fFinal = fFinal.ToString("yyyy-MM-dd"); }
 }
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+@*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
 
-<    <div class="row align">
+
+
+
+<div class="row align">
     <div class="col-md-3 col-sm-12">
         <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
     </div>
-    <div class="col-md-9 col-sm-12 mb-5">
+    <div class="col-md-9 col-sm-12 mb-3">
         <h1>Trabajos ingresados</h1>
         <p>
-            <a class="btn rounded-pill btn-outline-primary font-weight-bold" asp-action="Create">Nueva Ficha</a>
+            <a class="btn rounded-pill btn-outline-dark font-weight-bold" asp-action="Create">Nueva Ficha</a>
         </p>
 
         <form class="form-inline" asp-action="Index" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Busque por placa o cliente" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
-            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2 mr-1" value="Buscar">
-            @*<input name="__RequestVerificationToken" type="hidden" >*@
-            <a class="btn btn-primary rounded-pill" asp-action="Index">Mostrar todos</a>
+            <div class="input-group mb-3 col-10 pl-0">                
+                <input class="form-control" type="text" placeholder="Busque por placa o cliente" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+                </div>
+            </div>
         </form>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="card mb-2">
+            <div class="card-header text-white text-center p-0">
+                <button class="btn btn-block bg-dark border-0 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Vehículos próximos a entrega
+                </button>
+            </div>
+            <div class="collapse card-body" id="collapseExample">
+                <h6 class="card-title">Rango de fechas a consultar</h6>
+                <form asp-action="VehiculosProximos">
+                    <div class="form-horizontal">
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                <input name="start" class="form-control" type="date" value="@fInicio">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <div class="col-md-12">
+                                <input name="end" class="form-control" type="date" value="@fFinal">
+                            </div>
+                        </div>
+                        <div class="form-group-sm">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Generar" class="btn btn-secondary" /> <span> </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row align-content-center">
     @foreach (var item in Model)
     {
         <div class="card bg-light m-3" style="width: 15rem;">
-            <div class="card-header">@Html.DisplayFor(modelItem => item.automovilID)</div>
+            <div class="card-header">@Html.DisplayFor(modelItem => item.Automovil.placa)</div>
             <div class="card-body">
                 <h5 class="card-title">@Html.DisplayNameFor(model => model.diagnostico)</h5>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.diagnostico)</p>
             </div>
             @if (item.estado.Equals(1))
             {
-        <div class="card-footer  border-success text-right">
-            En proceso
-            <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-            <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
-            <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
-        </div>
+                <div class="card-footer  border-success text-right">
+                    En proceso
+                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                    <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+                    <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
+                </div>
             }
             else
             {
@@ -63,44 +108,25 @@
 
 
 
-@section Scripts {    
-    @*@foreach (var item in Model)
-    {        
-        <script type="text/javascript">
-    $(document).ready(function () {
-        $('#@item.recepcionID').click(function () {
-            var id = $('#@item.recepcionID').data('id');
-            var url = $('#@item.recepcionID').data('url');
-            url = url + "/" + id;
-
-            $.get(url, function (data) {
-                $('#gameContainer').html(data);
-
-                $('#gameModal').modal('show');
-            });
-        });
-    });
-        </script>
-    }*@
-<script type="text/javascript">
-    $(document).ready(function () {        
+@section Scripts {
+    <script type="text/javascript">
         $(document).ready(function () {
-            $("i").click(function (event) {
-                //alert("You've clicked: " + event.target.nodeName + ", id: " + event.target.id);
-                var id = document.getElementById(event.target.id);
-                var recepId = id.getAttribute('data-id');
-                var url = id.getAttribute('data-url');
-                url = url + "/" + recepId;
+            $(document).ready(function () {
+                $("i").click(function (event) {
+                    var id = document.getElementById(event.target.id);
+                    var recepId = id.getAttribute('data-id');
+                    var url = id.getAttribute('data-url');
+                    url = url + "/" + recepId;
 
-                $.get(url, function (data) {
-                    $('#gameContainer').html(data);
+                    $.get(url, function (data) {
+                        $('#gameContainer').html(data);
 
-                    $('#gameModal').modal('show');
+                        $('#gameModal').modal('show');
+                    });
                 });
             });
         });
-    });
-</script>
+    </script>
 
 }
 

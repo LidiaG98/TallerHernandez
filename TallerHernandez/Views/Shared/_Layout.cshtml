@@ -1,6 +1,6 @@
 ﻿@inject SignInManager<IdentityUser> signInManager;
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-sv">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,21 +10,22 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-<body >
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3" style="background-color: #2e2d2d !important;">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Taller Hernandez</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>               
+                </button>
                 <div class="navbar-collapse d-sm-inline-flex flex-sm-row-reverse collapse show">
                     <ul class="navbar-nav text-light">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown">Administración</a>
-                            <div class="dropdown-menu">
-                                @if (signInManager.IsSignedIn(User))
-                                {
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Administración</a>
+
+                                <div class="dropdown-menu">
                                     <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Clientes</a>
                                     @if (User.IsInRole("Superusuario"))
                                     {
@@ -32,26 +33,26 @@
                                     }
                                     <a class="nav-link" asp-area="" asp-controller="Repuestoes" asp-action="">Repuestos</a>
                                     <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
-                                }
-                            </div>
-                        </li>
-                            @if (signInManager.IsSignedIn(User))
-                            {
-                            @*<li class="nav-item">
-                                <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
-                            </li>
-                            @if (User.IsInRole("Superusuario"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
-                                </li>
+                                </div>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Repuestoes" asp-action="">Repuesto</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
-                            </li>*@
+                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            @*<li class="nav-item">
+                                    <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
+                                </li>
+                                @if (User.IsInRole("Superusuario"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Repuestoes" asp-action="">Repuesto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
+                                </li>*@
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Recepcions" asp-action="">Recepciones</a>
                             </li>
@@ -91,8 +92,8 @@
                                 </li>
                             }
                         }
-                            
-                        </ul>
+
+                    </ul>
 
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -132,7 +133,7 @@
     @RenderSection("Scripts", required: false)
     <style>
         .navbar .nav {
-            overflow: visible;
+            overflow: hidden;
         }
     </style>
 </body>

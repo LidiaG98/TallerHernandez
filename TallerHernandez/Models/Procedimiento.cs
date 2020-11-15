@@ -11,17 +11,19 @@ namespace TallerHernandez.Models
         [Required]
         public int procedimientoID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe de ingresar la descripción del procedimiento")]
         [Display(Name ="Procedimiento")]
         public string procedimiento { get; set; }
-        
+
+        [Required(ErrorMessage = "Debe de ingresar el precio del procedimiento")]
         [Display(Name ="Precio")]
         public float precio { get; set; }
 
+        [Required]
         public int recepcionID { get; set; }
         public Recepcion recepcion { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Debe de ingresar el área del procedimiento")]
         public int areaID { get; set; }
         public Area area { get; set; }
 

@@ -31,7 +31,7 @@ namespace TallerHernandez.ViewModels
 
         [Required]
         [Display(Name = "Recibió")]
-        public string empleadoID { get; set; }
+        public int empleadoID { get; set; }
 
         [Required(ErrorMessage = "Seleccione un automóvil")]
         [Display(Name = "Automóvil")]
