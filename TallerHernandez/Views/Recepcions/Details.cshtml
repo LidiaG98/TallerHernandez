@@ -50,7 +50,7 @@
                     @Html.DisplayNameFor(model => model.Automovil)
                 </dt>
                 <dd class="col-sm-8">
-                    @Html.DisplayFor(model => model.Automovil.automovilID)
+                    @Html.DisplayFor(model => model.Automovil.placa)
                 </dd>
                 <dt class="col-sm-4">
                     @Html.DisplayNameFor(model => model.estado)
@@ -58,13 +58,13 @@
                 @if (@Model.estado.Equals(1))
                 {
                     <dd class="col-sm-8">
-                        Asignado
+                        En Proceso
                     </dd>
                 }
                 else
                 {
                     <dd class="col-sm-8">
-                        Sin Asignar
+                        Terminado
                     </dd>
                 }
             </dl>

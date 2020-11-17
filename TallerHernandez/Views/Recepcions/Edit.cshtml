@@ -10,7 +10,7 @@
 <h1>Editar ficha de ingreso</h1>
 <hr />
 <div class="mb-2">
-    <a class="btn btn-outline-primary font-weight-bold btn-sm" asp-action="Index">Regresar</a>
+    <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="Index">Regresar</a>
 </div>
 <div class="pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:5px;">
     <form asp-action="Edit">
@@ -66,30 +66,33 @@
                     </tr>
                 </thead>
                 <tbody class="text-center">
-                    @foreach (var procedimiento in Model.procedimientos)
+                    @for (int i = 0; i < Model.procedimientos.Count; i++)                    
                     {
                         <tr>
                             <th scope="row">@(count = count +1)</th>
                             <td>
                                 @*@Html.DisplayFor(modelItem => procedimiento.procedimiento)*@
-                                <input type="hidden" name="procedimientos.Index" value="p(@count)" class="border-0" />
-                                <input asp-for="procedimientos" name="procedimientos[p(@count)].procedimiento" value="@procedimiento.procedimiento" class="border-0" />
+                                <input type="hidden" name="procedimientos.Index" value="@i" class="border-0" />
+                                <textarea asp-for="@Model.procedimientos[i].procedimiento" class="border-0"></textarea>
+                                <span asp-validation-for="@Model.procedimientos[i].procedimiento" class="form-row text-danger"></span>
                             </td>
                             <td>
                                 @*$@Html.DisplayFor(modelItem => procedimiento.precio)*@
-                                <input value="@procedimiento.precio" asp-for="procedimientos" name="procedimientos[p(@count)].precio" id="txtPrecio(@count)" class="border-0" />
+                                <input asp-for="@Model.procedimientos[i].precio" class="border-0" />
+                                <span asp-validation-for="@Model.procedimientos[i].precio" class="form-row text-danger"></span>
                             </td>
                             <td>
                                 @*@Html.DisplayFor(modelItem => procedimiento.area.areaNom)*@
-                                <select name="procedimientos[p(@count)].areaID" class="form-control" asp-items="@(new SelectList(ViewBag.areas,"AreaID","areaNom",procedimiento.areaID))"></select>
-                                <input value="@procedimiento.procedimientoID" id="txtpID(@count)" asp-for="procedimientos" name="procedimientos[p(@count)].procedimientoID" hidden />
-                                <input value="@procedimiento.recepcionID" id="txtRid(@count)" asp-for="procedimientos" name="procedimientos[p(@count)].recepcionID" hidden />
+                                <select asp-for="@Model.procedimientos[i].areaID" class="form-control" asp-items="@(new SelectList(ViewBag.areas,"AreaID","areaNom",Model.procedimientos[i].areaID))"></select>
+                                <span asp-validation-for="@Model.procedimientos[i].areaID" class="form-row text-danger"></span>
+                                <input value="@Model.procedimientos[i].procedimientoID" asp-for="@Model.procedimientos[i].procedimientoID" hidden />
+                                <input value="@Model.procedimientos[i].recepcionID" asp-for="@Model.procedimientos[i].recepcionID" hidden />
                             </td>
                             <td>
                                 @*<button onclick="mostrarProc(@procedimiento.procedimientoID)" type="button" class=" btn btn-primary btn-cir">
                                 <i class="fas fa-pen"></i>
                             </button>*@
-                                <button type="button" class=" btn btn-danger btn-cir">
+                                <button type="button" class="Eliminar btn btn-danger btn-cir">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -98,17 +101,17 @@
                 </tbody>
             </table>
             <span asp-validation-for="procedimientos" class="text-danger"></span>
-            <button type="button" class="btn btn-info btn-sm ml-1 mb-4" data-toggle="modal" data-target="#modalProc">
+            <button type="button" class="btn btn-info btn-sm ml-1 mb-5" data-toggle="modal" data-target="#modalProc">
                 <i class="fas fa-plus fa-xs"></i>&#x0020;Añadir procedimiento
             </button>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
                 <label asp-for="empleadoID" class="control-label"></label><span class="text-danger">*</span>
                 <select asp-for="empleadoID" class="form-control" asp-items="ViewBag.empleadoID"></select>
                 <span asp-validation-for="empleadoID" class="text-danger"></span>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-2" hidden>
                 <label asp-for="estado" class="control-label"></label><span class="text-danger">*</span>
                 <select asp-for="estado" class="form-control">
                     <option value="1">En proceso</option>
@@ -118,6 +121,7 @@
         </div>
         <div class="form-group">
             <input type="submit" value="Guardar Cambios" class="btn btn-success" />
+            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
         </div>
     </form>
 </div>
@@ -207,34 +211,28 @@
         });
     </script>
     <script type="text/javascript">
-        function mostrarProc(id) {
-            var url = $('#ModalProcYMan').data('url');
-            url = url + "/" + id;
+        var count=@count;
 
-            $.get(url, function (data) {
-
-                $('#ProcYManContainer').html(data);
-
-                $('#ModalProcYMan').modal('show');
-            });
-        }
+        $("#tblProc").on("click", ".Eliminar", function () {
+            $(this).closest("tr").remove();
+        });
         $(document).ready(function () {
             $('#btnSave').click(function () {
-                var count = $('#tblProc tr').length;
+                count++;
                 var valProce = $('#procedimiento').val();
                 var valArea = $('#areaIDProc').val();
-                var nomArea = $('#areaIDProc option:selected').text();
+                var numFila = $('#tblProc tr').length;
                 var valPrecio = $('#precioProc').val();
                 var url = $('#btnSave').data('url');
                 var id = "#sel" + count;
                 var info = "";
-                info += '<th scope="row">' + (count) + '</th>';
+                info += '<th scope="row">' + (numFila) + '</th>';
                 info += '<td><input type="hidden" name="procedimientos.Index" value="p(' + count + ')" />';
-                info += '<input asp-for="procedimientos" name="procedimientos[p(' + count + ')].procedimiento" value="' + valProce + '" class="border-0"/></td>';
-                info += '<td><input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p' + count + '].precio" id="txtPrecio' + count + '" class="border-0"/></td>';
+                info += '<textarea name="procedimientos[p(' + count + ')].procedimiento" class="border-0">' + valProce + '</textarea></td>';
+                info += '<td><input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p(' + count + ')].precio" id="txtPrecio' + count + '" class="border-0"/></td>';
                 info += '<td><select name="procedimientos[p(' + count + ')].areaID" class="form-control" id="sel' + count +'"></select></td>';
-                info += '<td><input value="' + @Model.recepcionID + '" id="txtArea' + count + '" asp-for="procedimientos" name="procedimientos[p' + count + '].recepcionID" hidden/>';
-                info += '<button type="button" class="btn btn-danger btn-cir"><i class="fas fa-trash-alt"></i></button></td>';
+                info += '<td><input value="' + @Model.recepcionID + '" id="txtArea' + count + '" asp-for="procedimientos" name="procedimientos[p(' + count + ')].recepcionID" hidden/>';
+                info += '<button type="button" class="Eliminar btn btn-danger btn-cir"><i class="fas fa-trash-alt"></i></button></td>';
                 var newRow = document.getElementById('tblProc').insertRow();
                 newRow.innerHTML = info;
                 $.ajax({
@@ -262,8 +260,7 @@
                         return "Error";
                     }
                 });
-                $('#modalProc').modal('hide');                
-                
+                $('#modalProc').modal('hide');  
             });
         });
         $(document).ready(function () {

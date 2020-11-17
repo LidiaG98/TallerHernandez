@@ -44,6 +44,32 @@ namespace TallerHernandez.Controllers
             return View(await recepciones.AsNoTracking().ToListAsync());
         }
 
+        
+        public async Task<IActionResult> VehiculosProximos(DateTime? start, DateTime? end)
+        {
+            if(start.HasValue && end.HasValue)
+            {
+                DateTime valorEnd = end.Value;
+                DateTime fFinalMod = new DateTime(valorEnd.Year, valorEnd.Month, valorEnd.Day, 23, 59, 59);
+                ViewBag.start = start;
+                ViewBag.end = end;
+                var recepciones = await _context.Recepcion
+                    .Where(x => x.estado == 1
+                    && x.fechaSalida >= start
+                    && x.fechaSalida <= fFinalMod).Include(r => r.Automovil)
+                    .OrderBy(x => x.fechaSalida)
+                    .ToListAsync();
+                return View("Index", recepciones);
+                
+            }
+            else
+            {
+                var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).
+                                  Include(r => r.empleado).Include(r => r.procedimientos) select s;
+                return View("Index", await recepciones.AsNoTracking().ToListAsync());
+            }            
+        }
+
         // GET: Recepcions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -103,11 +129,7 @@ namespace TallerHernandez.Controllers
 
         public IActionResult obtenerAreas()
         {
-            //List<Area> resp = _context.Area.ToList();
-            //string json = JsonSerializer.Serialize(resp);
-            //return Ok(json);
             List<Area> resp = _context.Area.ToList();
-            //string json = JsonSerializer.Serialize(resp);
             return Json(resp);
         }
 
@@ -246,9 +268,31 @@ namespace TallerHernandez.Controllers
                 }                
             });
             ViewData["clienteID"] = c;
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);
+            List<Empleado> empleados = _context.Empleado.ToList();
+            List<SelectListItem> e = empleados.ConvertAll(ee =>
+            {
+                if (ee.empleadoID == recepcion.empleadoID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["empleadoID"] = e;
             ViewBag.areas = _context.Area;
-            ViewBag.area = new SelectList(_context.Area,"AreaID","areaNom");
+            ViewBag.area = new SelectList(_context.Area, "AreaID", "areaNom");
             return View(r);
         }
 
@@ -280,6 +324,12 @@ namespace TallerHernandez.Controllers
                         estado = recepcion.estado,
                         procedimientos = recepcion.procedimientos
                     };
+                    List<Procedimiento> pOriginales = _context.Procedimiento.Where(p => p.recepcionID == r.recepcionID).AsNoTracking().ToList();
+                    var pEditados = pOriginales.Where(p => r.procedimientos.All(p2 => p2.procedimientoID != p.procedimientoID));
+                    foreach (var pE in pEditados)
+                    {
+                        _context.Procedimiento.Remove(pE);
+                    }
                     _context.Update(r);
                     await _context.SaveChangesAsync();
                 }
@@ -320,8 +370,31 @@ namespace TallerHernandez.Controllers
                 }
             });
             ViewData["clienteID"] = c;
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", recepcion.empleadoID);
-            ViewData["procedimientoID"] = new SelectList(_context.Procedimiento, "procedimientoID", "procedimeintoID");                       
+            List<Empleado> empleados = _context.Empleado.ToList();
+            List<SelectListItem> e = empleados.ConvertAll(ee =>
+            {
+                if (ee.empleadoID == recepcion.empleadoID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["empleadoID"] = e;
+            ViewBag.areas = _context.Area;
+            ViewBag.area = new SelectList(_context.Area, "AreaID", "areaNom");
             return View(recepcion);
         }
 
