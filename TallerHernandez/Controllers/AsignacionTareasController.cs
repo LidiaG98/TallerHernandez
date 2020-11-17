@@ -33,19 +33,19 @@ namespace TallerHernandez.Controllers
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
             ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
             ViewData["Filtro"] = cadena;
-            var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
+            var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.procedimiento).Include(a => a.procedimiento.recepcion).Include(a => a.procedimiento.area)
                                    select s;
             asignacionTareas = asignacionTareas.Where(s => s.estadoTarea == false);
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+                asignacionTareas = asignacionTareas.Where(s => s.procedimiento.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -54,12 +54,11 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
                     break;
             }
 
             return View(await asignacionTareas.AsNoTracking().ToListAsync());
-
 
             //return View(await asignacionTareas.ToListAsync());
         }
@@ -68,28 +67,28 @@ namespace TallerHernandez.Controllers
         // GET: AsignacionTareas/Details/5        
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var asignacionTarea = await _context.AsignacionTarea
-                .Include(a => a.empleado)
-                .Include(a => a.recepcion)
-                .FirstOrDefaultAsync(m => m.asignacionTareaID == id);
-            if (asignacionTarea == null)
-            {
-                return NotFound();
-            }
+            //var asignacionTarea = await _context.AsignacionTarea
+            //    .Include(a => a.empleado)
+            //    .Include(a => a.recepcion)
+            //    .FirstOrDefaultAsync(m => m.asignacionTareaID == id);
+            //if (asignacionTarea == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return View(asignacionTarea);
+            return View(/*asignacionTarea*/);
         }
 
         // GET: AsignacionTareas/Create
 
         public async Task<IActionResult> CrearAsignacion(string cadena, string OrdenAsig)
         {
-            var recepcions = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r => r.procedimientos).Where(r=>r.estado == 1);
+            var procedimientos = _context.Procedimiento.Include(r => r.recepcion).Include(r => r.recepcion.Automovil).Include(r => r.recepcion.cliente).Include(r => r.recepcion.empleado).Include(r => r.area).Where(r=>r.estado == 1);
 
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
             ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
@@ -97,77 +96,73 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                recepcions = recepcions.Where(r => r.Automovil.placa.Contains(cadena) || r.empleado.nombre.Contains(cadena));
+                procedimientos = procedimientos.Where(r => r.recepcion.Automovil.placa.Contains(cadena) || r.area.areaNom.Contains(cadena));
             }
 
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    recepcions = recepcions.OrderByDescending(r => r.automovilID);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.automovilID);
                     break;
                 case "nom_asc":
-                    recepcions = recepcions.OrderBy(r => r.empleado.nombre);
+                    procedimientos = procedimientos.OrderBy(r => r.area.areaNom);
                     break;
                 case "nom_desc":
-                    recepcions = recepcions.OrderByDescending(r => r.empleado.nombre);
+                    procedimientos = procedimientos.OrderByDescending(r => r.area.areaNom);
                     break;
                 default:
-                    recepcions = recepcions.OrderBy(s => s.automovilID);
+                    procedimientos = procedimientos.OrderBy(s => s.recepcion.automovilID);
                     break;
             }
 
-            return View(await recepcions.AsNoTracking().ToListAsync());
+            return View(await procedimientos.AsNoTracking().ToListAsync());
         }
 
-        public async Task<IActionResult> EmpleadoAsig(int id, string cadena, string OrdenAsig)
+        public IActionResult EmpleadoAsig(int id/*, string cadena, string OrdenAsig*/)
         {
-            ViewData["OrdenAp"] = String.IsNullOrEmpty(OrdenAsig) ? "ape_desc" : "";
-            ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
-            ViewData["Filtro"] = cadena;
+            //ViewData["OrdenAp"] = String.IsNullOrEmpty(OrdenAsig) ? "ape_desc" : "";
+            //ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
+            //ViewData["Filtro"] = cadena;
 
-            ViewBag.recepcionID = id;
-            var encargado = from a in _context.Empleado.Include(a => a.area).Include(a => a.modoPago).Include(a => a.rol)
-                            select a;
+            ViewBag.procedimientoID = id;
 
-            Recepcion recepcion = _context.Recepcion.First(i => i.recepcionID == id);
-            List<Empleado> empleado = new List<Empleado>();
-
-            //if (!recepcion.mantenimientoID.Equals(null) && recepcion.procedimientoID.Equals(null))
-            //{
-            //    Mantenimiento mantenimiento = _context.Mantenimiento.First(i => i.mantenimientoID == recepcion.mantenimientoID);
-            //    encargado = encargado.Where(a => a.areaID == mantenimiento.areaID);
-            //}
-            //else if (recepcion.mantenimientoID.Equals(null) && !recepcion.procedimientoID.Equals(null))
-            //{
-            //    Procedimiento procedimiento = _context.Procedimiento.First(i => i.procedimientoID == recepcion.procedimientoID);
-            //    encargado = encargado.Where(a => a.areaID == procedimiento.areaID);
-            //}
-            //else if (!recepcion.mantenimientoID.Equals(null) && !recepcion.procedimientoID.Equals(null))
-            //{
-            //    encargado = encargado.Where(a => a.area.areaNom.Equals("Mecánica"));
-            //}
-            //if (!String.IsNullOrEmpty(cadena))
-            //{
-            //    encargado = encargado.Where(r => r.apellido.Contains(cadena) || r.nombre.Contains(cadena));
-            //}
-
-            switch (OrdenAsig)
+            Procedimiento procedimiento = _context.Procedimiento.First(i => i.procedimientoID == id);
+            List<Empleado> empleado = _context.Empleado.Include(e => e.area).Where(e => e.areaID == procedimiento.areaID).ToList();
+            List<AsignacionTarea> asignacionTareas = _context.AsignacionTarea.Where(s => s.estadoTarea == false).ToList();
+            List<Empleado> encargado = new List<Empleado>();
+            int cont = 0;
+            foreach(var e in empleado)
             {
-                case "ape_desc":
-                    encargado = encargado.OrderByDescending(r => r.apellido);
-                    break;
-                case "nom_asc":
-                    encargado = encargado.OrderBy(r => r.nombre);
-                    break;
-                case "nom_desc":
-                    encargado = encargado.OrderByDescending(r => r.nombre);
-                    break;
-                default:
-                    encargado = encargado.OrderBy(s => s.apellido);
-                    break;
+                for(int i = 0; i < asignacionTareas.Count; i++)
+                {
+                    if (e.empleadoID == asignacionTareas[i].empleadoID)
+                    {
+                        cont = cont + 1;
+                    }
+                }
+                if(cont < 3)
+                {
+                    encargado.Add(e);
+                }
             }
 
-            return View(await encargado.AsNoTracking().ToListAsync());
+            //switch (OrdenAsig)
+            //{
+            //    case "ape_desc":
+            //        encargado = encargado.OrderBy(r=>r.apellido);
+            //        break;
+            //    case "nom_asc":
+            //        encargado = encargado.OrderBy(r => r.nombre);
+            //        break;
+            //    case "nom_desc":
+            //        encargado = encargado.OrderByDescending(r => r.nombre);
+            //        break;
+            //    default:
+            //        encargado = encargado.OrderBy(s => s.apellido);
+            //        break;
+            //}
+
+            return View(encargado.ToList());
         }
 
         // POST: AsignacionTareas/Create
@@ -177,24 +172,25 @@ namespace TallerHernandez.Controllers
         //[ValidateAntiForgeryToken]
         //[Route("{empleadoID:string}/{recepcionID:int}")]
         //[HttpPatch]
-        public async Task<IActionResult> CreateAsig(string empleadoID, string recepcionID)
+        public async Task<IActionResult> CreateAsig(string empleadoID, string procedimientoID)
         {
-            int IDrecepcion = Convert.ToInt16(recepcionID);
+            int IDprocedimiento = Convert.ToInt16(procedimientoID);
+            int IDempleado = Convert.ToInt16(empleadoID);
             AsignacionTarea asignacionTarea = new AsignacionTarea();
-            asignacionTarea.recepcionID = IDrecepcion;
-            asignacionTarea.empleadoID = empleadoID;
-            
-                _context.Add(asignacionTarea);
-                await _context.SaveChangesAsync();
-                if (asignacionTarea.estadoTarea == false)
-                {
-                    Recepcion recepcion1 = _context.Recepcion.Find(asignacionTarea.recepcionID);
-                    recepcion1.estado = 0; //Actualizando el estado de recepcion a "Asignado"
-                    _context.Update(recepcion1);
-                    await _context.SaveChangesAsync();
-                }
+            asignacionTarea.procedimientoID = IDprocedimiento;
+            asignacionTarea.empleadoID = IDempleado;
 
-                return RedirectToAction(nameof(Index));
+            _context.Add(asignacionTarea);
+            await _context.SaveChangesAsync();
+            if (asignacionTarea.estadoTarea == false)
+            {
+                Procedimiento procedimiento = _context.Procedimiento.Find(asignacionTarea.procedimientoID);
+                procedimiento.estado = 0; //Actualizando el estado de procedimiento a "Asignado"
+                _context.Update(procedimiento);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
         
         // GET: AsignacionTareas/Edit/5
@@ -214,7 +210,7 @@ namespace TallerHernandez.Controllers
             empleado = empleado.Where(s => s.rol.rolNom.Equals("Mecánico"));
 
             ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
-            ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
+            //ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
             return View(asignacionTarea);
         }
 
@@ -251,7 +247,7 @@ namespace TallerHernandez.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
-            ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
+            //ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
             return View(asignacionTarea);
         }
         /*
@@ -310,43 +306,43 @@ namespace TallerHernandez.Controllers
             ViewData["OrdenAuto"] = String.IsNullOrEmpty(OrdenAsig) ? "auto_desc" : "";
             ViewData["OrdenNom"] = OrdenAsig == "nom_asc" ? "nom_desc" : "nom_asc";
             ViewData["Filtro"] = cadena;
-            var tareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
-                         select s;
-            tareas = tareas.Where(s => (s.estadoTarea==true));
+            //var tareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
+            //             select s;
+            //tareas = tareas.Where(s => (s.estadoTarea==true));
 
-            if (!String.IsNullOrEmpty(cadena))
-            {
-                tareas = tareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
-            }
+            //if (!String.IsNullOrEmpty(cadena))
+            //{
+            //    tareas = tareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+            //}
 
-            switch (OrdenAsig)
-            {
-                case "auto_desc":
-                    tareas = tareas.OrderByDescending(s => s.recepcion.automovilID);
-                    break;
-                case "nom_asc":
-                    tareas = tareas.OrderBy(s => s.empleado.nombre);
-                    break;
-                case "nom_desc":
-                    tareas = tareas.OrderByDescending(s => s.empleado.nombre);
-                    break;
-                default:
-                    tareas = tareas.OrderBy(s => s.recepcion.automovilID);
-                    break;
-            }
+            //switch (OrdenAsig)
+            //{
+            //    case "auto_desc":
+            //        tareas = tareas.OrderByDescending(s => s.recepcion.automovilID);
+            //        break;
+            //    case "nom_asc":
+            //        tareas = tareas.OrderBy(s => s.empleado.nombre);
+            //        break;
+            //    case "nom_desc":
+            //        tareas = tareas.OrderByDescending(s => s.empleado.nombre);
+            //        break;
+            //    default:
+            //        tareas = tareas.OrderBy(s => s.recepcion.automovilID);
+            //        break;
+            //}
 
-            return View(await tareas.AsNoTracking().ToListAsync());
+            return View(/*await tareas.AsNoTracking().ToListAsync()*/);
 
             //return View(await tareas.ToListAsync());
         }
 
         
-        public async Task<List<AsignacionTarea>> GetAsignacionTarea(int id)
-        {
-            var tarea = from a in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos) select a;
-            tarea = tarea.Where(a => a.asignacionTareaID == id);
-            return await tarea.ToListAsync();
-        }
+        //public async Task<List<AsignacionTarea>> GetAsignacionTarea(int id)
+        //{
+        //    var tarea = from a in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos) select a;
+        //    tarea = tarea.Where(a => a.asignacionTareaID == id);
+        //    return await tarea.ToListAsync();
+        //}
         public async Task<List<Empleado>> GetListadoEncargado(int id)
         {
             var encargado = from a in _context.Empleado.Include(a => a.area).Include(a => a.modoPago).Include(a => a.rol)
@@ -382,31 +378,31 @@ namespace TallerHernandez.Controllers
             //encargado = encargado.Where(a => a.asignacionTareaID == id);
             return await encargado.ToListAsync();
         }
-        public async Task<string> EditarAsignacionTarea(int id, int recepcion, string encargado, Boolean estado, AsignacionTarea asignacionTarea)
-        {
-            var respuesta = "";
-            try
-            {
-                asignacionTarea = new AsignacionTarea
-                {
-                    asignacionTareaID = id,
-                    recepcionID = recepcion,
-                    empleadoID = encargado,
-                    estadoTarea = estado
-                };
+        //public async Task<string> EditarAsignacionTarea(int id, int recepcion, string encargado, Boolean estado, AsignacionTarea asignacionTarea)
+        //{
+        //    var respuesta = "";
+        //    try
+        //    {
+        //        asignacionTarea = new AsignacionTarea
+        //        {
+        //            asignacionTareaID = id,
+        //            recepcionID = recepcion,
+        //            empleadoID = encargado,
+        //            estadoTarea = estado
+        //        };
 
-                //Actualizando los datos
-                _context.Update(asignacionTarea);
-                await _context.SaveChangesAsync();
+        //        //Actualizando los datos
+        //        _context.Update(asignacionTarea);
+        //        await _context.SaveChangesAsync();
 
-                respuesta = "Save";
-            }
-            catch
-            {
-                respuesta = "No Save";
-            }
-            return respuesta;
-        }
+        //        respuesta = "Save";
+        //    }
+        //    catch
+        //    {
+        //        respuesta = "No Save";
+        //    }
+        //    return respuesta;
+        //}
         private bool AsignacionTareaExists(int id)
         {
             return _context.AsignacionTarea.Any(e => e.asignacionTareaID == id);
@@ -421,30 +417,30 @@ namespace TallerHernandez.Controllers
 
             ClaimsPrincipal currentUser = this.User;
             var currentUserID = currentUser.Identity.Name;
-            var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
-                                   select s;
+            //var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
+            //                       select s;
 
-            if (!String.IsNullOrEmpty(currentUserID))
-            {
-                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == false) && (s.empleado.correo == currentUserID));
-            }
+            //if (!String.IsNullOrEmpty(currentUserID))
+            //{
+            //    asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == false) && (s.empleado.correo == currentUserID));
+            //}
 
-            if (!String.IsNullOrEmpty(cadena))
-            {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
-            }
+            //if (!String.IsNullOrEmpty(cadena))
+            //{
+            //    asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+            //}
 
-            switch (OrdenAsig)
-            {
-                case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
-                    break;
-                default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
-                    break;
-            }
+            //switch (OrdenAsig)
+            //{
+            //    case "auto_desc":
+            //        asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
+            //        break;
+            //    default:
+            //        asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
+            //        break;
+            //}
 
-            return View(await asignacionTareas.AsNoTracking().ToListAsync());
+            return View(/*await asignacionTareas.AsNoTracking().ToListAsync()*/);
 
             //return View(await asignacionTareas.ToListAsync());
         }
@@ -455,30 +451,30 @@ namespace TallerHernandez.Controllers
 
             ClaimsPrincipal currentUser = this.User;
             var currentUserID = currentUser.Identity.Name;
-            var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
-                                   select s;
+            //var asignacionTareas = from s in _context.AsignacionTarea.Include(a => a.empleado).Include(a => a.recepcion).Include(a => a.recepcion.procedimientos)
+            //                       select s;
 
-            if (!String.IsNullOrEmpty(currentUserID))
-            {
-                asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == true) && (s.empleado.correo == currentUserID));
-            }
+            //if (!String.IsNullOrEmpty(currentUserID))
+            //{
+            //    asignacionTareas = asignacionTareas.Where(s => (s.estadoTarea == true) && (s.empleado.correo == currentUserID));
+            //}
 
-            if (!String.IsNullOrEmpty(cadena))
-            {
-                asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
-            }
+            //if (!String.IsNullOrEmpty(cadena))
+            //{
+            //    asignacionTareas = asignacionTareas.Where(s => s.recepcion.Automovil.placa.Contains(cadena) || s.empleado.nombre.Contains(cadena));
+            //}
 
-            switch (OrdenAsig)
-            {
-                case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
-                    break;
-                default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
-                    break;
-            }
+            //switch (OrdenAsig)
+            //{
+            //    case "auto_desc":
+            //        asignacionTareas = asignacionTareas.OrderByDescending(s => s.recepcion.automovilID);
+            //        break;
+            //    default:
+            //        asignacionTareas = asignacionTareas.OrderBy(s => s.recepcion.automovilID);
+            //        break;
+            //}
 
-            return View(await asignacionTareas.AsNoTracking().ToListAsync());
+            return View(/*await asignacionTareas.AsNoTracking().ToListAsync()*/);
 
             //return View(await asignacionTareas.ToListAsync());
         }

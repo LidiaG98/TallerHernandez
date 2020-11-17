@@ -12,17 +12,20 @@ namespace TallerHernandez.Models
         [Required]
         public int asignacionTareaID { get; set; }
         [Required]
-        public Boolean estadoTarea { get; set; } = false; //Tarea finalizada o no finalizada
+        public Boolean estadoTarea { get; set; } = false; //Tarea finalizada o no finalizada; false = "No finalizada"
+        [Display(Name = "Especificación")]
+        [MaxLength(300)]
+        public string descripcion { get; set; }
 
         [Required]
-        [Display(Name = "Trabajo asignado")]
-        public int recepcionID { get; set; }
-        public Recepcion recepcion { get; set; }
+        [Display(Name = "Procedimiento")]
+        public int procedimientoID { get; set; }
+        public Procedimiento procedimiento { get; set; }
 
         [Required]
         [ForeignKey("encargadoID")]
         [Display(Name = "Encargado")]
-        public string empleadoID { get; set; }
+        public int empleadoID { get; set; }
         public Empleado empleado { get; set; }
     }
 }

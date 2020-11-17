@@ -30,10 +30,10 @@
                 Automóvil
             </th>
             <th>
-                Mantenimiento
+                Procedimiento
             </th>
             <th>
-                Procedimiento
+                Área
             </th>
             <th>
                 Encargado
@@ -50,8 +50,8 @@
                         Ordenar Por:
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">      @Html.DisplayNameFor(model => model.recepcion.automovilID)</a>
-                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenNom"]">     @Html.DisplayNameFor(model => model.empleado.nombre)</a>
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@Html.DisplayNameFor(model => model.procedimiento.recepcion.automovilID)</a>
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenNom"]">@Html.DisplayNameFor(model => model.empleado.nombre)</a>
                     </div>
                 </div>
             </th>
@@ -60,37 +60,40 @@
     <tbody class="thead-dark text-center">
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.procedimiento.recepcion.automovilID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.procedimiento.procedimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.procedimiento.area.areaNom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.empleado.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.procedimiento.recepcion.fechaSalida)
+            </td>
+            @if (item.estadoTarea.Equals(false))
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.automovilID)                    
+                    No finalizada
                 </td>
+            }
+            else
+            {
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.procedimientos@*.procedimiento*@)
+                    Finalizada
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.empleado.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.fechaSalida)
-                </td>
-                @if (item.estadoTarea.Equals(false))
-                {
-                    <td>
-                        No finalizada
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        Finalizada
-                    </td>
-                }
-                <td>
-                    <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-edit"></i></a>
-                    <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
-                    <a class="p-2" style="color:#ff0000;" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
+            }
+            <td>
+                <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-edit"></i></a>
+                <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
+                <a class="p-2" style="color:#ff0000;" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-trash-alt"></i></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

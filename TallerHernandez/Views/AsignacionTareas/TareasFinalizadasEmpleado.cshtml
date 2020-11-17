@@ -44,7 +44,7 @@
                         Ordenar Por:
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-action="TareasFinalizadasEmpleado" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@Html.DisplayNameFor(model => model.recepcion.automovilID)</a>
+                        <a class="dropdown-item" asp-action="TareasFinalizadasEmpleado" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@*@Html.DisplayNameFor(model => model.recepcion.automovilID)*@</a>
                     </div>
                 </div>
             </th>
@@ -55,16 +55,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.automovilID)
+                    @*@Html.DisplayFor(modelItem => item.recepcion.automovilID)*@
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.procedimientos@*.procedimiento*@)
+                    @*@Html.DisplayFor(modelItem => item.recepcion.procedimientos.procedimiento)*@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.empleado.nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.recepcion.fechaSalida)
+                    @*@Html.DisplayFor(modelItem => item.recepcion.fechaSalida)*@
                 </td>
                 @if (item.estadoTarea.Equals(false))
                 {

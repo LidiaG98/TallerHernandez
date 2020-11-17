@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20201113074841_[EstadoProcedimientoV3]")]
+    partial class EstadoProcedimientoV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,7 +244,11 @@ namespace TallerHernandez.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
-                    b.Property<int>("empleadoID")
+                    b.Property<string>("empleadoID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("empleadoID1")
                         .HasColumnType("int");
 
                     b.Property<bool>("estadoTarea")
@@ -253,7 +259,7 @@ namespace TallerHernandez.Migrations
 
                     b.HasKey("asignacionTareaID");
 
-                    b.HasIndex("empleadoID");
+                    b.HasIndex("empleadoID1");
 
                     b.HasIndex("procedimientoID");
 
@@ -586,9 +592,7 @@ namespace TallerHernandez.Migrations
                 {
                     b.HasOne("TallerHernandez.Models.Empleado", "empleado")
                         .WithMany("asignacionTarea")
-                        .HasForeignKey("empleadoID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("empleadoID1");
 
                     b.HasOne("TallerHernandez.Models.Procedimiento", "procedimiento")
                         .WithMany("asignacionTarea")
