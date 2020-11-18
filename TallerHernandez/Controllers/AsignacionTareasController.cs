@@ -192,7 +192,7 @@ namespace TallerHernandez.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        
+
         // GET: AsignacionTareas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -201,15 +201,20 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var asignacionTarea = await _context.AsignacionTarea.FindAsync(id);
+            List<AsignacionTarea> asigTarea = _context.AsignacionTarea.Include(e => e.empleado).Include(e => e.procedimiento).Include(e => e.procedimiento.recepcion)
+                .Include(e => e.procedimiento.area).Include(e => e.procedimiento.recepcion.Automovil).Include(e=>e.procedimiento.recepcion.Automovil.cliente).Where(e => e.asignacionTareaID == id).ToList();
+
+            List<Empleado> empleado = _context.Empleado.Where(e => e.empleadoID == asigTarea[0].empleadoID).ToList();
+            var nomEmpleado = empleado[0].nombre + " " + empleado[0].apellido;
+            ViewData["nomEmpleado"] = nomEmpleado;
+            var asignacionTarea = asigTarea[0];
             if (asignacionTarea == null)
             {
                 return NotFound();
             }
-            var empleado = from s in _context.Empleado.Include(e => e.area).Include(e => e.modoPago).Include(e => e.rol) select s;
-            empleado = empleado.Where(s => s.rol.rolNom.Equals("Mecánico"));
-
-            ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
+            //var empleado = from s in _context.Empleado.Include(e => e.area).Include(e => e.modoPago).Include(e => e.rol) select s;
+            //empleado = empleado.Where(s => s.rol.rolNom.Equals("Mecánico"));
+            //ViewData["empleadoID"] = new SelectList(empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
             //ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
             return View(asignacionTarea);
         }
@@ -219,9 +224,12 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("asignacionTareaID,estadoTarea,recepcionID,empleadoID")] AsignacionTarea asignacionTarea)
+        public async Task<IActionResult> Edit(/*int id, [Bind("*/int asignacionTareaID,string descripcion, bool estadoTarea/*")] AsignacionTarea asignacionTarea*/)
         {
-            if (id != asignacionTarea.asignacionTareaID)
+            List<AsignacionTarea> asignacionTarea = _context.AsignacionTarea.Where(e => e.asignacionTareaID == asignacionTareaID).ToList();
+            asignacionTarea[0].descripcion = descripcion;
+            asignacionTarea[0].estadoTarea = estadoTarea;
+            if (asignacionTarea == null)
             {
                 return NotFound();
             }
@@ -230,12 +238,36 @@ namespace TallerHernandez.Controllers
             {
                 try
                 {
-                    _context.Update(asignacionTarea);
+                    _context.Update(asignacionTarea[0]);
                     await _context.SaveChangesAsync();
+
+                    Procedimiento procedimiento = await _context.Procedimiento.FindAsync(asignacionTarea[0].procedimientoID);
+                    Recepcion recepcion = await _context.Recepcion.FindAsync(procedimiento.recepcionID);
+                    List<Procedimiento> procedimientos = _context.Procedimiento.Where(e => e.recepcionID == recepcion.recepcionID).ToList();
+                    int cont = 0;
+                    for(int i = 0; i<procedimientos.Count; i++)
+                    {
+                        cont += 1;
+                    }
+                    List<AsignacionTarea> asigTareas = _context.AsignacionTarea.Where(e => e.procedimiento.recepcionID == recepcion.recepcionID).ToList();
+                    int contAT = 0; 
+                    for(int j=0; j<cont; j++)
+                    {
+                        if (asigTareas[j].estadoTarea == true)
+                        {
+                            contAT += 1;
+                        }
+                    }
+                    if(cont == contAT)
+                    {
+                        recepcion.estado = 0;
+                        _context.Update(recepcion);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AsignacionTareaExists(asignacionTarea.asignacionTareaID))
+                    if (!AsignacionTareaExists(asignacionTarea[0].asignacionTareaID))
                     {
                         return NotFound();
                     }
@@ -246,9 +278,9 @@ namespace TallerHernandez.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
+            //ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "empleadoID", asignacionTarea.empleadoID);
             //ViewData["recepcionID"] = new SelectList(_context.Recepcion, "recepcionID", "automovilID", asignacionTarea.recepcionID);
-            return View(asignacionTarea);
+            return View(asignacionTarea[0]);
         }
         /*
         // GET: AsignacionTareas/Delete/5

@@ -14,7 +14,7 @@ namespace TallerHernandez.Models
         [Required]
         public Boolean estadoTarea { get; set; } = false; //Tarea finalizada o no finalizada; false = "No finalizada"
         [Display(Name = "Especificación")]
-        [MaxLength(300)]
+        [MaxLength(2000)]
         public string descripcion { get; set; }
 
         [Required]

@@ -2,38 +2,92 @@
 
 @{
     ViewData["Title"] = "Edit";
+    SelectList estado = new SelectList(new List<SelectListItem>
+    {
+    new SelectListItem { Selected = false, Text = "No Finalizada", Value = "false"},
+    new SelectListItem { Selected = false, Text = "Finalizada", Value = "true"},
+    }, "Value", "Text");
 }
 
-<h1>Edit</h1>
+<h1>Editar Asignación de Tarea</h1>
 
-<h4>AsignacionTarea</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="asignacionTareaID" />
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="estadoTarea" /> @Html.DisplayNameFor(model => model.estadoTarea)
-                </label>
-            </div>
-            <div class="form-group">
-                @*<label asp-for="recepcionID" class="control-label"></label>
-                <select asp-for="recepcionID" class="form-control" asp-items="ViewBag.recepcionID"></select>
-                <span asp-validation-for="recepcionID" class="text-danger"></span>*@
-            </div>
-            <div class="form-group">
-                <label asp-for="empleadoID" class="control-label"></label>
-                <select asp-for="empleadoID" class="form-control" asp-items="ViewBag.empleadoID"></select>
-                <span asp-validation-for="empleadoID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+<div class="mb-2">
+    <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="Index">Regresar</a>
 </div>
+<div class="container" style="background-color: white; border-radius: 8px">
+    <form asp-action="Edit" style="padding: 3%">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="asignacionTareaID" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Placa del Automóvil</label>
+                <input value="@Model.procedimiento.recepcion.Automovil.placa" class="form-control" readonly />
+                @*<span asp-validation-for="empleadoID" class="text-danger"></span>*@
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Dueño</label>
+                <input value="@Model.procedimiento.recepcion.Automovil.cliente.nombre" class="form-control" readonly />
+                @*<span asp-validation-for="empleadoID" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Procedimiento</label>
+                <input value="@Model.procedimiento.procedimiento" class="form-control" readonly />
+                @*<span asp-validation-for="procedimientoID" class="text-danger"></span>*@
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Área</label>
+                <input value="@Model.procedimiento.area.areaNom" class="form-control" readonly />
+                @*<span asp-validation-for="procedimiento.procedimiento" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Fecha de Entrada</label>
+                <input value="@Model.procedimiento.recepcion.fechaEntrada" class="form-control" readonly />
+                @*<span asp-validation-for="procedimiento.recepcion.fechaEntrada" class="text-danger"></span>*@
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Fecha de Salida</label>
+                <input value="@Model.procedimiento.recepcion.fechaSalida" class="form-control" readonly />
+                @*<span asp-validation-for="procedimiento.recepcion.fechaSalida" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label class="control-label">Encargado</label>
+                <input class="form-control" value="@ViewBag.nomEmpleado" readonly />
+                @*<span asp-validation-for="empleadoID" class="text-danger"></span>*@
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="control-label">Especificaciones extras</label>
+            <textarea asp-for="descripcion" class="form-control" rows="6" placeholder="Escribe algo aquí..."></textarea>
+            @*<span asp-validation-for="descripcion" class="text-danger"></span>*@
+        </div>
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label asp-for="estadoTarea" class="control-label">
+                    Estado
+                    @*<input class="form-check-input" asp-for="estadoTarea" /> @Html.DisplayNameFor(model => model.estadoTarea)*@
+                </label>
+                @Html.DropDownListFor(x => x.estadoTarea, estado, new { @class = "form-control" })
+            </div>
+        </div>
+            @*<div class="form-group">
+            <label asp-for="recepcionID" class="control-label"></label>
+            <select asp-for="recepcionID" class="form-control" asp-items="ViewBag.recepcionID"></select>
+            <span asp-validation-for="recepcionID" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <input type="submit" value="Guardar Cambios" class="btn btn-success" />
+                <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+            </div>
+</form>
+</div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>

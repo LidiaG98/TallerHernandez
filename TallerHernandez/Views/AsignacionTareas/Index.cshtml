@@ -89,7 +89,7 @@
                 </td>
             }
             <td>
-                <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-edit"></i></a>
+                <a class="p-2" style="color:#e2df37;" asp-action="Edit" asp-route-id="@item.asignacionTareaID"><i class="far fa-edit"></i></a>
                 <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
                 <a class="p-2" style="color:#ff0000;" data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="fas fa-trash-alt"></i></a>
             </td>
