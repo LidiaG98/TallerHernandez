@@ -24,10 +24,10 @@
                 Automóvil
             </th>
             <th>
-                Mantenimiento
+                Procedimiento
             </th>
             <th>
-                Procedimiento
+                Área
             </th>
             <th>
                 Encargado
@@ -44,7 +44,8 @@
                         Ordenar Por:
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-action="TareasEnProcesoEmpleado" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@*@Html.DisplayNameFor(model => model.recepcion.automovilID)*@</a>
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@Html.DisplayNameFor(model => model.procedimiento.recepcion.automovilID)</a>
+                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenNom"]">@Html.DisplayNameFor(model => model.empleado.nombre)</a>
                     </div>
                 </div>
             </th>
@@ -55,16 +56,19 @@
         {
             <tr>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.recepcion.automovilID)*@
+                    @Html.DisplayFor(modelItem => item.procedimiento.recepcion.Automovil.placa)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.recepcion.procedimientos.procedimiento)*@
+                    @Html.DisplayFor(modelItem => item.procedimiento.procedimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.procedimiento.area.areaNom)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.empleado.nombre)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.recepcion.fechaSalida)*@
+                    @Html.DisplayFor(modelItem => item.procedimiento.recepcion.fechaSalida)
                 </td>
                 @if (item.estadoTarea.Equals(false))
                 {
@@ -79,107 +83,10 @@
                     </td>
                 }
                 <td>
-                    <a class="p-2" style="color:#e2df37;" data-toggle="modal" data-target="#modalEditarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')"><i class="far fa-edit"></i></a>
-                    <a class="p-2" style="color:#1985a8;" data-toggle="modal" data-target="#modalDetalleAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')"><i class="fas fa-info-circle"></i></a>
+                    <a class="p-2" style="color:#e2df37;" asp-action="EditarAsigE" asp-route-id="@item.asignacionTareaID"><i class="far fa-edit"></i></a>
+                    <a class="p-2" style="color:#1985a8;" asp-action="DetailsAsigE" asp-route-id="@item.asignacionTareaID"><i class="fas fa-info-circle"></i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<!----Modal Detalle-->
-<div class="modal fade" id="modalDetalleAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="">Detalles de la asignación de tarea</h4>
-                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="dAutomovilID" class="control-label"><strong>Automóvil</strong></label>
-                    <p id="dAutomovilID">Placa automóvil</p>
-                </div>
-                <div class="form-group">
-                    <label for="dNomMantenimiento" class="control-label"><strong>Mantenimiento</strong></label>
-                    <p id="dMantenimiento">Mantenimiento</p>
-                </div>
-                <div class="form-group">
-                    <label for="dNomProcedimiento" class="control-label"><strong>Procedimiento</strong></label>
-                    <p id="dProcedimiento">Procedimiento</p>
-                </div>
-                <div class="form-group">
-                    <label for="dEmpleadoID" class="control-label"><strong>Encargado</strong></label>
-                    <p id="dEmpleadoID">Encargado</p>
-                </div>
-                <div class="form-group">
-                    <label for="dFechaSalida" class="control-label"><strong>Entrega</strong></label>
-                    <p id="dFechaSalida">Entrega</p>
-                </div>
-                <div class="form-group">
-                    <label for="dEstadoTarea" class="control-label"><strong>Estado</strong></label>
-                    <p id="dEstadoTarea">Estado</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-success" data-target="#modalEditarAsignacion" data-toggle="modal" onclick="OcultarDetalleAsignacion()">Editar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@{SelectList u = new SelectList(new List<SelectListItem>
-{
-    new SelectListItem { Selected = false, Text = "No Finalizada", Value = "false"},
-    new SelectListItem { Selected = false, Text = "Finalizada", Value = "true"},
-    }, "Value", "Text"); }
-
-<!-- Modal Editar -->
-<div class="modal fade" id="modalEditarAsignacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Editar estado de asignación de tarea</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" name="Id" id="Id" />
-                    <div class="form-group">
-                        <label for="eAutomovil" class="control-label"><strong>Automóvil</strong></label>
-                        <input readonly name="eAutomovil" id="eAutomovil" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="eMantenimiento" class="control-label"><strong>Mantenimiento</strong></label>
-                        <input readonly name="eMantenimiento" id="eMantenimiento" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="eProcedimiento" class="control-label"><strong>Procedimiento</strong></label>
-                        <input readonly name="eProcedimiento" id="eProcedimiento" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="eEmpleado" class="control-label"><strong>Encargado</strong></label>
-                        <input readonly name="eEmpleado" id="eEmpleado" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="eFechaSalida" class="control-label"><strong>Entrega</strong></label>
-                        <input readonly name="eFechaSalida" id="eFechaSalida" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="eEstadoTarea" class="control-label"><strong>Estado</strong></label>
-                        @Html.DropDownList("estadoTarea", (SelectList)u, "Seleccione una opción", new { @class = "form-control", id = "eEstadoTarea", @Name = "eEstadoTarea" })
-                    </div>
-                    <span id="mensaje" class="text-danger"></span>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" onclick="EditarAsignacionTareaE('EditarAsignacionTarea')">Guardar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>

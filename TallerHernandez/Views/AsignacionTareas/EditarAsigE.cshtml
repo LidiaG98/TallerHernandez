@@ -1,7 +1,7 @@
 ﻿@model TallerHernandez.Models.AsignacionTarea
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "EditarAsigE";
     SelectList estado = new SelectList(new List<SelectListItem>
     {
     new SelectListItem { Selected = false, Text = "No Finalizada", Value = "false"},
@@ -15,11 +15,11 @@
 <div class="mb-2">
     @if (Model.estadoTarea.Equals(false))
     {
-        <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="Index">Regresar</a>
+        <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="TareasEnProcesoEmpleado">Regresar</a>
     }
     else
     {
-        <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="TareasFinalizadas">Regresar</a>
+        <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="TareasFinalizadasEmpleado">Regresar</a>
     }
 </div>
 <div class="container" style="background-color: white; border-radius: 8px">
@@ -90,7 +90,7 @@
         </div>*@
             <div class="form-group">
                 <input type="submit" value="Guardar Cambios" class="btn btn-success" />
-                <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                <a class="btn btn-secondary" asp-action="TareasEnProcesoEmpleado">Cancelar</a>
             </div>
 </form>
 </div>
