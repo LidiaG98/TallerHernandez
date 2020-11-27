@@ -87,6 +87,7 @@
                                 <span asp-validation-for="@Model.procedimientos[i].areaID" class="form-row text-danger"></span>
                                 <input value="@Model.procedimientos[i].procedimientoID" asp-for="@Model.procedimientos[i].procedimientoID" hidden />
                                 <input value="@Model.procedimientos[i].recepcionID" asp-for="@Model.procedimientos[i].recepcionID" hidden />
+                                <input value="@Model.procedimientos[i].estado" asp-for="@Model.procedimientos[i].estado" hidden />
                             </td>
                             <td>
                                 @*<button onclick="mostrarProc(@procedimiento.procedimientoID)" type="button" class=" btn btn-primary btn-cir">
