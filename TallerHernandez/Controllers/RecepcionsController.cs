@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,7 +28,7 @@ namespace TallerHernandez.Controllers
         {
             _context = context;            
             procedimientoModels = new ProcedimientoModels(context);
-            procedimientoesController = new ProcedimientoesController(context);            
+            procedimientoesController = new ProcedimientoesController(context);           
         }
 
         // GET: Recepcions
@@ -49,26 +50,55 @@ namespace TallerHernandez.Controllers
         {
             if(start.HasValue && end.HasValue)
             {
+                if (start > end)
+                {
+                    ModelState.AddModelError("fechaSalida", "La fecha de entrada es mayor a la fecha de salida");
+                    var r = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).
+                                      Include(r => r.empleado).Include(r => r.procedimientos)
+                                      select s;
+                    ViewBag.start = start;
+                    ViewBag.end = end;
+                    return View("Index", await r.AsNoTracking().ToListAsync());
+                }
                 DateTime valorEnd = end.Value;
                 DateTime fFinalMod = new DateTime(valorEnd.Year, valorEnd.Month, valorEnd.Day, 23, 59, 59);
+                List<RecepcionViewModel> recepcionesViewModel = new List<RecepcionViewModel>();
                 ViewBag.start = start;
                 ViewBag.end = end;
                 var recepciones = await _context.Recepcion
                     .Where(x => x.estado == 1
                     && x.fechaSalida >= start
-                    && x.fechaSalida <= fFinalMod).Include(r => r.Automovil)
+                    && x.fechaSalida <= fFinalMod).Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.procedimientos)
                     .OrderBy(x => x.fechaSalida)
                     .ToListAsync();
-                return View("Index", recepciones);
-                
-            }
+                foreach (var recepcion in recepciones)
+                {
+                    recepcionesViewModel.Add(new RecepcionViewModel
+                    {
+                        recepcionID = recepcion.recepcionID,
+                        diagnostico = recepcion.diagnostico,
+                        fechaEntrada = recepcion.fechaEntrada,
+                        fechaSalida = recepcion.fechaSalida,
+                        clienteID = recepcion.cliente.nombre + " " + recepcion.cliente.apellido,
+                        automovilID = recepcion.automovilID,
+                        marca = recepcion.Automovil.marca,
+                        anio = recepcion.Automovil.anio,
+                        placa = recepcion.Automovil.placa,
+                        imagen = recepcion.Automovil.imagenN,
+                        procedimientos = recepcion.procedimientos.ToList()
+                    });
+                }
+                //return View("Index", recepciones);
+                return View(recepcionesViewModel);
+            }            
             else
             {
                 var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).
                                   Include(r => r.empleado).Include(r => r.procedimientos) select s;
                 return View("Index", await recepciones.AsNoTracking().ToListAsync());
             }            
-        }
+        }      
+
 
         // GET: Recepcions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -217,6 +247,83 @@ namespace TallerHernandez.Controllers
             ViewBag.areas = a;
 
             return View(recepcion);
+        }
+
+        public async Task<IActionResult> ImprimirFicha(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).ThenInclude(a => a.area).Where(r => r.recepcionID == id).FirstOrDefaultAsync();
+            RecepcionViewModel r = new RecepcionViewModel
+            {
+                recepcionID = recepcion.recepcionID,
+                diagnostico = recepcion.diagnostico,
+                fechaEntrada = recepcion.fechaEntrada,
+                fechaSalida = recepcion.fechaSalida,
+                clienteID = recepcion.clienteID,
+                empleadoID = recepcion.empleadoID,
+                automovilID = recepcion.automovilID,
+                procedimientos = recepcion.procedimientos.ToList(),
+                estado = recepcion.estado
+            };
+            if (recepcion == null)
+            {
+                return NotFound();
+            }
+            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
+            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
+            {
+                if (cc.clienteID == recepcion.clienteID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["clienteID"] = c;
+            List<Empleado> empleados = _context.Empleado.ToList();
+            List<SelectListItem> e = empleados.ConvertAll(ee =>
+            {
+                if (ee.empleadoID == recepcion.empleadoID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["empleadoID"] = e;
+            ViewBag.areas = _context.Area;
+            ViewBag.area = new SelectList(_context.Area, "AreaID", "areaNom");
+            return View(r);
         }
 
         // GET: Recepcions/Edit/5

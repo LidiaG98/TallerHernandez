@@ -37,6 +37,7 @@
 <div class="row">
     <div class="col-md-6 col-sm-12">
         <div class="card mb-2">
+            <div asp-validation-summary="All" class="text-danger" style="background-color:#e5e5e5;"></div>
             <div class="card-header text-white text-center p-0">
                 <button class="btn btn-block bg-dark border-0 text-white" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Vehículos próximos a entrega
@@ -72,32 +73,35 @@
 <div class="row align-content-center">
     @foreach (var item in Model)
     {
-        <div class="card bg-light m-3" style="width: 15rem;">
-            <div class="card-header">@Html.DisplayFor(modelItem => item.Automovil.placa)</div>
-            <div class="card-body">
-                <h5 class="card-title">@Html.DisplayNameFor(model => model.diagnostico)</h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.diagnostico)</p>
+    <div class="card bg-light m-3" style="width: 15rem;">
+        <div class="card-header">
+            @Html.DisplayFor(modelItem => item.Automovil.placa)
+                <a asp-action="ImprimirFicha" asp-route-id="@item.recepcionID" id="btnImprimirFicha" class="float-right table-secondary btn-circle"><i class="fa fa-print" aria-hidden="true" style="color:black"></i></a>
             </div>
-            @if (item.estado.Equals(1))
-            {
-                <div class="card-footer  border-success text-right">
-                    En proceso
-                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-                    <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
-                    <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
-                </div>
-            }
-            else
-            {
-                <div class="card-footer border-danger text-right">
-                    Finalizado
-                    <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-                    <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
-                    <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
-                </div>
-            }
-
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayNameFor(model => model.diagnostico)</h5>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.diagnostico)</p>
         </div>
+        @if (item.estado.Equals(1))
+        {
+            <div class="card-footer  border-success text-right">
+                En proceso
+                <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+                <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
+            </div>
+        }
+        else
+        {
+            <div class="card-footer border-danger text-right">
+                Finalizado
+                <a asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                <i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+                <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>
+            </div>
+        }
+
+    </div>
     }
 </div>
 <div id="gameModal" class="modal hide fade in" tabindex="-1" role="dialog">
@@ -127,6 +131,5 @@
             });
         });
     </script>
-
 }
 
