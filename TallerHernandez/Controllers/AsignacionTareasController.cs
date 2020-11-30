@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TallerHernandez.Data;
 using TallerHernandez.Models;
+using TallerHernandez.ViewModels;
 
 namespace TallerHernandez.Controllers
 {    
@@ -392,6 +393,100 @@ namespace TallerHernandez.Controllers
             return RedirectToAction(nameof(Index));
         }
        */
+        public async Task<IActionResult> EmpleadoProgreso(string OrdenA, string Buscar)
+        {
+            ViewData["Filtro"] = Buscar;
+            var empleadoP = from s in _context.EmpleadoProgreso.Include(e=>e.empleado) select s;
+            var emple = from x in _context.Empleado select x;
+            List<EmpleadoProgreso> empleadoProgresos = new List<EmpleadoProgreso>();
+
+            var tareasAs = from x in _context.AsignacionTarea.Include(e => e.empleado) select x;
+            
+        
+            foreach (var em in emple)
+            {
+                EmpleadoProgreso jose;
+                if (tareasAs.Count() != 0)
+                {
+                    jose = new EmpleadoProgreso()
+                    {
+                        empleadoprogresoID = 1,
+                        empleado = em,
+                        asignacionTarea = tareasAs.Where(l => l.empleadoID == em.empleadoID).ToList(),
+                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
+                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
+                        porcentajeLogrado = (tareasAs.Where(x => x.estadoTarea == true).Count() / tareasAs.Count()) * 100
+
+
+                    };
+                }
+                else
+                {
+                   jose = new EmpleadoProgreso()
+                    {
+                        
+                        empleado = em,
+                        asignacionTarea = tareasAs.Where(l => l.empleadoID == em.empleadoID).ToList(),
+                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
+                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
+                        porcentajeLogrado = -1
+
+
+                    };
+                }
+                empleadoProgresos.Add(jose);
+            }
+            if (!String.IsNullOrEmpty(Buscar))
+            {
+                empleadoProgresos = empleadoProgresos.Where(s => s.empleado.emploDUI.Contains(Buscar) || s.empleado.apellido.Contains(Buscar) || s.empleado.nombre.Contains(Buscar)).ToList();
+            }
+          
+
+
+           
+
+
+            ViewBag.progreso = empleadoProgresos;
+
+
+            return View(await empleadoP.AsNoTracking().ToListAsync());
+        }
+
+        public async Task<IActionResult> Detalle(int? id, string OrdenA)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.area = _context.Empleado.Include(e => e.area).FirstOrDefault(m => m.empleadoID == id).area.areaNom;
+            var empleado = await _context.Empleado.FirstOrDefaultAsync(m => m.empleadoID == id);
+            var asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id);
+
+
+           
+            switch (OrdenA)
+            {
+                case "completo":
+                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == true);
+                    break;
+                case "incompleto":
+                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == false);
+                    break;
+               
+                default:
+                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id);
+                    break;
+            }
+          
+            
+           
+            
+            
+          
+            ViewBag.asigTarea = asignacionTarea;
+
+            return View(empleado);
+        }
 
         public async Task<String> DeleteAsignacionTarea(int id)
         {

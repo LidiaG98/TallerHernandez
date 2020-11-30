@@ -9,6 +9,7 @@
 <h1>Editar</h1>
 
 <h4>Empleado</h4>
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
 <hr />
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="row">
@@ -23,19 +24,23 @@
 
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="emploDUI" class="control-label"></label>
+                <input asp-for="emploDUI" class="form-control" disabled />
+                <span asp-validation-for="emploDUI" class="text-danger"></span>
+            </div>
 
-           
             <div class="form-group">
                 <label asp-for="nombre" class="control-label"></label>
                 <input asp-for="nombre" class="form-control" />
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>
-                <label asp-for="imagenN" class="control-label" ></label>
+                <label asp-for="imagenN" class="control-label"></label>
                 <input asp-for="imagenN" class="form-control" />
                 <span asp-validation-for="imagenN" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="apellido" class="control-label"></label>
                 <input asp-for="apellido" class="form-control" />
@@ -72,9 +77,9 @@
                 <label asp-for="modopagoID" class="control-label"></label>
                 <select asp-for="modopagoID" class="form-control" asp-items="ViewBag.modopagoID"></select>
             </div>
-            
-            <div class="form-group">
-                <input type="submit" asp-route-emailantiguo="@EmailAntiguo" value="Save" class="btn btn-primary" />
+
+            <div class="form-group justify-content-end">
+                <input type="submit" asp-route-emailantiguo="@EmailAntiguo" value="Actualizar" class="btn btn-success " />
             </div>
         </div>
 
@@ -83,9 +88,7 @@
 </form>
 
 
-<div>
-    <a asp-action="Index">Regresar</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

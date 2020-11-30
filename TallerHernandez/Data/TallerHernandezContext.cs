@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TallerHernandez.Models;
+using TallerHernandez.ViewModels;
 
 namespace TallerHernandez.Data
 {
@@ -30,5 +31,8 @@ namespace TallerHernandez.Data
         public DbSet<TallerHernandez.Models.Procedimiento> Procedimiento { get; set; }       
         public DbSet<TallerHernandez.Models.AsignacionTarea> AsignacionTarea { get; set; }
         public DbSet<TallerHernandez.Models.Repuesto> Repuesto { get; set; }
+        public DbSet<TallerHernandez.Models.Factura> Factura { get; set; }
+        public DbSet<TallerHernandez.Models.Extras> Extra { get; set; }
+        public DbSet<TallerHernandez.ViewModels.EmpleadoProgreso> EmpleadoProgreso { get; set; }
     }
 }

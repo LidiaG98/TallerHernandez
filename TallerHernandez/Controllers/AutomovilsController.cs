@@ -97,19 +97,32 @@ namespace TallerHernandez.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("placa,marca,anio,imagen,proceso,estado,comentario,clienteID")] Automovil automovil)
         {
-           /* var ULtR = -1;
-            var auto = from s in _context.Automovil.Include(a => a.cliente) select s;
-            ULtR = auto.OrderByDescending(x => x.automovilID).First().automovilID;
-            if (ULtR == -1)
+            /* var ULtR = -1;
+             var auto = from s in _context.Automovil.Include(a => a.cliente) select s;
+             ULtR = auto.OrderByDescending(x => x.automovilID).First().automovilID;
+             if (ULtR == -1)
+             {
+                 automovil.automovilID = 0;
+             }
+             else
+             {
+                 automovil.automovilID = ULtR +  1;
+             }*/
+            //var cliente = from s in _context.Cliente select s;
+            //ViewBag.clientes = 
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
             {
-                automovil.automovilID = 0;
-            }
-            else
-            {
-                automovil.automovilID = ULtR +  1;
-            }*/
+                return new SelectListItem()
+                {
+                    Text = cc.nombre + " " + cc.apellido,
+                    Value = cc.clienteID,
+                    Selected = false
+                };
+            });
+            ViewData["clienteID"] = c;
 
-                ViewData["id"] = "falso";
+            ViewData["id"] = "falso";
             var autol = await _context.Automovil
                .Include(a => a.cliente)
                .FirstOrDefaultAsync(m => m.placa == automovil.placa);
@@ -310,7 +323,7 @@ namespace TallerHernandez.Controllers
             bombolbi = bombolbi.Where(owo => owo.automovilID == id);
             return await bombolbi.ToListAsync();
         }
-        public async Task<String> MuerteALasMaquinas(string id)
+        public async Task<String> MuerteALasMaquinas(int id)
         {
 
             var respuesta = "";

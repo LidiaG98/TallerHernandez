@@ -7,6 +7,7 @@
 <h1>Editar</h1>
 
 <h4>Cliente</h4>
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
 <hr />
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="row">
@@ -22,8 +23,8 @@
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="clienteID" class="control-label"></label>
-                <input asp-for="clienteID" class="form-control" />
+                <label asp-for="clienteID" class="control-label" ></label>
+                <input asp-for="clienteID" class="form-control" disabled />
                 <span asp-validation-for="clienteID" class="text-danger"></span>
             </div>
 
@@ -70,7 +71,7 @@
 </form>
 
 <div>
-    <a asp-action="Index">Regresa</a>
+    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
 </div>
 
 @section Scripts {

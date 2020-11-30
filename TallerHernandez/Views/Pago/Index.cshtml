@@ -1,0 +1,84 @@
+﻿@model IEnumerable<TallerHernandez.Models.Recepcion>
+@{
+    ViewData["Title"] = "Trabajos Finalizados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">*@
+
+
+
+
+<div class="row align">
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
+    </div>
+    <div class="col-md-9 col-sm-12 mb-3">
+        <h1>Trabajos Finalizados</h1>
+        @*<p>
+            <a class="btn rounded-pill btn-outline-dark font-weight-bold" asp-action="Create">Nueva Ficha</a>
+        </p>*@
+
+        <form class="form-inline" asp-action="Index" method="get">
+            <div class="input-group mb-3 col-10 pl-0">
+                <input class="form-control" type="text" placeholder="Busque por placa o cliente" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row align-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="card bg-light m-3" style="width: 15rem;">
+            <div class="card-header">@Html.DisplayFor(modelItem => item.Automovil.placa)</div>
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayNameFor(model => model.diagnostico)</h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.diagnostico)</p>
+            </div>           
+                <div class="card-footer border-danger text-right">                    
+                    <a asp-controller="Recepcions" asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-block">Editar</a>
+                    @*<i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
+                    <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>*@                    
+                    <a asp-controller="Pago" asp-action="Checkout" asp-route-idRecepcion ="@item.recepcionID" class="btn btn-success btn-block">Checkout</a>
+                </div>            
+        </div>
+    }
+</div>
+<div id="gameModal" class="modal hide fade in" tabindex="-1" role="dialog">
+    <div id="gameContainer" class="modal-dialog modal-dialog-centered" role="document">
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).ready(function () {
+                $("i").click(function (event) {
+                    var id = document.getElementById(event.target.id);
+                    var recepId = id.getAttribute('data-id');
+                    var url = id.getAttribute('data-url');
+                    url = url + "/" + recepId;
+
+                    $.get(url, function (data) {
+                        $('#gameContainer').html(data);
+
+                        $('#gameModal').modal('show');
+                    });
+                });
+            });
+        });
+    </script>
+
+}
+
+
+
