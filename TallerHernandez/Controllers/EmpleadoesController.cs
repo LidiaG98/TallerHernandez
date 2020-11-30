@@ -25,7 +25,7 @@ namespace TallerHernandez.Controllers
         public EmpleadoesController(TallerHernandezContext context, IWebHostEnvironment hostEnvironment, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
-            this.hostEnvironment = hostEnvironment;
+           this.hostEnvironment = hostEnvironment;
             _userManager = userManager;
             _roleManager = roleManager;
         }

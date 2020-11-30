@@ -439,7 +439,9 @@ namespace TallerHernandez.Migrations
 
             modelBuilder.Entity("TallerHernandez.Models.Recepcion", b =>
                 {
-                    b.Property<int>("recepcionID")
+              
+
+                   b.Property<int>("recepcionID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

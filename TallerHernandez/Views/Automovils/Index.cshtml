@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+   
 }
 
 <div class="row align">
@@ -10,16 +11,19 @@
     </div>
     <div class="col-md-9 col-sm-12 mb-5">
         <h1 class="mb-3">Automóviles</h1>
-        <p>
-            <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Nuevo Auto</a>
-        </p>
-        <button></button>
+    
 
+        <p>
+            <a class="btn btn-outline-dark font-weight-bold rounded-pill" asp-action="Create">Agregar Auto</a>
+        </p>
         <form class="form-inline" asp-action="Index" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa una placa o marca" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
-            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
-            <input name="__RequestVerificationToken" type="hidden">
-            <a asp-action="Index">Todos los registros</a>
+            <div class="input-group mb-3 col-10 pl-0">
+                <input class="form-control" type="text" placeholder="ingresa una placa o marca" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+                </div>
+            </div>
         </form>
 
     </div>
@@ -64,7 +68,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["Ordenmarca"]">      @Html.DisplayNameFor(model => model.marca)</a>
                         <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["Ordenanio"]">     @Html.DisplayNameFor(model => model.anio)</a>
-                        >
+                        
                     </div>
                 </div>
             </th>
@@ -99,12 +103,13 @@
                     @Html.DisplayFor(modelItem => item.comentario)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.cliente.clienteID)
+                    @Html.DisplayFor(modelItem => item.cliente.nombre)
+                    @Html.DisplayFor(modelItem => item.cliente.apellido)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.automovilID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
-                    <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
-                    <a data-target="#EliminarA" data-toggle="modal" class="p-2" style="color:#ff0000;" onclick="VeniteAuto('@item.automovilID','Automovils/VeniteAuto')"><i class="fas fa-trash-alt"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.automovilID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="far fa-eye btn btn-info btn-circle" style="color:black"></i></a>
+                    <a data-target="#EliminarA" data-toggle="modal" class="p-2" style="color:#ff0000;" onclick="VeniteAuto('@item.automovilID','Automovils/VeniteAuto')"><i class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i></a>
                 </td>
 
             </tr>
@@ -126,37 +131,37 @@
                 {
                     <img src="/uploads/@(item.imagenN)" alt="Automovil" width="200" height="100" class="card-img-top">
                 }
-           
 
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Placa: </strong> @Html.DisplayFor(modelItem => item.automovilID) </li>
-                <li class="list-group-item"><strong>Marca: </strong>  @Html.DisplayFor(modelItem => item.marca)</li>
-                <li class="list-group-item"> <strong>Dueño: </strong>  @Html.DisplayFor(modelItem => item.clienteID)</li>
 
-            </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Placa: </strong> @Html.DisplayFor(modelItem => item.automovilID) </li>
+                    <li class="list-group-item"><strong>Marca: </strong>  @Html.DisplayFor(modelItem => item.marca)</li>
+                    <li class="list-group-item"> <strong>Dueño: </strong>  @Html.DisplayFor(modelItem => item.clienteID)</li>
 
-            <div class="d-flex justify-content-end ">
+                </ul>
 
-                @if (item.estado)
-                {
-                    <p class="card-text btn btn-success p-2">Terminado</p>
-                }
-                else
-                {
-                    <p class="card-text btn btn-info p-2">En proceso</p>
-                }
+                <div class="d-flex justify-content-end ">
 
-                <a asp-action="Edit" asp-route-id="@item.automovilID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
-                <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
-                <a data-target="#EliminarA" data-toggle="modal" onclick="VeniteAuto('@item.automovilID','Automovils/VeniteAuto')" class="p-2" style="color:#ff0000;"><i class="fas fa-trash-alt"></i></a>
-                <!-----
-                    <i class="fas fa-info-circle p-2" style="color:#1985a8;"></i>
-                    <i class="far fa-edit p-2" style="color:#e2df37;"></i>
-                    <i class="fas fa-trash-alt p-2" style="color:#ff0000;"></i>
-                -->
+                    @if (item.estado)
+                    {
+                        <p class="card-text btn btn-success p-2">Terminado</p>
+                    }
+                    else
+                    {
+                        <p class="card-text btn btn-info p-2">En proceso</p>
+                    }
 
+                    <a asp-action="Edit" asp-route-id="@item.automovilID" class="p-2" style="color:#e2df37;"><i class="far fa-edit"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.automovilID" class="p-2" style="color:#1985a8;"><i class="fas fa-info-circle"></i></a>
+                    <a data-target="#EliminarA" data-toggle="modal" onclick="VeniteAuto('@item.automovilID','Automovils/VeniteAuto')" class="p-2" style="color:#ff0000;"><i class="fas fa-trash-alt"></i></a>
+                    <!-----
+                        <i class="fas fa-info-circle p-2" style="color:#1985a8;"></i>
+                        <i class="far fa-edit p-2" style="color:#e2df37;"></i>
+                        <i class="fas fa-trash-alt p-2" style="color:#ff0000;"></i>
+                    -->
+
+                </div>
             </div>
-</div>
 
         }
     </div>
@@ -177,11 +182,15 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" onclick="MuerteALasMaquinas('Automovils/MuerteALasMaquinas')">Eliminar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
 
 
 

@@ -7,6 +7,7 @@
         <h1>Nuevo</h1>
 
         <h4>Cliente</h4>
+        <a asp-action="Index" class="btn btn-secondary">Regresar</a>
         <hr />
         <form asp-action="Create" enctype="multipart/form-data">
             <div class="row">
@@ -25,11 +26,11 @@
                         <label asp-for="clienteID" class="control-label"></label>
                         <input asp-for="clienteID" class="form-control" />
                         <span asp-validation-for="clienteID" class="text-danger"></span>
-                        @if(@ViewData["id"].ToString() == "verdad")
+                        @if (@ViewData["id"].ToString() == "verdad")
                         {
                             <span class="text-danger">Este cliente ya existe</span>
-                            }
-                          
+                        }
+
                     </div>
 
                 </div>
@@ -70,7 +71,7 @@
         </form>
     </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
 </div>
 
 
