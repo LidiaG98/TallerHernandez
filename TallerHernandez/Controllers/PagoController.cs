@@ -85,8 +85,37 @@ namespace TallerHernandez.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Factura(CheckoutViewModel model)
-        {
-            return View("Index");
+        {            
+                Factura factura = new Factura()
+                {
+                    idRecepcion = model.recepcion.recepcionID,
+                    idCliente = model.recepcion.clienteID,
+                    impuesto = model.impuesto,
+                    total = model.total,                    
+                    fechaEmision = model.fechaemision
+                };
+                factura.totalNeto = factura.total + (factura.total * (factura.impuesto / 100));
+                _context.Add(factura);
+                _context.SaveChanges();
+
+                var f = _context.Factura
+                    .Where(l => l.idRecepcion == model.recepcion.recepcionID)
+                    .FirstOrDefault();                
+
+                int i = 0;
+                foreach (var tarea in model.tareasRecepcion)
+                {
+                    Extras e = new Extras()
+                    {
+                        idAsignacionTarea = tarea.asignacionTareaID,
+                        idFactura = f.facturaId,
+                        total = model.preciosExtras[i]
+                    };
+                    _context.Add(e);
+                    i++;
+                }
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

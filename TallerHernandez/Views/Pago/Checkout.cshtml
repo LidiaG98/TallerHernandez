@@ -6,6 +6,8 @@
     <div class="row bg-white justify-content-center">
         <form asp-action="Factura" method="post" class="col-md-11 mt-md-3 mb-md-5">
             <input value="@Model.recepcion.recepcionID" asp-for="@Model.recepcion.recepcionID" hidden />
+            <input value="@Model.recepcion.clienteID" asp-for="@Model.recepcion.clienteID" hidden />
+            <input asp-for="fechaemision" id="inputfecha" hidden />
             <div id="Imprimir">
                 <div class="row align-items-center mb-md-2">
                     <img class="col-md-3 offset-md-1" src="~/images/logoTaller.png" />
@@ -99,9 +101,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td scope="col"><input type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" class="form-control" id="total" placeholder="" readonly></td>
-                            <td scope="col"><input type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" max="100.00" step="any" class="form-control" id="impuesto" placeholder=""></td>
-                            <td scope="col"><input asp-for="total" type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" class="form-control" id="totalneto" placeholder="" readonly></td>
+                            <td scope="col"><input asp-for="total" type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" class="form-control" id="total" placeholder="" readonly></td>
+                            <td scope="col"><input asp-for="impuesto" type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" max="100.00" step="any" class="form-control" id="impuesto" placeholder=""></td>
+                            <td scope="col"><input type="number" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" min="0.00" class="form-control" id="totalneto" placeholder="" readonly></td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,7 +111,7 @@
             <div class="row justify-content-center">
                 <button class="col-md-5 btn btn-dark btn-block" onclick="printThisDiv('Imprimir')">Imprimir Factura</button>
                 <button type="submit" class="offset-1 col-md-5 btn btn-success btn-block btn-lg" style="margin-top: 0px;">Realizar Factura</button>
-            </div>            
+            </div>
         </form>
      </div>
 

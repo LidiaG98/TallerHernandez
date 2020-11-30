@@ -4,6 +4,7 @@ let totalInput = document.getElementById("total");
 let impuesto = document.getElementById("impuesto");
 let totalNeto = document.getElementById("totalneto");
 let pFecha = document.getElementById("fecha");
+let inputFecha = document.getElementById("inputfecha");
 let f = new Date();
 let valoresComen = [];
 let valoresPro = [];
@@ -41,8 +42,10 @@ const fechaActual = () => {
     pFecha.innerHTML = "Fecha: " + day + "/"
         + month + "/" + year + " "
         + hours + ":" + minutes + ":" + seconds;
-    console.log(pFecha);
-    console.log(f);
+      
+    console.log(fecha);
+    f.setMinutes(f.getMinutes() - f.getTimezoneOffset());
+    inputFecha.value = f.toISOString().slice(0, 16);
 }
 
 const inicio = () => {
@@ -119,6 +122,7 @@ var printThisDiv = (id) => {
     tN.value = totalNeto.value;
     iP = document.getElementById("impuesto");
     iP.value = impuesto.value;
-
+    inputFecha = document.getElementById("inputfecha");
+    inputFecha.value = f.toISOString().slice(0, 16);
     inicio();
 }

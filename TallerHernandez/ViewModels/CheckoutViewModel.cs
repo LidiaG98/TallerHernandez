@@ -19,5 +19,9 @@ namespace TallerHernandez.ViewModels
         public double[] preciosExtras { get; set; }
         [BindProperty]
         public double total { get; set; }
+        [BindProperty]
+        public double impuesto { get; set; }
+        [BindProperty]
+        public DateTime fechaemision { get; set; }
     }
 }

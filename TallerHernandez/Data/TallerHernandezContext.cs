@@ -30,5 +30,7 @@ namespace TallerHernandez.Data
         public DbSet<TallerHernandez.Models.Procedimiento> Procedimiento { get; set; }       
         public DbSet<TallerHernandez.Models.AsignacionTarea> AsignacionTarea { get; set; }
         public DbSet<TallerHernandez.Models.Repuesto> Repuesto { get; set; }
+        public DbSet<TallerHernandez.Models.Factura> Factura { get; set; }
+        public DbSet<TallerHernandez.Models.Extras> Extra { get; set; }
     }
 }
