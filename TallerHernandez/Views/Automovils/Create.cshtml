@@ -8,6 +8,7 @@
 <h1>Agregar</h1>
 
 <h4>Automovil</h4>
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="row">
@@ -17,7 +18,7 @@
             </div>
             <div class="caption text-center mb-4 mt-2">
                 <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
-                <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files"  hidden/>
+                <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden />
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -27,10 +28,10 @@
                 @if (@ViewData["id"].ToString() == "verdad")
                 {
                     <span class="text-danger">Este automovil ya está registrado</span>
-                    }
-                
+                }
+
             </div>
-         
+
         </div>
         <div class="col-md-8 bg-white">
             <div class="form-group">

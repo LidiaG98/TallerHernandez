@@ -7,6 +7,7 @@
 <h1>Create</h1>
 
 <h4>Empleado</h4>
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
 <hr />
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="row">
@@ -18,16 +19,18 @@
                 <label class="btn btn-primary btn-block" for="files">Subir Fotografía</label>
                 <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden />
             </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="col-md-8 bg-white">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                <div class="form-group">
-                    <label asp-for="emploDUI" class="control-label"></label>
-                    <input asp-for="emploDUI" class="form-control" />
-                    <span asp-validation-for="emploDUI" class="text-danger"></span>
-                </div>
+            <div class="form-group">
+                <label asp-for="emploDUI" class="control-label"></label>
+                <input asp-for="emploDUI" class="form-control" />
+                <span asp-validation-for="emploDUI" class="text-danger"></span>
+                @if (@ViewData["id"].ToString() == "verdad")
+                {
+                    <span class="text-danger">Este cliente ya existe</span>
+                }
             </div>
+
             <div class="form-group">
                 <label asp-for="nombre" class="control-label"></label>
                 <input asp-for="nombre" class="form-control" />
@@ -38,49 +41,51 @@
                 <input asp-for="apellido" class="form-control" />
                 <span asp-validation-for="apellido" class="text-danger"></span>
             </div>
-
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label asp-for="correo" class="control-label"></label>
-                    <input asp-for="correo" class="form-control" />
-                    <span asp-validation-for="correo" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="telefono" class="control-label"></label>
-                    <input asp-for="telefono" class="form-control" />
-                    <span asp-validation-for="telefono" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="salario" class="control-label"></label>
-                    <input asp-for="salario" class="form-control" />
-                    <span asp-validation-for="salario" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="areaID" class="control-label"></label>
-                    <select asp-for="areaID" class="form-control" asp-items="ViewBag.areaID"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="rolID" class="control-label"></label>
-                    <select asp-for="rolID" class="form-control" asp-items="ViewBag.rolID"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="modopagoID" class="control-label"></label>
-                    <select asp-for="modopagoID" class="form-control" asp-items="ViewBag.modopagoID"></select>
-                </div>
-                <div class="form-group d-flex justify-content-end">
-                    <input type="submit" value="Crear" class="btn btn-success " />
-                </div>
-            </div>
-            </div> 
-
         </div>
-    
+
+        <div class="col-md-8 bg-white">
+         
+      
+
+            <div class="form-group">
+                <label asp-for="correo" class="control-label"></label>
+                <input asp-for="correo" class="form-control" />
+                <span asp-validation-for="correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="telefono" class="control-label"></label>
+                <input asp-for="telefono" class="form-control" />
+                <span asp-validation-for="telefono" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="salario" class="control-label"></label>
+                <input asp-for="salario" class="form-control" />
+                <span asp-validation-for="salario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="areaID" class="control-label"></label>
+                <select asp-for="areaID" class="form-control" asp-items="ViewBag.areaID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="rolID" class="control-label"></label>
+                <select asp-for="rolID" class="form-control" asp-items="ViewBag.rolID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="modopagoID" class="control-label"></label>
+                <select asp-for="modopagoID" class="form-control" asp-items="ViewBag.modopagoID"></select>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <input type="submit" value="Crear" class="btn btn-success " />
+            </div>
+        </div>
+
+
+</div>
+
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<a asp-action="Index" class="btn btn-secondary">Regresar</a>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

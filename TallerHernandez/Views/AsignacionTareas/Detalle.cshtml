@@ -1,0 +1,162 @@
+﻿@model TallerHernandez.Models.Empleado
+
+@{
+    ViewData["Title"] = "Detalle";
+}
+@{
+    var asignacion = ViewBag.asigTarea;
+}
+    <link rel="stylesheet" href="~/css/Buscador.css" />
+<h1>Desempeño empleado</h1>
+
+<div class="row  justify-content-md-end">
+
+
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a asp-action="EmpleadoProgreso" class="btn btn-secondary " >Regresar</a>
+        <button type="button" class="btn btn-secondary" onclick="printThisDiv('Imprimir')">Imprimir</button>
+        <a asp-action="Detalle" class="btn btn-success " asp-route-OrdenA="completa">Tareas Completas</a>
+        <a asp-action="Detalle" class="btn btn-warning " asp-route-OrdenA="incompleta">Tareas Incompletas</a>
+        <a asp-action="Detalle" class="btn btn-primary" asp-route-OrdenA="todo">Todas las tareas</a>
+    </div>
+
+    </div>
+
+    <div  id="Imprimir">
+        <div class="row bg-white rounded shadow " style="z-index:4; margin:20px;">
+            <div class="col-4">
+                <div class="text-center pt-4">
+                    <img class="rounded-circle" src="/uploads/logoTaller.png" alt="usuario" width="200" height="200" id="file-preview-zone" />
+                </div>
+            </div>
+            <div class="col-8 row align-content-center">
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"> @Html.DisplayNameFor(model => model.emploDUI)</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value=" @Html.DisplayFor(model => model.emploDUI)" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@Html.DisplayNameFor(model => model.nombre)</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value=" @Html.DisplayFor(model => model.nombre)" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@Html.DisplayNameFor(model => model.apellido)</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value="@Html.DisplayFor(model => model.apellido)" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"> @Html.DisplayNameFor(model => model.telefono)</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value=" @Html.DisplayFor(model => model.telefono)" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@Html.DisplayNameFor(model => model.salario)</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value=" @Html.DisplayFor(model => model.salario)" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Area</span>
+                        </div>
+                        <input type="text" class="form-control" disabled placeholder="Username" value="@ViewBag.area" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <table class="table table-striped table-responsive-sm">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th>
+                        Automóvil
+                    </th>
+                    <th>
+                        Procedimiento
+                    </th>
+
+                    
+                    <th>
+                        Entrega
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+
+                </tr>
+            </thead>
+            @if (asignacion != null)
+            {
+                @foreach (var item in asignacion)
+                {
+                    <tr>
+                        <td>
+                            @item.procedimiento.recepcion.Automovil.placa
+                        </td>
+                        <td>
+                            @item.procedimiento.procedimiento
+                        </td>
+                        
+
+                        <td>
+                            @item.procedimiento.recepcion.fechaSalida
+                        </td>
+                        @if (item.estadoTarea.Equals(false))
+                        {
+                            <td>
+                                No finalizada
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                Finalizada
+                            </td>
+                        }
+                        <td>
+
+                            <a class="p-2" style="color:#1985a8;" asp-action="Details" asp-route-id="@item.asignacionTareaID"><i class="fas fa-info-circle"></i></a>
+
+                        </td>
+                    </tr>
+
+                }
+
+
+
+
+
+
+            }
+
+        </table>
+        @if (asignacion == null)
+        {
+            <h1> No hay registros para este usuario</h1>
+        }
+    </div>
+
+
+    <script>
+        var printThisDiv = (id) => {
+            var printContents = document.getElementById(id).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContent;
+
+        }
+    </script>
