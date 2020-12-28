@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20201129062444_prop")]
+    partial class prop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -392,78 +394,6 @@ namespace TallerHernandez.Migrations
                     b.ToTable("Empleado");
                 });
 
-            modelBuilder.Entity("TallerHernandez.Models.Extras", b =>
-                {
-                    b.Property<int>("idExtra")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("asignacionTareaID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("facturaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idAsignacionTarea")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idFactura")
-                        .HasColumnType("int");
-
-                    b.Property<double>("total")
-                        .HasColumnType("float");
-
-                    b.HasKey("idExtra");
-
-                    b.HasIndex("asignacionTareaID");
-
-                    b.HasIndex("facturaId");
-
-                    b.ToTable("Extra");
-                });
-
-            modelBuilder.Entity("TallerHernandez.Models.Factura", b =>
-                {
-                    b.Property<int>("facturaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("clienteID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("fechaEmision")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("idCliente")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("idRecepcion")
-                        .HasColumnType("int");
-
-                    b.Property<double>("impuesto")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("recepcionID")
-                        .HasColumnType("int");
-
-                    b.Property<double>("total")
-                        .HasColumnType("float");
-
-                    b.Property<double>("totalNeto")
-                        .HasColumnType("float");
-
-                    b.HasKey("facturaId");
-
-                    b.HasIndex("clienteID");
-
-                    b.HasIndex("recepcionID");
-
-                    b.ToTable("Factura");
-                });
-
             modelBuilder.Entity("TallerHernandez.Models.ModoPago", b =>
                 {
                     b.Property<int>("modopagoID")
@@ -728,28 +658,6 @@ namespace TallerHernandez.Migrations
                         .HasForeignKey("rolID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TallerHernandez.Models.Extras", b =>
-                {
-                    b.HasOne("TallerHernandez.Models.AsignacionTarea", "asignacionTarea")
-                        .WithMany()
-                        .HasForeignKey("asignacionTareaID");
-
-                    b.HasOne("TallerHernandez.Models.Factura", "factura")
-                        .WithMany()
-                        .HasForeignKey("facturaId");
-                });
-
-            modelBuilder.Entity("TallerHernandez.Models.Factura", b =>
-                {
-                    b.HasOne("TallerHernandez.Models.Cliente", "cliente")
-                        .WithMany()
-                        .HasForeignKey("clienteID");
-
-                    b.HasOne("TallerHernandez.Models.Recepcion", "recepcion")
-                        .WithMany()
-                        .HasForeignKey("recepcionID");
                 });
 
             modelBuilder.Entity("TallerHernandez.Models.Procedimiento", b =>

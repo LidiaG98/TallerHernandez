@@ -454,34 +454,34 @@ function AhiTeVoy(response) {
     });
 }
 
-function VeniteAuto(id, action) {
-    $.ajax({
-        type: "POST",
-        url: action,
-        data: { id },
-        success: function (response) {
-            AhiTeVoy(response);
-        }
-    });
-}
+//function VeniteAuto(id, action) {
+//    $.ajax({
+//        type: "POST",
+//        url: action,
+//        data: { id },
+//        success: function (response) {
+//            AhiTeVoy(response);
+//        }
+//    });
+//}
 
 
-function MuerteALasMaquinas(action) {
-    var id = $('input[name=automovilID]')[0].value;
-    $.ajax({
-        type: "POST",
-        url: action,
-        data: { id },
-        success: function (response) {
-            if (response === "Delete") {
-                window.location.href = "Automovils";
-            }
-            else {
-                alert("No se puede eliminar el registro");
-            }
-        }
-    });
-}
+//function MuerteALasMaquinas(action) {
+//    var id = $('input[name=automovilID]')[0].value;
+//    $.ajax({
+//        type: "POST",
+//        url: action,
+//        data: { id },
+//        success: function (response) {
+//            if (response === "Delete") {
+//                window.location.href = "Automovils";
+//            }
+//            else {
+//                alert("No se puede eliminar el registro");
+//            }
+//        }
+//    });
+//}
 
 function VeniteAuto(id, action) {
     $.ajax({
@@ -612,7 +612,7 @@ function VeniteArea(id, action) {
         data: { id },
         success: function (response) {
             AhiTeVoyA(response);
-            console.log(response);
+           
         }
     });
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerHernandez.Data;
 
 namespace TallerHernandez.Migrations
 {
     [DbContext(typeof(TallerHernandezContext))]
-    partial class TallerHernandezContextModelSnapshot : ModelSnapshot
+    [Migration("20201130060530_CorreccionFactura")]
+    partial class CorreccionFactura
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,9 +247,6 @@ namespace TallerHernandez.Migrations
                     b.Property<int>("empleadoID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("empleadoprogresoID")
-                        .HasColumnType("int");
-
                     b.Property<bool>("estadoTarea")
                         .HasColumnType("bit");
 
@@ -257,8 +256,6 @@ namespace TallerHernandez.Migrations
                     b.HasKey("asignacionTareaID");
 
                     b.HasIndex("empleadoID");
-
-                    b.HasIndex("empleadoprogresoID");
 
                     b.HasIndex("procedimientoID");
 
@@ -604,32 +601,6 @@ namespace TallerHernandez.Migrations
                     b.ToTable("Rol");
                 });
 
-            modelBuilder.Entity("TallerHernandez.ViewModels.EmpleadoProgreso", b =>
-                {
-                    b.Property<int>("empleadoprogresoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("actSinTerminar")
-                        .HasColumnType("int");
-
-                    b.Property<int>("actTerminadas")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("empleadoID")
-                        .HasColumnType("int");
-
-                    b.Property<double>("porcentajeLogrado")
-                        .HasColumnType("float");
-
-                    b.HasKey("empleadoprogresoID");
-
-                    b.HasIndex("empleadoID");
-
-                    b.ToTable("EmpleadoProgreso");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -688,10 +659,6 @@ namespace TallerHernandez.Migrations
                         .HasForeignKey("empleadoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TallerHernandez.ViewModels.EmpleadoProgreso", null)
-                        .WithMany("asignacionTarea")
-                        .HasForeignKey("empleadoprogresoID");
 
                     b.HasOne("TallerHernandez.Models.Procedimiento", "procedimiento")
                         .WithMany("asignacionTarea")
@@ -786,13 +753,6 @@ namespace TallerHernandez.Migrations
                         .HasForeignKey("empleadoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TallerHernandez.ViewModels.EmpleadoProgreso", b =>
-                {
-                    b.HasOne("TallerHernandez.Models.Empleado", "empleado")
-                        .WithMany()
-                        .HasForeignKey("empleadoID");
                 });
 #pragma warning restore 612, 618
         }
