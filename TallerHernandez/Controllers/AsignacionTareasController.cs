@@ -188,7 +188,7 @@ namespace TallerHernandez.Controllers
             //        encargado = encargado.OrderBy(s => s.apellido);
             //        break;
             //}
-
+            ViewBag.empleado = encargado.ToList();
             return View(encargado.ToList());
         }
 
@@ -300,6 +300,12 @@ namespace TallerHernandez.Controllers
                         _context.Update(recepcion);
                         await _context.SaveChangesAsync();
                     }
+                    else
+                    {
+                        recepcion.estado = 1;
+                        _context.Update(recepcion);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -322,8 +328,10 @@ namespace TallerHernandez.Controllers
                     //si se cumple se retorna la vista tareas finalizadas
                     return RedirectToAction(nameof(TareasFinalizadas));
                 }
+                //Se evalua que el estado de tarea sea igual a false y el empleado encargado de la asignacion tareas sea distinto del usuario logueado
                 else if (estadoTarea.Equals(false) && asignacionTarea[0].empleado.correo != currentUserID)
                 {
+                    //si se cumple se retorna la vista Index
                     return RedirectToAction(nameof(Index));
                 }
                 else if(estadoTarea.Equals(true) && asignacionTarea[0].empleado.correo == currentUserID)
