@@ -4,11 +4,20 @@
     ViewData["Title"] = "Imprimir";
     var placas = ViewBag.automovilID as List<SelectListItem>;
     var duenio = ViewBag.clienteID as List<SelectListItem>;
-    int count = 0;
+    SelectListItem cliente = null;
+    int count = 0;    
 }
 
 <div id="Imprimir" class=" mt-5 pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:5px;">
-    <h1>Ficha de ingreso del cliente: @duenio.First().Text</h1>
+    @foreach (var d in duenio)
+    {
+        if (d.Selected)
+        {
+            cliente = d;
+            break;
+        }
+    }
+    <h1>Ficha de ingreso del cliente: @cliente.Text</h1>
     <hr />
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
