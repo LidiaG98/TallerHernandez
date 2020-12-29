@@ -658,5 +658,34 @@ namespace TallerHernandez.Controllers
             //return View(await asignacionTareas.ToListAsync());
         }
 
+        public async Task<IActionResult> GenerarInforme(string actividades)
+        {
+            var procedimientos = _context.Procedimiento.Include(r => r.recepcion).Include(r => r.recepcion.Automovil).Include(r => r.recepcion.cliente).Include(r => r.recepcion.empleado).Include(r => r.area).ToList();
+            List<Procedimiento> proc = new List<Procedimiento>();
+
+            if (actividades == "asignadas")
+            {
+                for(int i = 0; i < procedimientos.Count; i++)
+                {
+                    if(procedimientos[i].estado == 0)
+                    {
+                        proc.Add(procedimientos[i]);
+                    }
+                }
+                
+            }else if(actividades == "noasignadas")
+            {
+                for (int i = 0; i < procedimientos.Count; i++)
+                {
+                    if (procedimientos[i].estado == 1)
+                    {
+                        proc.Add(procedimientos[i]);
+                    }
+                }
+            }
+
+            return View("GenerarInforme", proc); ;
+        }
+
     }
 }

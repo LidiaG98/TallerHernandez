@@ -413,6 +413,8 @@ function EditarTareaFinalizadaEmpleado(action) {
     })
 }
 
+
+
 var nuevoArea = () => {
     var areaNom = document.getElementById("areaNom").value;
     var accion = "Areas/nuevoArea";

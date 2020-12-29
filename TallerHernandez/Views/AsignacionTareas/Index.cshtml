@@ -2,28 +2,30 @@
 
 @{
     ViewData["Title"] = "Asignación de tareas";
-
 }
 
 <div class="row align">
-        <div class="col-md-3 col-sm-12">
-            <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
-        </div>
-        <div class="col-md-9 col-sm-12 mb-3">
-            <h1>Asignación de Tareas</h1>
-            <p>
-                <a class="btn rounded-pill btn-outline-dark font-weight-bold" asp-action="CrearAsignacion">Nueva Asignación</a>
-            </p>
-            <form class="form-inline" asp-action="Index" method="get">
-                <div class="input-group mb-3 col-10 pl-0">
-                    <input class="form-control" type="text" placeholder="Busque por placa o nombre del empleado" data-val="true" data-val-required="Ingrese un valor." id="cadena" name="cadena" value="@ViewData["Filtro"]">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
-                        <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
-                    </div>
+    <div class="col-md-3 col-sm-12">
+        <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
+    </div>
+    <div class="col-md-9 col-sm-12 mb-3">
+        <h1>Asignación de Tareas</h1>
+        <p>
+            <a class="btn rounded-pill btn-outline-dark font-weight-bold" asp-action="CrearAsignacion">Nueva Asignación</a>
+        </p>
+        <form class="form-inline" asp-action="Index" method="get">
+            <div class="input-group mb-3 col-10 pl-0">
+                <input class="form-control" type="text" placeholder="Busque por placa o nombre del empleado" data-val="true" data-val-required="Ingrese un valor." id="cadena" name="cadena" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
                 </div>
-            </form>
+            </div>
+        </form>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalGenerarInforme">Generar informe</button>
         </div>
+    </div>
 </div>
 
 <table class="table table-striped table-responsive-sm">
@@ -63,40 +65,40 @@
     <tbody class="thead-dark text-center">
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.procedimiento.recepcion.Automovil.placa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.procedimiento.procedimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.procedimiento.area.areaNom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.empleado.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.procedimiento.recepcion.fechaSalida)
-            </td>
-            @if (item.estadoTarea.Equals(false))
-            {
+            <tr>
                 <td>
-                    No finalizada
+                    @Html.DisplayFor(modelItem => item.procedimiento.recepcion.Automovil.placa)
                 </td>
-            }
-            else
-            {
                 <td>
-                    Finalizada
+                    @Html.DisplayFor(modelItem => item.procedimiento.procedimiento)
                 </td>
-            }
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.asignacionTareaID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
-            <a asp-action="Details" asp-route-id="@item.asignacionTareaID"><i class="far fa-eye btn btn-info btn-circle" style="color:black"></i></a>
-            <a data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i></a>
-        </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.procedimiento.area.areaNom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.empleado.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.procedimiento.recepcion.fechaSalida)
+                </td>
+                @if (item.estadoTarea.Equals(false))
+                {
+                    <td>
+                        No finalizada
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Finalizada
+                    </td>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.asignacionTareaID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
+                    <a asp-action="Details" asp-route-id="@item.asignacionTareaID"><i class="far fa-eye btn btn-info btn-circle" style="color:black"></i></a>
+                    <a data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -119,6 +121,31 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger" onclick="EliminarAsignacionTarea('AsignacionTareas/DeleteAsignacionTarea')">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----Modal Generar informe-->
+<div class="modal fade" id="modalGenerarInforme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h4 class="">Eliga el informe que desea generar...</h4>
+                <button type="button" class="close" data-dismiss="modal" arial-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="radio" id="asignadas" name="actividades" value="asignadas" checked>
+                    <label for="asignadas">Informe de labores asignadas</label>
+                    <br />
+                    <input type="radio" id="noasignadas" name="actividades" value="noasignadas">
+                    <label for="noasignadas">Informe de labores no asignadas</label>
+                    <br />
+                    <button type="submit" class="btn btn-primary" asp-action="GenerarInforme">Generar</button>
+                </form>
             </div>
         </div>
     </div>
