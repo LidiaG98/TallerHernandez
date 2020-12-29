@@ -69,12 +69,12 @@
                             <td>
                                 @*@Html.DisplayFor(modelItem => procedimiento.procedimiento)*@
                                 <input type="hidden" name="procedimientos.Index" value="@i" class="border-0" />
-                                <textarea asp-for="@Model.procedimientos[i].procedimiento" class="border-0" readonly></textarea>
+                                <textarea asp-for="@Model.procedimientos[i].procedimiento" class="border-0" disabled></textarea>
                                 <span asp-validation-for="@Model.procedimientos[i].procedimiento" class="form-row text-danger"></span>
                             </td>
                             <td>
                                 @*$@Html.DisplayFor(modelItem => procedimiento.precio)*@
-                                <input asp-for="@Model.procedimientos[i].precio" class="border-0" readonly />
+                                <input asp-for="@Model.procedimientos[i].precio" class="border-0" disabled />
                                 <span asp-validation-for="@Model.procedimientos[i].precio" class="form-row text-danger"></span>
                             </td>
                             <td>

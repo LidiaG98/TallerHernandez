@@ -20,15 +20,15 @@ namespace TallerHernandez.Controllers
     [Authorize]
     public class RecepcionsController : Controller
     {
-        private readonly TallerHernandezContext _context;        
+        private readonly TallerHernandezContext _context;
         private ProcedimientoModels procedimientoModels;
-        private ProcedimientoesController procedimientoesController;        
+        private ProcedimientoesController procedimientoesController;
 
         public RecepcionsController(TallerHernandezContext context)
         {
-            _context = context;            
+            _context = context;
             procedimientoModels = new ProcedimientoModels(context);
-            procedimientoesController = new ProcedimientoesController(context);           
+            procedimientoesController = new ProcedimientoesController(context);
         }
 
         // GET: Recepcions
@@ -37,7 +37,7 @@ namespace TallerHernandez.Controllers
             ViewData["Filtro"] = Buscar;
             //var tallerHernandezContext = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
             //    Include(r => r.mantenimiento).Include(r =>r.procedimiento);
-            var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r =>r.procedimientos) select s;
+            var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).Include(r => r.procedimientos) select s;
             if (!String.IsNullOrEmpty(Buscar))
             {
                 recepciones = recepciones.Where(s => s.Automovil.placa.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar));
@@ -45,17 +45,17 @@ namespace TallerHernandez.Controllers
             return View(await recepciones.AsNoTracking().ToListAsync());
         }
 
-        
+
         public async Task<IActionResult> VehiculosProximos(DateTime? start, DateTime? end)
         {
-            if(start.HasValue && end.HasValue)
+            if (start.HasValue && end.HasValue)
             {
                 if (start > end)
                 {
                     ModelState.AddModelError("fechaSalida", "La fecha de entrada es mayor a la fecha de salida");
                     var r = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).
                                       Include(r => r.empleado).Include(r => r.procedimientos)
-                                      select s;
+                            select s;
                     ViewBag.start = start;
                     ViewBag.end = end;
                     return View("Index", await r.AsNoTracking().ToListAsync());
@@ -90,14 +90,15 @@ namespace TallerHernandez.Controllers
                 }
                 //return View("Index", recepciones);
                 return View(recepcionesViewModel);
-            }            
+            }
             else
             {
                 var recepciones = from s in _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).
-                                  Include(r => r.empleado).Include(r => r.procedimientos) select s;
+                                  Include(r => r.empleado).Include(r => r.procedimientos)
+                                  select s;
                 return View("Index", await recepciones.AsNoTracking().ToListAsync());
-            }            
-        }      
+            }
+        }
 
 
         // GET: Recepcions/Details/5
@@ -111,7 +112,7 @@ namespace TallerHernandez.Controllers
             var recepcion = await _context.Recepcion
                 .Include(r => r.Automovil)
                 .Include(r => r.cliente)
-                .Include(r => r.empleado)                
+                .Include(r => r.empleado)
                 .Include(r => r.procedimientos)
                 .FirstOrDefaultAsync(m => m.recepcionID == id);
             if (recepcion == null)
@@ -129,10 +130,10 @@ namespace TallerHernandez.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> editarProce (int id,string precio, string desc, int idArea)
+        public async Task<IActionResult> editarProce(int id, string precio, string desc, int idArea)
         {
             Procedimiento p = new Procedimiento();
-            p.procedimientoID = id;            
+            p.procedimientoID = id;
             p.precio = float.Parse(precio, System.Globalization.CultureInfo.InvariantCulture);
             p.procedimiento = desc;
             p.areaID = idArea;
@@ -140,15 +141,17 @@ namespace TallerHernandez.Controllers
             return await procedimientoesController.Edit(id, p);
         }
 
-        public IActionResult obtenerDuenio(string? id) {
+        public IActionResult obtenerDuenio(string? id)
+        {
             List<Automovil> duenioId = new List<Automovil>();
-            duenioId = _context.Automovil.FromSqlRaw("SELECT * FROM Automovil WHERE automovilID='"+id+"'").ToList();
+            duenioId = _context.Automovil.FromSqlRaw("SELECT * FROM Automovil WHERE automovilID='" + id + "'").ToList();
             List<Cliente> duenio = new List<Cliente>();
             duenio = _context.Cliente.FromSqlRaw("SELECT * FROM Cliente WHERE clienteID='" + duenioId[0].clienteID + "'").ToList();
-            List<SelectListItem> resp = duenio.ConvertAll(d => {
+            List<SelectListItem> resp = duenio.ConvertAll(d =>
+            {
                 return new SelectListItem()
                 {
-                    Text = d.nombre+" "+d.apellido,
+                    Text = d.nombre + " " + d.apellido,
                     Value = d.clienteID,
                     Selected = true
                 };
@@ -166,21 +169,41 @@ namespace TallerHernandez.Controllers
         // GET: Recepcions/Create
         public IActionResult Create()
         {
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa");
+            List<Automovil> autos = _context.Automovil.ToList();
+            List<SelectListItem> au = autos.ConvertAll(aa =>
+            {
+                return new SelectListItem()
+                {
+                    Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                    Value = aa.automovilID.ToString(),
+                    Selected = false
+                };
+            });
+            ViewData["automovilID"] = au;
             List<Cliente> clientes = _context.Cliente.ToList();
             List<SelectListItem> c = clientes.ConvertAll(cc =>
             {
                 return new SelectListItem()
                 {
-                    Text = cc.nombre+" "+cc.apellido,
+                    Text = cc.nombre + " " + cc.apellido,
                     Value = cc.clienteID,
                     Selected = false
                 };
             });
             ViewData["clienteID"] = c;
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre");           
+            List<Empleado> empleados = _context.Empleado.ToList();
+            List<SelectListItem> e = empleados.ConvertAll(ee =>
+            {
+                return new SelectListItem()
+                {
+                    Text = ee.nombre + " " + ee.apellido,
+                    Value = ee.empleadoID.ToString(),
+                    Selected = false
+                };
+            });
+            ViewData["empleadoID"] = e;
             List<Area> areas = new List<Area>();
-            areas= _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
+            areas = _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
             List<SelectListItem> a = areas.ConvertAll(ac =>
             {
                 return new SelectListItem()
@@ -193,7 +216,7 @@ namespace TallerHernandez.Controllers
             ViewBag.areas = a;
             RecepcionViewModel r = new RecepcionViewModel();
             string fa = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-            r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);            
+            r.fechaEntrada = DateTime.ParseExact(fa, "dd/MM/yyyy HH:mm", null);
             return View(r);
         }
 
@@ -208,31 +231,99 @@ namespace TallerHernandez.Controllers
         {
             if (ModelState.IsValid)
             {
-                Recepcion r = new Recepcion { 
+                Recepcion r = new Recepcion
+                {
                     diagnostico = recepcion.diagnostico,
                     fechaEntrada = recepcion.fechaEntrada,
                     fechaSalida = recepcion.fechaSalida,
                     clienteID = recepcion.clienteID,
                     empleadoID = recepcion.empleadoID,
                     automovilID = recepcion.automovilID,
-                    estado = recepcion.estado 
+                    estado = recepcion.estado
                 };
                 _context.Add(r);
                 foreach (var procedimiento in recepcion.procedimientos)
                 {
-                    _context.Procedimiento.Add(new Procedimiento { 
+                    _context.Procedimiento.Add(new Procedimiento
+                    {
                         procedimiento = procedimiento.procedimiento,
                         precio = procedimiento.precio,
                         areaID = procedimiento.areaID,
                         recepcion = r
                     });
-                }                
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "automovilID", recepcion.automovilID);
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
-            ViewData["empleadoID"] = new SelectList(_context.Empleado, "empleadoID", "nombre", recepcion.empleadoID);                       
+            List<Automovil> autos = _context.Automovil.ToList();
+            List<SelectListItem> au = autos.ConvertAll(aa =>
+            {
+                if (aa.automovilID.Equals(recepcion.automovilID))
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["automovilID"] = au;
+            List<Cliente> clientes = _context.Cliente.ToList();
+            List<SelectListItem> c = clientes.ConvertAll(cc =>
+            {
+                if (cc.clienteID == recepcion.clienteID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = cc.nombre + " " + cc.apellido,
+                        Value = cc.clienteID,
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["clienteID"] = c;
+            List<Empleado> empleados = _context.Empleado.ToList();
+            List<SelectListItem> e = empleados.ConvertAll(ee =>
+            {
+                if (ee.empleadoID == recepcion.empleadoID)
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = ee.nombre + " " + ee.apellido,
+                        Value = ee.empleadoID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["empleadoID"] = e;
             List<Area> areas = new List<Area>();
             areas = _context.Area.FromSqlRaw("SELECT * FROM Area").ToList();
             List<SelectListItem> a = areas.ConvertAll(ac =>
@@ -273,8 +364,29 @@ namespace TallerHernandez.Controllers
             {
                 return NotFound();
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
+            List<Automovil> autos = _context.Automovil.ToList();
+            List<SelectListItem> au = autos.ConvertAll(aa =>
+            {
+                if (aa.automovilID.Equals(recepcion.automovilID))
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["automovilID"] = au;
             List<Cliente> clientes = _context.Cliente.ToList();
             List<SelectListItem> c = clientes.ConvertAll(cc =>
             {
@@ -334,8 +446,9 @@ namespace TallerHernandez.Controllers
                 return NotFound();
             }
 
-            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).ThenInclude(a => a.area).Where(r => r.recepcionID == id).FirstOrDefaultAsync();            
-            RecepcionViewModel r = new RecepcionViewModel { 
+            var recepcion = await _context.Recepcion.Include(r => r.procedimientos).ThenInclude(a => a.area).Where(r => r.recepcionID == id).FirstOrDefaultAsync();
+            RecepcionViewModel r = new RecepcionViewModel
+            {
                 recepcionID = recepcion.recepcionID,
                 diagnostico = recepcion.diagnostico,
                 fechaEntrada = recepcion.fechaEntrada,
@@ -345,17 +458,38 @@ namespace TallerHernandez.Controllers
                 automovilID = recepcion.automovilID,
                 procedimientos = recepcion.procedimientos.ToList(),
                 estado = recepcion.estado
-            }; 
+            };
             if (recepcion == null)
             {
                 return NotFound();
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
-            ViewData["clienteID"] = new SelectList(_context.Cliente, "clienteID", "nombre", recepcion.clienteID);
+            List<Automovil> autos = _context.Automovil.ToList();
+            List<SelectListItem> au = autos.ConvertAll(aa =>
+            {
+                if (aa.automovilID.Equals(recepcion.automovilID))
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["automovilID"] = au;
             List<Cliente> clientes = _context.Cliente.ToList();
             List<SelectListItem> c = clientes.ConvertAll(cc =>
             {
-                if(cc.clienteID == recepcion.clienteID)
+                if (cc.clienteID == recepcion.clienteID)
                 {
                     return new SelectListItem()
                     {
@@ -372,7 +506,7 @@ namespace TallerHernandez.Controllers
                         Value = cc.clienteID,
                         Selected = false
                     };
-                }                
+                }
             });
             ViewData["clienteID"] = c;
             List<Empleado> empleados = _context.Empleado.ToList();
@@ -453,7 +587,29 @@ namespace TallerHernandez.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["automovilID"] = new SelectList(_context.Automovil, "automovilID", "placa", recepcion.automovilID);
+            List<Automovil> autos = _context.Automovil.ToList();
+            List<SelectListItem> au = autos.ConvertAll(aa =>
+            {
+                if (aa.automovilID.Equals(recepcion.automovilID))
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = true
+                    };
+                }
+                else
+                {
+                    return new SelectListItem()
+                    {
+                        Text = aa.placa + " - " + aa.marca + " - " + aa.anio,
+                        Value = aa.automovilID.ToString(),
+                        Selected = false
+                    };
+                }
+            });
+            ViewData["automovilID"] = au;
             List<Cliente> clientes = _context.Cliente.ToList();
             List<SelectListItem> c = clientes.ConvertAll(cc =>
             {
@@ -551,15 +707,15 @@ namespace TallerHernandez.Controllers
             }
 
             var automovil = await _context.Automovil
-                .Include(r => r.cliente)                
+                .Include(r => r.cliente)
                 .FirstOrDefaultAsync(m => m.automovilID == autoId);
             if (automovil == null)
             {
                 return NotFound();
             }
 
-            return View("Create",automovil);
+            return View("Create", automovil);
         }
-       
+
     }
 }

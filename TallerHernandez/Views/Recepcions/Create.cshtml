@@ -10,7 +10,7 @@
 <h1>Ficha de ingreso</h1>
 <hr />
 <div class="mb-3">
-    <a class="btn btn-outline-primary font-weight-bold btn-sm" asp-action="Index">Regresar</a>
+    <a class="btn btn-outline-dark font-weight-bold btn-sm" asp-action="Index">Regresar</a>
 </div>
 <form id="regForm" asp-action="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -20,7 +20,7 @@
         <h4>Información</h4>
         <small class="text-danger">Los campos marcados con (*) son obligatorios</small>
         <div class="form-group">
-            <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>            
+            <label asp-for="automovilID" class="control-label"></label><span class="text-danger">*</span>
             @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new
             {
                 @class = "form-control search",
@@ -31,9 +31,9 @@
             <span asp-validation-for="automovilID" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="fechaEntrada" class="control-label"></label><span class="text-danger">*</span>
-            <input asp-for="fechaEntrada" class="form-control" id="fentrada" />
-            <span asp-validation-for="fechaEntrada" class="text-danger"></span>
+            <label asp-for="clienteID" class="control-label"></label><small class="text-muted ml-3">Este campo se elije automaticamente</small>
+            @*<select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>*@
+            @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes", })
         </div>
         <div class="form-group">
             <label asp-for="empleadoID" class="control-label"></label><span class="text-danger">*</span>
@@ -50,28 +50,41 @@
         </div>
         <p>¿Qué servicio se le dará al cliente?</p>
         <div id="div-procedimiento" class="d-block">
-            <label asp-for="procedimientos" class="control-label"></label><span class="text-danger">*</span>         
+            <label asp-for="procedimientos" class="control-label"></label><span class="text-danger">*</span>
         </div>
         <div class="form-row">
-            <span id="proc-invalid" class="error text-danger d-none">Debe añadir al menos un procedimiento</span>
-            <button type="button" class="btn btn-success btn-sm ml-1" data-toggle="modal" data-target="#modalProc">
+            <table class="table table-sm table-striped table-responsive-sm" id="tblProc">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Precio ($)</th>
+                        <th>Área</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr></tr>
+                </tbody>
+            </table>
+            <button onclick="ocultar()" type="button" class="btn btn-info btn-sm ml-1" data-toggle="modal" data-target="#modalProc">
                 <i class="material-icons" style="font-size:13px">add</i>Añadir procedimiento
             </button>
         </div>
+        <div class="mt-3 form-row"><span id="proc-invalid" class="error text-danger d-none">Debe añadir al menos un procedimiento</span></div>
     </div>
 
     <div class="tab">
         <h4></h4>
-
+        <div class="form-group">
+            <label asp-for="fechaEntrada" class="control-label"></label><span class="text-danger">*</span>
+            <input asp-for="fechaEntrada" class="form-control" id="fentrada" />
+            <span asp-validation-for="fechaEntrada" class="text-danger"></span>
+        </div>
         <div class="form-group">
             <label asp-for="fechaSalida" class="control-label"></label><span class="text-danger">*</span>
             <input asp-for="fechaSalida" class="form-control" value="" />
             <span asp-validation-for="fechaSalida" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="clienteID" class="control-label"></label>
-            @*<select asp-for="clienteID" class="form-control" asp-items="ViewBag.clienteID"></select>*@
-            @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes", })
         </div>
         <div class="form-group">
             @*<p>Repuestos</p>*@
@@ -108,11 +121,11 @@
                 <form>
                     <div class="form-group">
                         <label for="nombre" class="control-label">Procedimiento</label>
-                        <input name="procedimiento" id="procedimiento" for="procedimiento" class="form-control" />
+                        <input name="procedimiento" id="procedimiento" for="procedimiento" class="form-control" required/>
                     </div>
                     <div class="form-group">
                         <label for="precio" class="control-label">Precio</label>
-                        <input name="precioProc" id="precioProc" for="precioProc" class="form-control" />
+                        <input type="number" name="precioProc" id="precioProc" for="precioProc" class="form-control" required/>
                     </div>
                     <div class="form-group">
                         <label for="areaID" class="control-label">Área a la que pertenece</label>
@@ -123,11 +136,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" id="btnSave" class="btn btn-primary">Crear</button>
+                <button type="button" id="btnSave" data-url='@Url.Action("obtenerAreas", "Recepcions")' class="btn btn-primary">Crear</button>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8fbfd;
+    }
+</style>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -137,41 +155,54 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script type="text/javascript">
-
+        var count = 0;
         //Agregar nuevo procedimiento
         $(document).ready(function () {
             $('#btnSave').click(function () {
-
-                var count = $("div[class*='nProc']").length;
+                var numFila = $('#tblProc tr').length -1;
+                count++;
                 var valProce = $('#procedimiento').val();
                 var valArea = $('#areaIDProc').val();
                 var nomArea = $('#areaIDProc option:selected').text();
                 var valPrecio = $('#precioProc').val();
-                var nuevaFila = "";
-                nuevaFila += '<div class="form-row nProc">';
-                nuevaFila += '<div class="input-group col-md-7 mb-3">';
-                nuevaFila += '<div class="input-group-prepend">';
-                nuevaFila += '<span class="input-group-text">Procedimiento ' + (count+1) + '</span>';
-                nuevaFila += '</div>';
-                nuevaFila += '<input type="hidden" name="procedimientos.Index" value="p'+count+'" />';
-                nuevaFila += '<textarea id="txtProce' + count + '" asp-for="procedimientos" name="procedimientos[p' + count +'].procedimiento" class="form-control">'+valProce+'</textarea>';
-                nuevaFila += '</div>';
-                nuevaFila += '<div class="col-md-5">';
-                nuevaFila += '<div class="input-group mb-3">';
-                nuevaFila += '<div class="input-group-prepend">';
-                nuevaFila += '<span class="input-group-text">Área</span>';
-                nuevaFila += '</div>';
-                nuevaFila += '<input value="' + nomArea + '" id="nomArea' + count + ' type="text" class="form-control">';
-                nuevaFila += '<div class="input-group-append">';
-                nuevaFila += '<button id="removeRow" class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>';
-                nuevaFila += '</div>';
-                nuevaFila += '</div>';
-                nuevaFila += '<input value="' + valArea + '" id="txtArea' + count + ' type="text" class="form-control" asp-for="procedimientos" name="procedimientos[p' + count +'].areaID" hidden>';
-                nuevaFila += '<input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p' + count +'].precio" id="txtPrecio'+count+'" hidden>';
-                nuevaFila += '</div>';
-                nuevaFila += '</div>';                
+                var url = $('#btnSave').data('url');
+                var id = "#sel" + count;
+                var info = "";
+                info += '<tr><th>' + (numFila) + '</th>';
+                info += '<td><input type="hidden" name="procedimientos.Index" value="p(' + count + ')" />';
+                info += '<textarea name="procedimientos[p(' + count + ')].procedimiento" class="border-0">' + valProce + '</textarea></td>';
+                info += '<td><input value="' + valPrecio + '" asp-for="procedimientos" name="procedimientos[p(' + count + ')].precio" id="txtPrecio' + count + '" class="border-0"/></td>';
+                info += '<td><select name="procedimientos[p(' + count + ')].areaID" class="form-control" id="sel' + count +'"></select></td>';
+                info += '<td>';
+                info += '<button type="button" class="Eliminar btn btn-danger btn-cir"><i class="fas fa-trash-alt"></i></button></td></tr>';
+                var newRow = document.getElementById('tblProc').insertRow();
+                newRow.innerHTML = info;
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: JSON,
+                    success: function (result) {
+                        console.log(result);
+                        var areas = "";
+                        $(result).each(function () {
+                            if (this.areaID == valArea) {
+                                areas = areas + '<option value="' + this.areaID + '" selected="selected">' + this.areaNom + '</option>';
+                            }
+                            else {
+                                areas = areas + '<option value="' + this.areaID + '">' + this.areaNom + '</option>';
+                            }
+
+                        });
+                        var lista = $(id);
+                        lista.empty();
+                        lista.append(areas);
+                    },
+                    error: function (data) {
+                        return "Error";
+                    }
+                });
                 $('#modalProc').modal('hide');
-                $('#div-procedimiento').append(nuevaFila);
             });
         });
         $(document).ready(function () {
@@ -182,8 +213,8 @@
             });
         });
         // remove row
-        $(document).on('click', '#removeRow', function () {
-            $(this).closest("div[class*='nProc']").remove();
+        $("#tblProc").on("click", ".Eliminar", function () {
+            $(this).closest("tr").remove();
         });
 
         //Obtener dueño del automovil
