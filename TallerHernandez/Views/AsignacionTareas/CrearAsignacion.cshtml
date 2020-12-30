@@ -7,13 +7,16 @@
     <div class="col-md-3 col-sm-12">
         <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
     </div>
-    <div class="col-md-9 col-sm-12 mb-5">
+    <div class="col-md-9 col-sm-12 mb-3">
         <h1>Asignar nueva tarea</h1>
         <form class="form-inline" asp-action="CrearAsignacion" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa una placa o nombre del recepcionista" data-val="true" data-val-required="The nombre field is required." id="cadena" name="cadena" value="@ViewData["Filtro"]">
-            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
-            <input name="__RequestVerificationToken" type="hidden">
-            <a asp-action="CrearAsignacion">Todos los registros</a>
+            <div class="input-group mb-3 col-10 pl-0">
+                <input class="form-control" type="text" placeholder="Busque por placa o nombre del cliente" data-val="true" data-val-required="Ingrese un valor." id="cadena" name="cadena" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="CrearAsignacion"><i class="fas fa-redo-alt text-danger"></i></a>
+                </div>
+            </div>
         </form>
     </div>
 </div>

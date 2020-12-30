@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -123,7 +123,7 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                procedimientos = procedimientos.Where(r => r.recepcion.Automovil.placa.Contains(cadena) || r.area.areaNom.Contains(cadena));
+                procedimientos = procedimientos.Where(r => r.recepcion.Automovil.placa.Contains(cadena) || r.recepcion.cliente.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
@@ -486,11 +486,6 @@ namespace TallerHernandez.Controllers
                     break;
             }
           
-            
-           
-            
-            
-          
             ViewBag.asigTarea = asignacionTarea;
 
             return View(empleado);
@@ -663,13 +658,18 @@ namespace TallerHernandez.Controllers
             var procedimientos = _context.Procedimiento.Include(r => r.recepcion).Include(r => r.recepcion.Automovil).Include(r => r.recepcion.cliente).Include(r => r.recepcion.empleado).Include(r => r.area).ToList();
             List<Procedimiento> proc = new List<Procedimiento>();
 
+            var asignacionTareas = _context.AsignacionTarea.Include(r => r.procedimiento).Where(r=>r.estadoTarea==false).ToList();
+
             if (actividades == "asignadas")
             {
                 for(int i = 0; i < procedimientos.Count; i++)
                 {
-                    if(procedimientos[i].estado == 0)
+                    for(int x = 0; x < asignacionTareas.Count; x++)
                     {
-                        proc.Add(procedimientos[i]);
+                        if (procedimientos[i].estado == 0 && procedimientos[i].procedimientoID == asignacionTareas[x].procedimientoID)
+                        {
+                            proc.Add(procedimientos[i]);
+                        }
                     }
                 }
                 
@@ -683,7 +683,11 @@ namespace TallerHernandez.Controllers
                     }
                 }
             }
-
+            if (proc.Count != 0)
+            {
+                ViewBag.estado = proc[0].estado;
+            }
+            
             return View("GenerarInforme", proc); ;
         }
 

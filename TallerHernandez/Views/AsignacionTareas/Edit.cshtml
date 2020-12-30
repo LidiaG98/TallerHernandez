@@ -90,7 +90,15 @@
         </div>*@
             <div class="form-group">
                 <input type="submit" value="Guardar Cambios" class="btn btn-success" />
-                <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+                 @if (Model.estadoTarea.Equals(false))
+    {
+            <a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+    }
+    else
+    {
+            <a class="btn btn-secondary" asp-action="TareasFinalizadas">Cancelar</a>
+    }
+                
             </div>
 </form>
 </div>
