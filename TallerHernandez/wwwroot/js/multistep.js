@@ -46,8 +46,8 @@ sv = document.getElementById('proc-invalid');
 
 
 function ocultar() {
-    sv.className = "text-danger d-none";
-    document.getElementById("sproc").className.replace(" invalid", "");
+    sv.className = "error text-danger d-none";
+    //document.getElementById("sproc").className.replace(" invalid", "");
 }
 
 function validateForm() {
@@ -57,8 +57,8 @@ function validateForm() {
     y = x[currentTab].getElementsByTagName("input");
     z = x[currentTab].getElementsByTagName("textarea");
     s = x[currentTab].getElementsByClassName("form-control search");
-    p = x[currentTab].getElementsByClassName("form-row nProc");
-    b = x[currentTab].getElementsByClassName("btn btn-success btn-sm ml-1");
+    p = x[currentTab].getElementsByTagName("tr");
+    b = x[currentTab].getElementsByClassName("btn btn-info btn-sm ml-1");
     
     
     // A loop that checks every input field in the current tab:
@@ -87,14 +87,14 @@ function validateForm() {
         if (s[i].value == "") {
             // add an "invalid" class to the field:
             s[i].className += " invalid";
-            sv.className = "text-danger d-block";
+            //sv.className = "text-danger d-block";
             // and set the current valid status to false:
             valid = false;
         }
     }
 
     if (b.length != 0) {
-        if (p.length==0) {
+        if (p.length==2) {
             valid = false;            
             sv.className = "error text-danger d-block";
         }

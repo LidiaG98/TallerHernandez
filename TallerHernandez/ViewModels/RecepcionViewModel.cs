@@ -41,6 +41,12 @@ namespace TallerHernandez.ViewModels
         [Display(Name = "Año")]
         public int anio { get; set; }
 
+        [Display(Name = "Placa / # Chasis")]
+        public string placa { get; set; }
+
+        [Display(Name = "Imagen")]
+        public string imagen { get; set; }
+
         [Display(Name = "Procedimientos")]
         public List<Procedimiento> procedimientos { get; set; }
 
