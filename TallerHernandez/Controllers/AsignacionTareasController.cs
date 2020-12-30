@@ -401,21 +401,21 @@ namespace TallerHernandez.Controllers
             List<EmpleadoProgreso> empleadoProgresos = new List<EmpleadoProgreso>();
 
             var tareasAs = from x in _context.AsignacionTarea.Include(e => e.empleado) select x;
-            
-        
+            EmpleadoProgreso jose;
+
             foreach (var em in emple)
             {
-                EmpleadoProgreso jose;
+                
                 if (tareasAs.Count() != 0)
                 {
                     jose = new EmpleadoProgreso()
                     {
-                        empleadoprogresoID = 1,
+                        
                         empleado = em,
                         asignacionTarea = tareasAs.Where(l => l.empleadoID == em.empleadoID).ToList(),
-                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
-                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
-                        porcentajeLogrado = (tareasAs.Where(x => x.estadoTarea == true).Count() / tareasAs.Count()) * 100
+                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true && x.empleadoID == em.empleadoID).Count(),
+                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false && x.empleadoID == em.empleadoID).Count(),
+                        porcentajeLogrado = (Convert.ToDouble(tareasAs.Where(x => x.estadoTarea == true && x.empleadoID == em.empleadoID).Count()) /Convert.ToDouble(tareasAs.Where(l => l.empleadoID == em.empleadoID).Count()))*100
 
 
                     };
@@ -430,8 +430,6 @@ namespace TallerHernandez.Controllers
                         actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
                         actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
                         porcentajeLogrado = -1
-
-
                     };
                 }
                 empleadoProgresos.Add(jose);
