@@ -28,22 +28,85 @@ namespace TallerHernandez.Controllers
         {
             int finalizada = 0;
 
-            ViewData["Filtro"] = Buscar;
-            //var tallerHernandezContext = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
-            //    Include(r => r.mantenimiento).Include(r =>r.procedimiento);
-            var recepciones = from s in _context.Recepcion
+            ViewData["Filtro"] = Buscar;            
+            var recepciones = _context.Recepcion
                               .Include(r => r.Automovil)
                               .Include(r => r.cliente)
                               .Include(r => r.empleado)
                               .Include(r => r.procedimientos)
-                              .Where(l => l.estado == finalizada) select s;
+                              .Where(l => l.estado == finalizada);
+            List<Recepcion> r = new List<Recepcion>();
+            List<Recepcion> rEliminar = new List<Recepcion>();
             if (!String.IsNullOrEmpty(Buscar))
             {
-                recepciones = recepciones
+                    r =  recepciones
                     .Where(s => s.Automovil.placa.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar))
-                    .Where(l => l.estado == finalizada);
+                    .Where(l => l.estado == finalizada)
+                    .ToList();
             }
-            return View(await recepciones.AsNoTracking().ToListAsync());            
+            else
+            {
+                r = recepciones
+                    .Where(l => l.estado == finalizada)
+                    .ToList();
+            }
+
+            foreach (var recep in r)
+            {
+                if(_context.Factura.Where(l => l.idRecepcion == recep.recepcionID).FirstOrDefault() != null)
+                {
+                    rEliminar.Add(recep);
+                }
+            }
+            foreach(var recep in rEliminar)
+            {
+                r.Remove(recep);
+            }
+
+            return View(r);            
+        }
+
+        public async Task<IActionResult> Facturados(string Buscar)
+        {
+            int finalizada = 0;
+
+            ViewData["Filtro"] = Buscar;
+            //var tallerHernandezContext = _context.Recepcion.Include(r => r.Automovil).Include(r => r.cliente).Include(r => r.empleado).
+            //    Include(r => r.mantenimiento).Include(r =>r.procedimiento);
+            var recepciones = _context.Recepcion
+                              .Include(r => r.Automovil)
+                              .Include(r => r.cliente)
+                              .Include(r => r.empleado)
+                              .Include(r => r.procedimientos)
+                              .Where(l => l.estado == finalizada);
+            List<Recepcion> r = new List<Recepcion>();
+            List<Recepcion> rEliminar = new List<Recepcion>();
+            if (!String.IsNullOrEmpty(Buscar))
+            {
+                r = recepciones
+                .Where(s => s.Automovil.placa.Contains(Buscar) || s.cliente.clienteID.Contains(Buscar) || s.cliente.nombre.Contains(Buscar))
+                .Where(l => l.estado == finalizada)
+                .ToList();
+            }
+            else
+            {
+                r = recepciones
+                    .Where(l => l.estado == finalizada)
+                    .ToList();
+            }
+
+            foreach (var recep in r)
+            {
+                if (_context.Factura.Where(l => l.idRecepcion == recep.recepcionID).FirstOrDefault() == null)
+                {
+                    rEliminar.Add(recep);
+                }
+            }
+            foreach (var recep in rEliminar)
+            {
+                r.Remove(recep);
+            }
+            return View(r);
         }
 
         [HttpGet]
