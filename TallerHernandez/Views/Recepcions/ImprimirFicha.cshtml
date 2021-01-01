@@ -1,0 +1,145 @@
+﻿@model TallerHernandez.ViewModels.RecepcionViewModel
+
+@{
+    ViewData["Title"] = "Imprimir";
+    var placas = ViewBag.automovilID as List<SelectListItem>;
+    var duenio = ViewBag.clienteID as List<SelectListItem>;
+    SelectListItem cliente = null;
+    int count = 0;    
+}
+
+<div id="Imprimir" class=" mt-5 pr-5 pl-5 pb-1 pt-3" style="background-color : white; border-radius:5px;">
+    @foreach (var d in duenio)
+    {
+        if (d.Selected)
+        {
+            cliente = d;
+            break;
+        }
+    }
+    <h1>Ficha de ingreso del cliente: @cliente.Text</h1>
+    <hr />
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="recepcionID" />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="automovilID" class="control-label"></label>
+                @Html.DropDownListFor(x => x.automovilID, placas, "Seleccione un automóvil", new
+           {
+               @disabled = "disabled",
+               @class = "form-control search",
+               data_cascade_combo = "#stypes",
+               data_cascade_combo_source = Url.Action("obtenerDuenio", "Recepcions"),
+               data_cascade_combo_param_name = "id"
+           })
+                <span asp-validation-for="automovilID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="clienteID" class="control-label"></label>
+                @Html.DropDownListFor(x => x.clienteID, duenio, new { @class = "form-control", id = "stypes", @disabled = "disabled" })
+                <span asp-validation-for="clienteID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="fechaEntrada" class="control-label"></label>
+                <input asp-for="fechaEntrada" class="form-control" readonly />
+                <span asp-validation-for="fechaEntrada" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="fechaSalida" class="control-label"></label>
+                <input asp-for="fechaSalida" class="form-control" readonly />
+                <span asp-validation-for="fechaSalida" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="diagnostico" class="control-label"></label>
+            <textarea asp-for="diagnostico" class="form-control" rows="2" readonly></textarea>
+            <span asp-validation-for="diagnostico" class="text-danger"></span>
+        </div>
+        <div class="form-row ml-1">
+
+            <label class="control-label">Procedimientos</label>
+            <table class="table table-sm table-striped table-responsive-sm" id="tblProc">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Descripción</th>
+                        <th>Precio ($)</th>
+                        <th>Área</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @for (int i = 0; i < Model.procedimientos.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row">@(count = count +1)</th>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => procedimiento.procedimiento)*@
+                                <input type="hidden" name="procedimientos.Index" value="@i" class="border-0" />
+                                <textarea asp-for="@Model.procedimientos[i].procedimiento" class="border-0" disabled></textarea>
+                                <span asp-validation-for="@Model.procedimientos[i].procedimiento" class="form-row text-danger"></span>
+                            </td>
+                            <td>
+                                @*$@Html.DisplayFor(modelItem => procedimiento.precio)*@
+                                <input asp-for="@Model.procedimientos[i].precio" class="border-0" disabled />
+                                <span asp-validation-for="@Model.procedimientos[i].precio" class="form-row text-danger"></span>
+                            </td>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => procedimiento.area.areaNom)*@
+                                <select asp-for="@Model.procedimientos[i].areaID" class="form-control" asp-items="@(new SelectList(ViewBag.areas,"AreaID","areaNom",Model.procedimientos[i].areaID))" disabled></select>
+                                <span asp-validation-for="@Model.procedimientos[i].areaID" class="form-row text-danger"></span>
+                                <input value="@Model.procedimientos[i].procedimientoID" asp-for="@Model.procedimientos[i].procedimientoID" hidden />
+                                <input value="@Model.procedimientos[i].recepcionID" asp-for="@Model.procedimientos[i].recepcionID" hidden />
+                                <input value="@Model.procedimientos[i].estado" asp-for="@Model.procedimientos[i].estado" hidden />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="empleadoID" class="control-label"></label>
+                <select asp-for="empleadoID" class="form-control" asp-items="ViewBag.empleadoID" disabled></select>
+                <span asp-validation-for="empleadoID" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label asp-for="estado" class="control-label"></label>
+                <select asp-for="estado" class="form-control" disabled>
+                    <option value="1">En proceso</option>
+                    <option value="0">Finalizado</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<button type="button" class="mt-5 mb-5 btn btn-primary" onclick="printThisDiv('Imprimir')">Imprimir Ficha</button>
+<a class="btn btn-secondary" asp-action="Index">Cancelar</a>
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f8fbfd;
+    }
+</style>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}    
+    <script type="text/javascript">
+        window.onload = function () {
+            var printContents = document.getElementById("Imprimir").innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContent;                     
+        }
+
+        var printThisDiv = (id) => {
+            var printContents = document.getElementById(id).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+}

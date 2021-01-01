@@ -10,7 +10,15 @@
         <img src="/images/logoTaller.png" style="max-height: 90%; max-width:100%;">
     </div>
     <div class="col-md-9 col-sm-12 mb-5">
-        <h1 class="mb-3">Empleados</h1>
+        @if (ViewBag.empleado.Count != 0)
+        {
+            <h1 class="mb-3">Empleados</h1>
+        }
+        else
+        {
+            <h1 class="mb-3">No hay empleados disponibles</h1>
+        }
+
 
         @*<form class="form-inline" asp-action="EmpleadoAsig" method="get">
             <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="Ingrese el nombre o apellido " data-val="true" data-val-required="The nombre field is required." id="cadena" name="cadena" value="@ViewData["Filtro"]">
