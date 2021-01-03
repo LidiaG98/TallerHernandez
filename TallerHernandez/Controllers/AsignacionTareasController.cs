@@ -46,7 +46,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -55,7 +55,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -129,16 +129,16 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
-                    procedimientos = procedimientos.OrderBy(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderBy(r => r.recepcion.cliente.nombre);
                     break;
                 case "nom_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.cliente.nombre);
                     break;
                 default:
-                    procedimientos = procedimientos.OrderBy(s => s.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderBy(s => s.recepcion.Automovil.placa);
                     break;
             }
 
@@ -526,7 +526,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -535,7 +535,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -607,10 +607,10 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -641,10 +641,10 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
