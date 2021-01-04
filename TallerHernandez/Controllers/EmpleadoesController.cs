@@ -202,7 +202,7 @@ namespace TallerHernandez.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("empleadoID,emploID,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado,string? emailantiguo)
+        public async Task<IActionResult> Edit(int id, [Bind("empleadoID,emploDUI,nombre,apellido,correo,telefono,imagen,imageN,salario,areaID,rolID,modopagoID")] Empleado empleado,string? emailantiguo)
         {            
             bool imagenNula = false;
             try

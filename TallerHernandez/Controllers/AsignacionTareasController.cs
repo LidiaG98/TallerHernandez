@@ -464,15 +464,15 @@ namespace TallerHernandez.Controllers
            
             switch (OrdenA)
             {
-                case "completo":
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == true);
+                case "completa":
+                    asignacionTarea = _context.AsignacionTarea.Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(m => m.empleadoID == id).Where(x => x.estadoTarea == true);
                     break;
-                case "incompleto":
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == false);
+                case "incompleta":
+                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(x => x.estadoTarea == false);
                     break;
                
                 default:
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id);
+                    asignacionTarea = _context.AsignacionTarea.Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(m => m.empleadoID == id);
                     break;
             }
           
