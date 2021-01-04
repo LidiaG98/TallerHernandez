@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -46,7 +46,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -55,7 +55,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -123,22 +123,22 @@ namespace TallerHernandez.Controllers
 
             if (!String.IsNullOrEmpty(cadena))
             {
-                procedimientos = procedimientos.Where(r => r.recepcion.Automovil.placa.Contains(cadena) || r.area.areaNom.Contains(cadena));
+                procedimientos = procedimientos.Where(r => r.recepcion.Automovil.placa.Contains(cadena) || r.recepcion.cliente.nombre.Contains(cadena));
             }
 
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
-                    procedimientos = procedimientos.OrderBy(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderBy(r => r.recepcion.cliente.nombre);
                     break;
                 case "nom_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.cliente.nombre);
                     break;
                 default:
-                    procedimientos = procedimientos.OrderBy(s => s.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderBy(s => s.recepcion.Automovil.placa);
                     break;
             }
 
@@ -189,7 +189,7 @@ namespace TallerHernandez.Controllers
             //        encargado = encargado.OrderBy(s => s.apellido);
             //        break;
             //}
-
+            ViewBag.empleado = encargado.ToList();
             return View(encargado.ToList());
         }
 
@@ -301,6 +301,12 @@ namespace TallerHernandez.Controllers
                         _context.Update(recepcion);
                         await _context.SaveChangesAsync();
                     }
+                    else
+                    {
+                        recepcion.estado = 1;
+                        _context.Update(recepcion);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -323,8 +329,10 @@ namespace TallerHernandez.Controllers
                     //si se cumple se retorna la vista tareas finalizadas
                     return RedirectToAction(nameof(TareasFinalizadas));
                 }
+                //Se evalua que el estado de tarea sea igual a false y el empleado encargado de la asignacion tareas sea distinto del usuario logueado
                 else if (estadoTarea.Equals(false) && asignacionTarea[0].empleado.correo != currentUserID)
                 {
+                    //si se cumple se retorna la vista Index
                     return RedirectToAction(nameof(Index));
                 }
                 else if(estadoTarea.Equals(true) && asignacionTarea[0].empleado.correo == currentUserID)
@@ -476,11 +484,6 @@ namespace TallerHernandez.Controllers
                     break;
             }
           
-            
-           
-            
-            
-          
             ViewBag.asigTarea = asignacionTarea;
 
             return View(empleado);
@@ -521,7 +524,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -530,7 +533,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -602,10 +605,10 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -636,16 +639,54 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
             return View(await asignacionTareas.AsNoTracking().ToListAsync());
 
             //return View(await asignacionTareas.ToListAsync());
+        }
+
+        public async Task<IActionResult> GenerarInforme(string actividades)
+        {
+            var procedimientos = _context.Procedimiento.Include(r => r.recepcion).Include(r => r.recepcion.Automovil).Include(r => r.recepcion.cliente).Include(r => r.recepcion.empleado).Include(r => r.area).ToList();
+            List<Procedimiento> proc = new List<Procedimiento>();
+
+            var asignacionTareas = _context.AsignacionTarea.Include(r => r.procedimiento).Where(r=>r.estadoTarea==false).ToList();
+
+            if (actividades == "asignadas")
+            {
+                for(int i = 0; i < procedimientos.Count; i++)
+                {
+                    for(int x = 0; x < asignacionTareas.Count; x++)
+                    {
+                        if (procedimientos[i].estado == 0 && procedimientos[i].procedimientoID == asignacionTareas[x].procedimientoID)
+                        {
+                            proc.Add(procedimientos[i]);
+                        }
+                    }
+                }
+                
+            }else if(actividades == "noasignadas")
+            {
+                for (int i = 0; i < procedimientos.Count; i++)
+                {
+                    if (procedimientos[i].estado == 1)
+                    {
+                        proc.Add(procedimientos[i]);
+                    }
+                }
+            }
+            if (proc.Count != 0)
+            {
+                ViewBag.estado = proc[0].estado;
+            }
+            
+            return View("GenerarInforme", proc); ;
         }
 
     }

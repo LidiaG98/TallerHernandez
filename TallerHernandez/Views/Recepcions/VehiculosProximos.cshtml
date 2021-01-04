@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TallerHernandez.ViewModels.RecepcionViewModel>
+@{
+    ViewData["Title"] = "VehiculosProximos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<TallerHernandez.ViewModels.RecepcionViewModel> recepcionVM = Model.ToList();
+    DateTime inicio = ViewBag.start;
+    DateTime final = ViewBag.end;
+}
+
+<button type="button" class="mt-5 btn btn-primary btn-block" onclick="printThisDiv('Imprimir')">Imprimir Reporte</button>
+<a class="mt-4 btn btn-outline-dark font-weight-bold" asp-action="Index">Regresar</a>
+<div id="Imprimir">
+    <h1 class="mb-3 mt-3">Vehiculos Próximos a Entrega</h1>
+    <h3 class="mb-5"> Periodo: @inicio.Day/@inicio.Month  hasta @final.Day/@final.Month </h3>
+    @for (int i = 0; i < recepcionVM.Count; i++)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <label class="d-inline font-weight-bold">No. De Recepción</label>
+                <p class="d-inline">&nbsp;@recepcionVM[i].recepcionID</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <img src="~/uploads/@recepcionVM[i].imagen" alt="Foto del vehiculo" class="img-thumbnail img-fluid align-content-center">
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="6">Datos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">@Html.DisplayNameFor(model => recepcionVM[i].clienteID)</td>
+                                    <td colspan="2">@Html.DisplayFor(model => recepcionVM[i].clienteID)</td>
+                                </tr>
+                                <tr>
+                                    <td class="encabezado" colspan="6">Vehículo</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => recepcionVM[i].placa)</td>
+                                    <td>@Html.DisplayFor(model => recepcionVM[i].placa)</td>
+                                    <td>@Html.DisplayNameFor(model => recepcionVM[i].marca)</td>
+                                    <td>@Html.DisplayFor(model => recepcionVM[i].marca)</td>
+                                    <td>@Html.DisplayNameFor(model => recepcionVM[i].anio)</td>
+                                    <td>@Html.DisplayFor(model => recepcionVM[i].anio)</td>
+                                </tr>
+                                <tr>
+                                    <td class="encabezado" colspan="6">Servicio</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">@Html.DisplayNameFor(model => recepcionVM[i].diagnostico)</td>
+                                    <td colspan="3">@Html.DisplayFor(model => recepcionVM[i].diagnostico)</td>
+                                </tr>
+                                <tr>
+                                    <td class="encabezado" colspan="6">Procedimientos</td>
+                                </tr>
+                                @for (int j = 0; j < recepcionVM[i].procedimientos.Count; j++)
+                                {
+                                    <tr>
+                                        <td colspan="3">@(j+1)</td>
+                                        <td colspan="3">@Html.DisplayFor(model => recepcionVM[i].procedimientos[j].procedimiento)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted clearfix">
+                <p class="d-inline">Fecha de Entrada: @recepcionVM[i].fechaEntrada</p>
+                <p class="d-inline float-right font-weight-bold">Fecha de Salida: @recepcionVM[i].fechaSalida</p>
+            </div>
+        </div>
+    }
+</div>
+<button type="button" class="mt-5 mb-5 btn btn-primary btn-block" onclick="printThisDiv('Imprimir')">Imprimir Reporte</button>
+
+<style>
+    .encabezado {
+        color: #495057;
+        background-color: #e9ecef;
+        font-weight:bold;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        var printThisDiv = (id) => {
+            var printContents = document.getElementById(id).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+}
+
+
+
