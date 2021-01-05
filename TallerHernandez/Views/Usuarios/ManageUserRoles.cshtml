@@ -1,13 +1,13 @@
 ﻿@model List<TallerHernandez.ViewModels.UserRolesViewModel>
 @{
-    ViewData["Title"] = "ManageUserRoles";
+    ViewData["Title"] = "Cambiar Roles";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var userId = ViewBag.userId;
 }
 <form method="post">
     <div class="card">
         <div class="card-header">
-            <h2>Manage User Roles</h2>
+            <h2>Cambiar Roles de Usuarios</h2>
         </div>
         <div class="card-body">
             @for (int i = 0; i < Model.Count; i++)

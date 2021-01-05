@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
    
 }
 
@@ -68,7 +69,6 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["Ordenmarca"]">      @Html.DisplayNameFor(model => model.marca)</a>
                         <a class="dropdown-item" asp-action="Index" asp-route-OrdenA="@ViewData["Ordenanio"]">     @Html.DisplayNameFor(model => model.anio)</a>
-                        
                     </div>
                 </div>
             </th>

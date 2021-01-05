@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TallerHernandez.Models.Factura>
+
+@{
+    ViewData["Title"] = "ResumenGeneral";
+}
+
+<h1>ResumenGeneral</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idRecepcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.impuesto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalNeto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaEmision)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idRecepcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.impuesto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalNeto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaEmision)
+            </td>
+            <td>
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
