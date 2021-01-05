@@ -1,4 +1,4 @@
-﻿@model TallerHernandez.Models.Empleado
+@model TallerHernandez.Models.Empleado
 
 @{
     ViewData["Title"] = "Edit";
@@ -22,16 +22,21 @@
                 <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden />
             </div>
             <div class="form-group">
-                <label asp-for="empleadoID" class="control-label"></label>
-                <input asp-for="empleadoID" class="form-control" disabled />
-                <span asp-validation-for="empleadoID" class="text-danger"></span>
+                <input asp-for="empleadoID" class="form-control" type="hidden" />
             </div>
+
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="emploDUI" class="control-label"></label>
-                <input asp-for="emploDUI" class="form-control" disabled />
+                <input asp-for="emploDUI" class="form-control" />
                 <span asp-validation-for="emploDUI" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <input name="emailantiguo" class="form-control" value="@Model.correo" hidden/>
+                
             </div>
 
             <div class="form-group">
@@ -86,7 +91,7 @@
                 </div>
 
                 <div class="form-group justify-content-end">
-                    <input type="submit" asp-route-emailantiguo="@EmailAntiguo" value="Actualizar" class="btn btn-success " />
+                    <input type="submit" value="Actualizar" class="btn btn-success " />
                 </div>
             </div>
 

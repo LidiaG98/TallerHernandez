@@ -49,16 +49,12 @@
                 <input asp-for="proceso" class="form-control" />
                 <span asp-validation-for="proceso" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check" hidden>
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="estado" /> @Html.DisplayNameFor(model => model.estado)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="comentario" class="control-label"></label>
-                <input asp-for="comentario" class="form-control" />
-                <span asp-validation-for="comentario" class="text-danger"></span>
-            </div>
+           
             <div class="form-group">
                 <label asp-for="clienteID" class="control-label"></label>
                 <select asp-for="clienteID" class="form-control chosen-s" id="chosen-s" asp-items="ViewBag.clienteID"></select>

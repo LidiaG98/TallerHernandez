@@ -29,7 +29,7 @@ namespace TallerHernandez.Models
         public int anio { get; set; }
         [NotMapped]
         public Imagen imagen { get; set; }
-        [Display(Name = "Proceso")]
+        [Display(Name = "Daños previos")]
         [Required]
         public string proceso { get; set; }
         [Display(Name = "Estado")]

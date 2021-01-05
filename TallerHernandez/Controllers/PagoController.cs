@@ -95,7 +95,12 @@ namespace TallerHernandez.Controllers
                     fechaEmision = model.fechaemision
                 };
                 factura.totalNeto = factura.total + (factura.total * (factura.impuesto / 100));
-                _context.Add(factura);
+            // Aqui se agregan puntos al cliente que pagó 
+            Cliente cliente = _context.Cliente.Where(s => s.clienteID == model.recepcion.clienteID).FirstOrDefault();
+            cliente.puntos = cliente.puntos + 10;
+            _context.Update(cliente);
+            //aqui termnina
+            _context.Add(factura);
                 _context.SaveChanges();
 
                 var f = _context.Factura
