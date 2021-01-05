@@ -40,20 +40,27 @@
                         @if (signInManager.IsSignedIn(User))
                         {
                             @*<li class="nav-item">
-                                    <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
-                                </li>
-                                @if (User.IsInRole("Superusuario"))
-                                {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
-                                    </li>
-                                }
+                                <a class="nav-link " asp-area="" asp-controller="Clientes" asp-action="">Cliente</a>
+                            </li>
+                            @if (User.IsInRole("Superusuario"))
+                            {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Repuestoes" asp-action="">Repuesto</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Empleadoes" asp-action="">Empleados</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
-                                </li>*@
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Repuestoes" asp-action="">Repuesto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Automovils" asp-action="">Automovil</a>
+                            </li>*@     
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Cobros</a>
+                                <div class="dropdown-menu">
+                                    <a class="nav-link " asp-area="" asp-controller="Pago" asp-action="Index">Trabajos a Facturar</a>
+                                    <a class="nav-link " asp-area="" asp-controller="Pago" asp-action="Facturados">Trabajos Facturados</a>
+                                </div>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Recepcions" asp-action="">Recepciones</a>
                             </li>
