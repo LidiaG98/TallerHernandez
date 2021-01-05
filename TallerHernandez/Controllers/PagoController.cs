@@ -115,7 +115,8 @@ namespace TallerHernandez.Controllers
             var recepcion = await _context.Recepcion
                 .Include(r => r.Automovil)
                 .Include(r => r.cliente)
-                .Include(r => r.empleado)                
+                .Include(r => r.empleado)  
+                .Where(r => r.recepcionID == idRecepcion)
                 .FirstOrDefaultAsync();
             var procedimientos = _context.Procedimiento
                 .Where(l => l.recepcionID == idRecepcion)
@@ -177,8 +178,83 @@ namespace TallerHernandez.Controllers
                     _context.Add(e);
                     i++;
                 }
+
+            foreach (var procedimiento in model.procedimientos)
+            {
+                var p = _context.Procedimiento
+                    .Where(pro => pro.procedimientoID == procedimiento.procedimientoID)
+                    .FirstOrDefault();
+                p.precio = procedimiento.precio;
+                _context.Procedimiento.Update(p);
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Detalles(int idRecepcion)
+        {
+            var recepcion = await _context.Recepcion
+                .Include(r => r.Automovil)
+                .Include(r => r.cliente)
+                .Include(r => r.empleado)
+                .Where(r => r.recepcionID == idRecepcion)
+                .FirstOrDefaultAsync();
+            var procedimientos = _context.Procedimiento
+                .Where(l => l.recepcionID == idRecepcion)
+                .ToList();
+            var allTareas = _context.AsignacionTarea
+                .Include(l => l.procedimiento)
+                .ToList();
+
+            var factura = _context.Factura
+                .Where(r => r.idRecepcion == idRecepcion)
+                .FirstOrDefault();
+
+            var extras = _context.Extra
+                .Where(r => r.idFactura == factura.facturaId)
+                .ToList();
+
+            List<AsignacionTarea> tareasRecepcion = new List<AsignacionTarea>();
+
+            foreach (Procedimiento p in procedimientos)
+            {
+                var tarea = _context.AsignacionTarea
+                    .Where(l => l.procedimientoID == p.procedimientoID)
+                    .FirstOrDefault();
+                if (tarea != null)
+                {
+                    tareasRecepcion.Add(tarea);
+                }
+            }
+
+            CheckoutDetailsViewModel model = new CheckoutDetailsViewModel()
+            {
+                recepcion = recepcion,
+                tareasRecepcion = tareasRecepcion,
+                procedimientos = procedimientos,
+                preciosExtras = new double[tareasRecepcion.Count],
+                factura = factura,
+                extras = extras
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Eliminar(CheckoutViewModel model)
+        {
+            var factura = _context.Factura
+                .Where(r => r.idRecepcion == model.recepcion.recepcionID)
+                .FirstOrDefault();
+            var extras = _context.Extra
+                .Where(r => r.idFactura == factura.facturaId)
+                .ToList();
+            _context.Extra.RemoveRange(extras);
+            _context.Factura.Remove(factura);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Facturados");
+        }
+
     }
 }

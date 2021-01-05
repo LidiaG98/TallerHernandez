@@ -14,12 +14,14 @@
             <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Agregar Rol</a>
         </p>*@
 
-        <form class="form-inline" asp-action="Buscar" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa el nombre del Usuario" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
-            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
+    <form class="form-inline" asp-action="Buscar" method="get">
+        <div class="input-group mb-3 col-10 pl-0">
+            <input class="form-control" type="text" placeholder="ingresa el nombre del Usuario" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+            <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
             <input name="__RequestVerificationToken" type="hidden">
-            <a asp-action="Index" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2">Mostrar Todos</a>
-        </form>
+            <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+        </div>
+    </form>
 
     </div>
 </div>
@@ -52,18 +54,18 @@
             </table>                      
         </div>
         <div class="card-footer">
-            <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-block btn-outline-primary">Editar Cuenta</a>
-            <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.salario" class="btn btn-block btn-outline-warning">Editar Información</a>
+            <a asp-action="Edit" asp-controller="Usuarios" asp-route-id="@m.user.Id" class="btn btn-block btn-primary">Editar Cuenta</a>
+            <a asp-action="Edit" asp-controller="Empleadoes" asp-route-id="@m.empleado.empleadoID" class="btn btn-block btn-warning">Editar Información</a>
             <form method="post" asp-action="Delete" asp-route-id="@m.user.Id">
                 <span id="confirmDeleteSpan_@m.user.Id" style="display:none">
                     <span>¿Estás seguro de eliminar este Usuario?</span>
-                    <button type="submit" class="btn btn-outline-danger btn-block">Si</button>
-                    <a href="#" class="btn btn-outline-success btn-block"
+                    <button type="submit" class="btn btn-danger btn-block">Si</button>
+                    <a href="#" class="btn btn-success btn-block"
                        onclick="confirmDelete('@m.user.Id', false)">No</a>
                 </span>
 
                 <span id="deleteSpan_@m.user.Id">
-                    <a href="#" class="btn btn-outline-danger btn-block"
+                    <a href="#" class="btn btn-danger btn-block"
                        onclick="confirmDelete('@m.user.Id', true)">Eliminar</a>
                 </span>
             </form>

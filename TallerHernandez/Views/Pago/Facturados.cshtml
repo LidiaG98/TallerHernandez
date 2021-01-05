@@ -24,7 +24,7 @@
                     <input class="form-control" type="text" placeholder="Busque por placa o cliente" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
-                        <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+                        <a class="btn btn-outline-dark" asp-action="Facturados"><i class="fas fa-redo-alt text-danger"></i></a>
                     </div>
                 </div>
             </form>
@@ -46,7 +46,7 @@
                         @*<a asp-controller="Recepcions" asp-action="Edit" asp-route-id="@item.recepcionID" class="btn btn-warning btn-block">Editar</a>*@
                         @*<i data-url="@Url.Action("Details","Recepcions")" data-id="@item.recepcionID" id="Ver@(item.recepcionID)" class="far fa-eye btn btn-info btn-circle" style="color:black"></i>
                             <i data-url="@Url.Action("Delete","Recepcions")" data-id="@item.recepcionID" id="Eliminar@(item.recepcionID)" class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i>*@
-                        <a asp-controller="Pago" asp-action="Checkout" asp-route-idRecepcion="@item.recepcionID" class="btn btn-success btn-block">Checkout</a>
+                        <a asp-controller="Pago" asp-action="Detalles" asp-route-idRecepcion="@item.recepcionID" class="btn btn-info btn-block">Detalles Factura</a>
                     </div>
                 </div>
             }

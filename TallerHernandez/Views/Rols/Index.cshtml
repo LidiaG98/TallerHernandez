@@ -10,14 +10,17 @@
     <div class="col-md-9 col-sm-12 mb-5">
         <h1 class="mb-3">Roles</h1>
         <p>
-            <a class="btn btn-outline-primary font-weight-bold rounded-pill" asp-action="Create">Agregar Rol</a>
+            <a class="btn rounded-pill btn-outline-dark font-weight-bold" asp-action="Create">Agregar Rol</a>
         </p>
 
         <form class="form-inline" asp-action="Index" method="get">
-            <input class="col-md-7 col-sm-12 mr-sm-2 mb-2" type="text" placeholder="ingresa el nombre del puesto" data-val="true" data-val-required="The nombre field is required." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
-            <input type="submit" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2" value="Buscar">
-            <input name="__RequestVerificationToken" type="hidden">
-            <a asp-action="Index" class="col-md-2 col-sm-12 btn btn-block btn-primary rounded-pill mb-2">Mostrar Todos</a>
+            <div class="input-group mb-3 col-10 pl-0">
+                <input class="form-control" type="text" placeholder="Busque por rol" data-val="true" data-val-required="Ingrese un valor." id="Buscar" name="Buscar" value="@ViewData["Filtro"]">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-dark" value="Buscar"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-outline-dark" asp-action="Index"><i class="fas fa-redo-alt text-danger"></i></a>
+                </div>
+            </div>
         </form>
 
     </div>
