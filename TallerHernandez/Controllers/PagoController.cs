@@ -84,6 +84,45 @@ namespace TallerHernandez.Controllers
         }
 
         [HttpPost]
+
+        public async Task<IActionResult> ResumenGeneral()
+        {
+            var resumen = from s in _context.Factura select s;
+            /*ViewData["OrdenNom"] = String.IsNullOrEmpty(OrdenA) ? "nom_desc" : "";
+            ViewData["OrdenAp"] = OrdenA == "ap_asc" ? "ap_desc" : "ap_asc";
+            ViewData["Ordentipo"] = OrdenA == "tipo_asc" ? "tipo_desc" : "tipo_asc";
+            ViewData["Filtro"] = Buscar;
+            var repuesto = from s in _context.Repuesto select s;
+            if (!String.IsNullOrEmpty(Buscar))
+            {
+                repuesto = repuesto.Where(s => s.nombre.Contains(Buscar) || s.categoria.Contains(Buscar) || s.tipo.Contains(Buscar));
+            }
+            switch (OrdenA)
+            {
+                case "nom_desc":
+                    repuesto = repuesto.OrderByDescending(s => s.nombre);
+                    break;
+                case "ap_asc":
+                    repuesto = repuesto.OrderBy(s => s.categoria);
+                    break;
+                case "ap_desc":
+                    repuesto = repuesto.OrderByDescending(s => s.categoria);
+                    break;
+
+                case "tipo_asc":
+                    repuesto = repuesto.OrderBy(s => s.tipo);
+                    break;
+                case "tipo_desc":
+                    repuesto = repuesto.OrderByDescending(s => s.tipo);
+                    break;
+
+                default:
+                    repuesto = repuesto.OrderBy(s => s.nombre);
+                    break;
+            }*/
+            return View(await resumen.AsNoTracking().ToListAsync());
+        }
+
         public async Task<IActionResult> Factura(CheckoutViewModel model)
         {            
                 Factura factura = new Factura()
