@@ -46,7 +46,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -55,7 +55,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -129,16 +129,16 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
-                    procedimientos = procedimientos.OrderBy(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderBy(r => r.recepcion.cliente.nombre);
                     break;
                 case "nom_desc":
-                    procedimientos = procedimientos.OrderByDescending(r => r.area.areaNom);
+                    procedimientos = procedimientos.OrderByDescending(r => r.recepcion.cliente.nombre);
                     break;
                 default:
-                    procedimientos = procedimientos.OrderBy(s => s.recepcion.automovilID);
+                    procedimientos = procedimientos.OrderBy(s => s.recepcion.Automovil.placa);
                     break;
             }
 
@@ -409,21 +409,21 @@ namespace TallerHernandez.Controllers
             List<EmpleadoProgreso> empleadoProgresos = new List<EmpleadoProgreso>();
 
             var tareasAs = from x in _context.AsignacionTarea.Include(e => e.empleado) select x;
-            
-        
+            EmpleadoProgreso jose;
+
             foreach (var em in emple)
             {
-                EmpleadoProgreso jose;
+                
                 if (tareasAs.Count() != 0)
                 {
                     jose = new EmpleadoProgreso()
                     {
-                        empleadoprogresoID = 1,
+                        
                         empleado = em,
                         asignacionTarea = tareasAs.Where(l => l.empleadoID == em.empleadoID).ToList(),
-                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
-                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
-                        porcentajeLogrado = (tareasAs.Where(x => x.estadoTarea == true).Count() / tareasAs.Count()) * 100
+                        actTerminadas = tareasAs.Where(x => x.estadoTarea == true && x.empleadoID == em.empleadoID).Count(),
+                        actSinTerminar = tareasAs.Where(x => x.estadoTarea == false && x.empleadoID == em.empleadoID).Count(),
+                        porcentajeLogrado = (Convert.ToDouble(tareasAs.Where(x => x.estadoTarea == true && x.empleadoID == em.empleadoID).Count()) /Convert.ToDouble(tareasAs.Where(l => l.empleadoID == em.empleadoID).Count()))*100
 
 
                     };
@@ -438,8 +438,6 @@ namespace TallerHernandez.Controllers
                         actTerminadas = tareasAs.Where(x => x.estadoTarea == true).Count(),
                         actSinTerminar = tareasAs.Where(x => x.estadoTarea == false).Count(),
                         porcentajeLogrado = -1
-
-
                     };
                 }
                 empleadoProgresos.Add(jose);
@@ -474,15 +472,15 @@ namespace TallerHernandez.Controllers
            
             switch (OrdenA)
             {
-                case "completo":
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == true);
+                case "completa":
+                    asignacionTarea = _context.AsignacionTarea.Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(m => m.empleadoID == id).Where(x => x.estadoTarea == true);
                     break;
-                case "incompleto":
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Where(x => x.estadoTarea == false);
+                case "incompleta":
+                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id).Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(x => x.estadoTarea == false);
                     break;
                
                 default:
-                    asignacionTarea = _context.AsignacionTarea.Where(m => m.empleadoID == id);
+                    asignacionTarea = _context.AsignacionTarea.Include(a => a.procedimiento).Include(b => b.procedimiento.recepcion).Include(c => c.procedimiento.recepcion.Automovil).Where(m => m.empleadoID == id);
                     break;
             }
           
@@ -526,7 +524,7 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 case "nom_asc":
                     asignacionTareas = asignacionTareas.OrderBy(s => s.empleado.nombre);
@@ -535,7 +533,7 @@ namespace TallerHernandez.Controllers
                     asignacionTareas = asignacionTareas.OrderByDescending(s => s.empleado.nombre);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -607,10 +605,10 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 
@@ -641,10 +639,10 @@ namespace TallerHernandez.Controllers
             switch (OrdenAsig)
             {
                 case "auto_desc":
-                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderByDescending(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
                 default:
-                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.automovilID);
+                    asignacionTareas = asignacionTareas.OrderBy(s => s.procedimiento.recepcion.Automovil.placa);
                     break;
             }
 

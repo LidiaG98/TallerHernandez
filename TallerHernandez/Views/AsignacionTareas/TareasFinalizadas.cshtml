@@ -48,8 +48,8 @@
                         Ordenar Por:
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@Html.DisplayNameFor(model => model.procedimiento.recepcion.automovilID)</a>
-                        <a class="dropdown-item" asp-action="Index" asp-route-OrdenAsig="@ViewData["OrdenNom"]">@Html.DisplayNameFor(model => model.empleado.nombre)</a>
+                        <a class="dropdown-item" asp-action="TareasFinalizadas" asp-route-OrdenAsig="@ViewData["OrdenAuto"]">@Html.DisplayNameFor(model => model.procedimiento.recepcion.automovilID)</a>
+                        <a class="dropdown-item" asp-action="TareasFinalizadas" asp-route-OrdenAsig="@ViewData["OrdenNom"]">@Html.DisplayNameFor(model => model.empleado.nombre)</a>
                     </div>
                 </div>
             </th>
@@ -215,3 +215,4 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

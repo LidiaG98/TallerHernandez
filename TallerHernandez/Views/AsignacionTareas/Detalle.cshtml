@@ -88,7 +88,7 @@
                         Procedimiento
                     </th>
 
-                    
+
                     <th>
                         Entrega
                     </th>
@@ -98,50 +98,48 @@
 
                 </tr>
             </thead>
-            @if (asignacion != null)
-            {
-                @foreach (var item in asignacion)
+            <tbody class="thead-dark text-center">
+                @if (asignacion != null)
                 {
-                    <tr>
-                        <td>
-                            @item.procedimiento.recepcion.Automovil.placa
-                        </td>
-                        <td>
-                            @item.procedimiento.procedimiento
-                        </td>
-                        
-
-                        <td>
-                            @item.procedimiento.recepcion.fechaSalida
-                        </td>
-                        @if (item.estadoTarea.Equals(false))
-                        {
+                    @foreach (var item in asignacion)
+                    {
+                        <tr>
                             <td>
-                                No finalizada
+
+                                @item.procedimiento.recepcion.Automovil.placa
                             </td>
-                        }
-                        else
-                        {
                             <td>
-                                Finalizada
+                                @item.procedimiento.procedimiento
                             </td>
-                        }
-                        <td>
 
-                            <a class="p-2" style="color:#1985a8;" asp-action="Details" asp-route-id="@item.asignacionTareaID"><i class="fas fa-info-circle"></i></a>
 
-                        </td>
-                    </tr>
+                            <td>
+                                @item.procedimiento.recepcion.fechaSalida
+                            </td>
+                            @if (item.estadoTarea)
+                            {
+                                <td>
+                                    finalizada
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    No  Finalizada
+                                </td>
+                            }
+
+                        </tr>
+
+                    }
+
+
+
+
+
 
                 }
-
-
-
-
-
-
-            }
-
+            </tbody>
         </table>
         @if (asignacion == null)
         {
