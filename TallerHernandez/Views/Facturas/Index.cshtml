@@ -6,38 +6,50 @@
 }
 
 <h1>Resumen General del Mes</h1>
-<div class="form-group">
-    <button type="button" class="btn btn-secondary" onclick="printThisDiv('Imprimir')">Imprimir</button>
-</div>
-    <form asp-action="Index" method="get">
-        <div class="form-group">
 
-            <select class="form-control" id="mes" name="mes">
-                <option value="1" id="mes" name="mes">Enero</option>
-                <option value="2" id="mes" name="mes">Febrero</option>
-                <option value="3" id="mes" name="mes">Marzo</option>
-                <option value="4" id="mes" name="mes">Abril</option>
-                <option value="5" id="mes" name="mes">Mayo</option>
-                <option value="6" id="mes" name="mes">Junio</option>
-                <option value="7" id="mes" name="mes">Julio</option>
-                <option value="8" id="mes" name="mes">Agosto</option>
-                <option value="9" id="mes" name="mes">Septiembre</option>
-                <option value="10" id="mes" name="mes">Octubre</option>
-                <option value="11" id="mes" name="mes">Noviembre</option>
-                <option value="12" id="mes" name="mes">Diciembre</option>
-            </select>
+<form asp-action="Index" method="get">
 
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Seleccion el mes que quiere consultar:
+            </div>
+            <div class="card-body">
+                <div class="col-md-11" style="margin:10px;">
+                    <select class="form-control d-block p-2" id="mes" name="mes">
+                        <option value="1" id="mes" name="mes">Enero</option>
+                        <option value="2" id="mes" name="mes">Febrero</option>
+                        <option value="3" id="mes" name="mes">Marzo</option>
+                        <option value="4" id="mes" name="mes">Abril</option>
+                        <option value="5" id="mes" name="mes">Mayo</option>
+                        <option value="6" id="mes" name="mes">Junio</option>
+                        <option value="7" id="mes" name="mes">Julio</option>
+                        <option value="8" id="mes" name="mes">Agosto</option>
+                        <option value="9" id="mes" name="mes">Septiembre</option>
+                        <option value="10" id="mes" name="mes">Octubre</option>
+                        <option value="11" id="mes" name="mes">Noviembre</option>
+                        <option value="12" id="mes" name="mes">Diciembre</option>
+                    </select>
+                </div>
+                <div class="col-md-11" style="margin:10px;">
+                    <select class="form-control d-block p-2" id="anio" asp-for=" @ViewData["anio"]" name="anio" asp-items="ViewBag.Anios"></select>
+                </div>
+                
+                <div class="col-md-3" style="margin:10px;">
+                    <input type="submit" class="btn btn-info d-block p-2" value="Buscar">
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <select class="form-control" id="anio" asp-for=" @ViewData["anio"]" name="anio" asp-items="ViewBag.Anios"></select>
-        </div>
-        <div class="input-group mb-3" style="margin:20px;">
-            <input type="submit" class="btn btn-info" value="Buscar">
-        </div>
-    </form>
+    </div>
+</form>
+
+    <div class="form-group" style="margin:10px;">
+        <button type="button" class="btn btn-secondary d-block p-2" onclick="printThisDiv('Imprimir')">Imprimir</button>
+    </div>
 
     <div id="Imprimir">
-        <div class="row bg-white rounded shadow " style="z-index:4; margin:20px;">
+
+        <div class="row bg-white rounded shadow " style="z-index:5; margin:0px;">
             <div class="col-4">
                 <div class="text-center pt-4">
                     <img class="rounded-circle" src="/uploads/logoTaller.png" alt="usuario" width="200" height="200" id="file-preview-zone" />
@@ -49,7 +61,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"></span>
                         </div>
-                        <input type="text" class="form-control" disabled placeholder="Username" value="Resumen del Periodo" aria-label="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" disabled placeholder="Username" value="Total del Periodo" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col-6">
@@ -64,7 +76,7 @@
 
             </div>
         </div>
-
+        <h2>Facturas</h2>
         <table class="table table-striped table-responsive-sm">
             <thead class="thead-dark text-center">
                 <tr>
