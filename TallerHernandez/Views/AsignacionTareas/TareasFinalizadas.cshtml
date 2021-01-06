@@ -89,7 +89,7 @@
         <td>
             <a asp-action="Edit" asp-route-id="@item.asignacionTareaID" class="btn btn-warning btn-circle"><i class="fas fa-pen" aria-hidden="true" style="color:black"></i></a>
             <a asp-action="Details" asp-route-id="@item.asignacionTareaID"><i class="far fa-eye btn btn-info btn-circle" style="color:black"></i></a>
-            <a data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','AsignacionTareas/GetAsignacionTarea')"><i class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i></a>
+            <a data-toggle="modal" data-target="#modalEliminarAsignacion" onclick="GetAsignacionTarea('@item.asignacionTareaID','GetAsignacionTarea')"><i class="far fa-trash-alt btn btn-danger btn-circle" style="color:black"></i></a>
         </td>
         </tr>
         }
@@ -113,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" onclick="EliminarAsignacionTarea('AsignacionTareas/DeleteAsignacionTarea')">Eliminar</button>
+                <button type="button" class="btn btn-danger" onclick="EliminarAsignacionTareaFinalizada('DeleteAsignacionTarea')">Eliminar</button>
             </div>
         </div>
     </div>

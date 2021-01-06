@@ -1,4 +1,4 @@
-﻿@model TallerHernandez.Models.Cliente
+@model TallerHernandez.Models.Cliente
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,7 +12,9 @@
 <form asp-action="Edit" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-4 bg-white shadow" style="z-index:4;">
-
+            <div class="form-group">
+                <input asp-for="clienteID" class="form-control" type="hidden" />
+            </div>
             <div class="text-center pt-4">
                 <img class="rounded-circle" src="/uploads/@(Model.imagenN)" alt="usuario" width="200" height="200" id="file-preview-zone" />
             </div>
@@ -21,10 +23,13 @@
                 <input asp-for="imagen.imageFile" accept="image/*" type="file" class="btn btn-info" id="files" hidden />
             </div>
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="clienteID" class="form-control" type="hidden" />
-            </div>
+            <!--<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+     <div class="form-group">
+         <label asp-for="clienteID" class="control-label"></label>
+         <input asp-for="clienteID" class="form-control" disabled />
+         <span asp-validation-for="clienteID" class="text-danger"></span>
+     </div>-->
+           
 
         </div>
         <div class="col-md-8 bg-white">
@@ -75,3 +80,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+

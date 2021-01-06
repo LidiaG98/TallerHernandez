@@ -442,12 +442,13 @@ $(document).ready(function () {
 });
 
 var items;
+//trae el ID del automóvil
 function AhiTeVoy(response) {
     items = response;
 
     $.each(items, function (index, val) {
         //Mostrar los datos de la asignacion que deseo eliminar
-        $("#ahMeVengo").text(val.automovilID);
+        $("#ahMeVengo").text(val.placa);
 
         $('input[name=automovilID]').val(val.automovilID);
 
@@ -556,7 +557,7 @@ function AhiTeVoyE(response) {
 
     $.each(items, function (index, val) {
         //Mostrar los datos de la asignacion que deseo eliminar
-        $("#ahMeVengo").text(val.empleadoID);
+        $("#ahMeVengo").text(val.nombre);
 
         $('input[name=empleadoID]').val(val.empleadoID);
 
@@ -575,6 +576,7 @@ function VeniteEmpleado(id, action) {
 }
 
 
+
 function EliminarEmpleado(action) {
     var id = $('input[name=empleadoID]')[0].value;
     $.ajax({
@@ -591,7 +593,22 @@ function EliminarEmpleado(action) {
         }
     });
 }
-
+function EliminarCliente(action) {
+    var id = $('input[name=clienteID]')[0].value;
+    $.ajax({
+        type: "POST",
+        url: action,
+        data: { id },
+        success: function (response) {
+            if (response === "Delete") {
+                window.location.href = "Clientes";
+            }
+            else {
+                alert("No se puede eliminar el registro");
+            }
+        }
+    });
+}
 
 function AhiTeVoyA(response) {
     items = response;
@@ -620,7 +637,7 @@ function VeniteArea(id, action) {
 
 function EliminarArea(action) {
     var id = document.getElementsByName("AreaID")[0].value;
-    alert(id);
+    
     $.ajax({
         type: "POST",
         url: action,
